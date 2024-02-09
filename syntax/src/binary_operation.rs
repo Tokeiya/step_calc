@@ -2,7 +2,6 @@ use crate::arithmetic_expression::ArithmeticExpression;
 use crate::expression::Expression;
 use crate::number_value::NumberValue;
 
-[]
 pub enum Operation {
 	Add,
 	Sub,
@@ -17,19 +16,19 @@ pub struct BinaryOperation {
 }
 
 impl BinaryOperation {
-	pub fn new(left: Expression, ritht: Expression, operation: Operation) -> Self {
+	pub fn new(left: impl ArithmeticExpression, ritht: impl ArithmeticExpression, operation: Operation) -> Self {
 		todo!()
 	}
-	
-	pub fn left(&self)->&Expression{
+
+	pub fn left(&self) -> &Expression {
 		todo!()
 	}
-	
-	pub fn right(&self)->&Expression{
+
+	pub fn right(&self) -> &Expression {
 		todo!()
 	}
-	
-	pub fn operation(&self)->&Operation{
+
+	pub fn operation(&self) -> &Operation {
 		todo!()
 	}
 }
@@ -46,3 +45,5 @@ impl ArithmeticExpression for BinaryOperation {
 	}
 }
 
+#[cfg(test)]
+mod tests {}
