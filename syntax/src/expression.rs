@@ -42,7 +42,6 @@ impl ArithmeticExpression for Expression {
 
 #[cfg(test)]
 pub mod helper {
-	use crate::arithmetic_expression::ArithmeticExpression;
 	use crate::binary_operation::BinaryOperation;
 	use crate::bracket::Bracket;
 	use crate::expression::Expression;
@@ -72,25 +71,8 @@ pub mod helper {
 		}
 	}
 
-	#[test]
-	fn extract_as_number() {
-		let fixture = Expression::Number(NumberExpr::from(NumberValue::from(200)));
-		let a = fixture.extract_as_number();
-		a.number().eq_i32(&200);
-	}
-
-	#[test]
-	#[should_panic]
-	fn invalid_extract_as_number_a() {
-		let fixture = Expression::Number(NumberExpr::from(NumberValue::from(200)));
-		let tmp = fixture.extract_as_bracket();
-	}
-
-	#[test]
-	#[should_panic]
-	fn invalid_extract_as_number_b() {
-		let fixture = Expression::Number(NumberExpr::from(NumberValue::from(200)));
-		let tmp = fixture.extract_as_binary_operation();
+	fn create_number() -> NumberExpr {
+		NumberExpr::from(NumberValue::from(100))
 	}
 
 	fn create_binary_operation_fixture() -> BinaryOperation {
@@ -101,29 +83,135 @@ pub mod helper {
 		)
 	}
 
-	#[test]
-	fn extract_as_binary_operation() {
-		let fixture = Expression::BinaryOperation(create_binary_operation_fixture());
-		let a = fixture.extract_as_binary_operation();
-		a.left().extract_as_number().number().eq_i32(&100);
-		a.right().extract_as_number().number().eq_i32(&200);
-	}
-
-	#[test]
-	#[should_panic]
-	fn invalid_extract_as_binary_operation() {
-		let fixture = Expression::BinaryOperation(create_binary_operation_fixture());
-		let tmp = fixture.extract_as_bracket();
-	}
-
-	#[test]
-	#[should_panic]
-	fn invalid_extract_as_binary_operation_b() {
-		let fixture = Expression::BinaryOperation(create_binary_operation_fixture());
-		let tmp = fixture.extract_as_number();
-	}
-
 	fn create_bracket_fixture() -> Bracket {
 		Bracket::from(Expression::Number(NumberExpr::from(NumberValue::from(100))))
+	}
+
+	#[test]
+	fn extract_number() {
+		let fixture = Expression::from(create_number());
+		fixture.extract_as_number().number().eq_i32(&100);
+	}
+
+	#[test]
+	#[should_panic]
+	fn invalid_extract_number_bracket() {
+		let fixture = Expression::from(create_bracket_fixture());
+		fixture.extract_as_number();
+	}
+
+	#[test]
+	#[should_panic]
+	fn invalid_extract_number_binary() {
+		let fixture = Expression::from(create_binary_operation_fixture());
+		fixture.extract_as_number();
+	}
+
+	#[test]
+	fn extract_binary_operation() {
+		let fixture = Expression::from(create_binary_operation_fixture());
+		fixture.extract_as_binary_operation();
+	}
+
+	#[test]
+	#[should_panic]
+	fn invalid_extract_binary_operation_number() {
+		let fixture = Expression::from(create_number());
+		fixture.extract_as_binary_operation();
+	}
+
+	#[test]
+	#[should_panic]
+	fn invalid_extract_binary_operation_bracket() {
+		let fixture = Expression::from(create_bracket_fixture());
+		fixture.extract_as_binary_operation();
+	}
+
+	#[test]
+	fn extract_bracket() {
+		let fixture = Expression::from(create_bracket_fixture());
+		fixture.extract_as_bracket();
+	}
+
+	#[test]
+	#[should_panic]
+	fn invalid_extract_bracket_number() {
+		let fixture = Expression::from(create_number());
+		fixture.extract_as_bracket();
+	}
+
+	#[test]
+	#[should_panic]
+	fn invalid_extract_bracket_binary() {
+		let fixture = Expression::from(create_binary_operation_fixture());
+		fixture.extract_as_bracket();
+	}
+}
+
+#[cfg(test)]
+mod tests {
+
+	use super::*;
+	use crate::binary_operation::Operation;
+	use crate::number::Number;
+	use crate::number_value::NumberValue;
+
+	#[test]
+	fn from_number() {
+		let fixture = Expression::from(Number::from(NumberValue::from(300)));
+		fixture.extract_as_number().number().eq_i32(&300);
+	}
+
+	#[test]
+	fn from_binary_operation() {
+		let left = Number::from(NumberValue::from(200));
+		let right = Number::from(NumberValue::from(300));
+
+		let bin = BinaryOperation::new(left, right, Operation::Add);
+		let fixture = Expression::from(bin);
+		let fixture = fixture.extract_as_binary_operation();
+
+		fixture.left().extract_as_number().number().eq_i32(&200);
+		fixture.right().extract_as_number().number().eq_i32(&300);
+		matches!(fixture.operation(), &Operation::Add);
+	}
+
+	#[test]
+	fn from_bracket() {
+		let fixture = Expression::from(Bracket::from(Expression::Number(Number::from(
+			NumberValue::from(300),
+		))));
+		fixture.extract_as_number().number().eq_i32(&300);
+	}
+
+	#[test]
+	fn calc() {
+		let left = Number::from(NumberValue::from(200));
+		let right = Number::from(NumberValue::from(300));
+
+		let bin = BinaryOperation::new(left, right, Operation::Add);
+		let fixture = Expression::from(bin);
+		fixture.calc().eq_i32(&500);
+	}
+
+	#[test]
+	fn clone() {
+		let left = Number::from(NumberValue::from(200));
+		let right = Number::from(NumberValue::from(300));
+
+		let bin = BinaryOperation::new(left, right, Operation::Mul);
+		let mut fixture = Expression::from(bin);
+
+		let cloned = fixture.clone();
+
+		fixture = Expression::from(Number::from(NumberValue::from(200)));
+
+		fixture.extract_as_number().number().eq_i32(&200);
+
+		let fixture = cloned.extract_as_binary_operation();
+
+		fixture.left().extract_as_number().number().eq_i32(&200);
+		fixture.right().extract_as_number().number().eq_i32(&300);
+		matches!(fixture.operation(), &Operation::Mul);
 	}
 }
