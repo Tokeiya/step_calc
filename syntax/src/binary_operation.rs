@@ -75,13 +75,13 @@ mod tests {
 	use super::BinaryOperation;
 	use crate::arithmetic_expression::ArithmeticExpression;
 	use crate::binary_operation::Operation;
-	use crate::number::Number;
+	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
 
 	#[test]
 	fn new() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Add);
 
 		fixture.left().extract_as_number().number().eq_i32(&200);
@@ -91,40 +91,40 @@ mod tests {
 
 	#[test]
 	fn add() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Add);
 		fixture.calc().unwrap().eq_i32(&500);
 	}
 
 	#[test]
 	fn mul() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Mul);
 		fixture.calc().unwrap().eq_i32(&60000);
 	}
 
 	#[test]
 	fn sub() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Sub);
 		fixture.calc().unwrap().eq_i32(&-100);
 	}
 
 	#[test]
 	fn div() {
-		let left = Number::from(NumberValue::from(600));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(600));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Div);
 		fixture.calc().unwrap().eq_i32(&2);
 	}
 
 	#[test]
 	fn to_expression() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Add);
 		let expr = fixture.to_expression();
 
@@ -146,47 +146,47 @@ mod tests {
 
 	#[test]
 	fn left() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Add);
 		fixture.left().extract_as_number().number().eq_i32(&200);
 	}
 
 	#[test]
 	fn right() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Add);
 		fixture.right().extract_as_number().number().eq_i32(&300);
 	}
 
 	#[test]
 	fn operation() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Add);
 		matches!(fixture.operation(), &Operation::Add);
 
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Sub);
 		matches!(fixture.operation(), &Operation::Sub);
 
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Mul);
 		matches!(fixture.operation(), &Operation::Mul);
 
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Div);
 		matches!(fixture.operation(), &Operation::Div);
 	}
 
 	#[test]
 	fn calc() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
 		let fixture = BinaryOperation::new(left, right, Operation::Add);
 
 		fixture.calc().unwrap().eq_i32(&500);
@@ -194,11 +194,17 @@ mod tests {
 
 	#[test]
 	fn clone() {
-		let left = Number::from(NumberValue::from(200));
-		let right = Number::from(NumberValue::from(300));
-		let fixture = BinaryOperation::new(left, right, Operation::Add);
-
+		let left = NumberExpr::from(NumberValue::from(200));
+		let right = NumberExpr::from(NumberValue::from(300));
+		let mut fixture = BinaryOperation::new(left, right, Operation::Add);
 		let act = fixture.clone();
+
+		fixture.left = Box::new(NumberExpr::from(NumberValue::from(2)).to_expression());
+		fixture.right = Box::new(NumberExpr::from(NumberValue::from(3)).to_expression());
+		fixture.operation = Operation::Sub;
+
+		fixture.calc().unwrap().eq_i32(&-1);
+
 		act.left().extract_as_number().number().eq_i32(&200);
 		act.right().extract_as_number().number().eq_i32(&300);
 		matches!(act.operation(), &Operation::Add);

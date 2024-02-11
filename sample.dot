@@ -1,0 +1,9 @@
+digraph sample{
+    node [fontname = "Cascadia Code Regular"];
+
+    box[label="NumberValue",shape = "box"];
+    hexagon[label="Operator",shape= "hexagon",fontname="Consolas"];
+    house[label="Bracket",shape="house"]
+
+    box->hexagon
+}
