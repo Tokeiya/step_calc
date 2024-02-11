@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
 use std::ops::{Add, Div, Mul, Rem, Sub};
-type NumberResult = Result<NumberValue, ArithmeticError>;
+pub type NumberResult = Result<NumberValue, ArithmeticError>;
 pub struct ArithmeticError {
 	rhs: NumberValue,
 	lhs: NumberValue,

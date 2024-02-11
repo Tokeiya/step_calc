@@ -1,6 +1,6 @@
 use crate::arithmetic_expression::ArithmeticExpression;
 use crate::expression::Expression;
-use crate::number_value::NumberValue;
+use crate::number_value::NumberResult;
 
 pub struct Bracket(Box<Expression>);
 
@@ -17,8 +17,12 @@ impl Clone for Bracket {
 }
 
 impl ArithmeticExpression for Bracket {
-	fn calc(&self) -> NumberValue {
+	fn calc(&self) -> NumberResult {
 		self.0.calc()
+	}
+
+	fn to_expression(self) -> Expression {
+		Expression::from(self)
 	}
 }
 
@@ -39,7 +43,7 @@ mod tests {
 	#[test]
 	fn from() {
 		let fixture = Bracket::from(Expression::Number(Number::from(NumberValue::from(300))));
-		fixture.0.extract_as_number().number().eq_i32(&200)
+		fixture.0.extract_as_number().number().eq_i32(&300)
 	}
 
 	#[test]
@@ -50,8 +54,8 @@ mod tests {
 		let bin = BinaryOperation::new(left, right, Operation::Mul);
 		let bracket = Bracket::from(Expression::BinaryOperation(bin));
 
-		let act = bracket.0.calc();
-		act.eq_i32(&600000);
+		let act = bracket.calc();
+		act.unwrap().eq_i32(&60_000);
 	}
 
 	#[test]
@@ -82,10 +86,14 @@ mod tests {
 
 		let bin = BinaryOperation::new(left, right, Operation::Mul);
 		let bracket = Bracket::from(Expression::BinaryOperation(bin));
+		let expr = bracket.to_expression();
 
-		let fixture = bracket.expression().extract_as_binary_operation();
-		fixture.right().extract_as_number().number().eq_i32(&200);
-		fixture.left().extract_as_number().number().eq_i32(&300);
+		let fixture = expr
+			.extract_as_bracket()
+			.expression()
+			.extract_as_binary_operation();
+		fixture.left().extract_as_number().number().eq_i32(&200);
+		fixture.right().extract_as_number().number().eq_i32(&300);
 		matches!(fixture.operation(), &Operation::Mul);
 	}
 }

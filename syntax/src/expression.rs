@@ -2,7 +2,7 @@ use crate::arithmetic_expression::ArithmeticExpression;
 use crate::binary_operation::BinaryOperation;
 use crate::bracket::Bracket;
 use crate::number::Number;
-use crate::number_value::NumberValue;
+use crate::number_value::NumberResult;
 
 pub enum Expression {
 	Number(Number),
@@ -39,12 +39,16 @@ impl Clone for Expression {
 }
 
 impl ArithmeticExpression for Expression {
-	fn calc(&self) -> NumberValue {
+	fn calc(&self) -> NumberResult {
 		match self {
 			Expression::Number(x) => x.calc(),
 			Expression::Bracket(x) => x.calc(),
 			Expression::BinaryOperation(x) => x.calc(),
 		}
+	}
+
+	fn to_expression(self) -> Expression {
+		self
 	}
 }
 
@@ -189,7 +193,42 @@ mod tests {
 		let fixture = Expression::from(Bracket::from(Expression::Number(Number::from(
 			NumberValue::from(300),
 		))));
-		fixture.extract_as_number().number().eq_i32(&300);
+		fixture
+			.extract_as_bracket()
+			.expression()
+			.extract_as_number()
+			.number()
+			.eq_i32(&300);
+	}
+
+	#[test]
+	fn to_expression() {
+		let fixture = Expression::from(Number::from(NumberValue::from(300)));
+		let expr = fixture.to_expression();
+		expr.extract_as_number().number().eq_i32(&300);
+
+		let fixture = Expression::from(Bracket::from(Expression::Number(Number::from(
+			NumberValue::from(300),
+		))));
+		let expr = fixture.to_expression();
+		expr.extract_as_bracket()
+			.expression()
+			.extract_as_number()
+			.number()
+			.eq_i32(&300);
+
+		let left = Number::from(NumberValue::from(200));
+		let right = Number::from(NumberValue::from(300));
+
+		let bin = BinaryOperation::new(left, right, Operation::Add);
+		let fixture = Expression::from(bin);
+		let expr = fixture.to_expression();
+
+		let fixture = expr.extract_as_binary_operation();
+
+		fixture.left().extract_as_number().number().eq_i32(&200);
+		fixture.right().extract_as_number().number().eq_i32(&300);
+		matches!(fixture.operation(), &Operation::Add);
 	}
 
 	#[test]
@@ -199,7 +238,7 @@ mod tests {
 
 		let bin = BinaryOperation::new(left, right, Operation::Add);
 		let fixture = Expression::from(bin);
-		fixture.calc().eq_i32(&500);
+		fixture.calc().unwrap().eq_i32(&500);
 	}
 
 	#[test]

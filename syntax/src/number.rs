@@ -1,5 +1,6 @@
 use crate::arithmetic_expression::ArithmeticExpression;
-use crate::number_value::NumberValue;
+use crate::expression::Expression;
+use crate::number_value::{NumberResult, NumberValue};
 
 pub struct Number(NumberValue);
 impl From<NumberValue> for Number {
@@ -9,8 +10,12 @@ impl From<NumberValue> for Number {
 }
 
 impl ArithmeticExpression for Number {
-	fn calc(&self) -> NumberValue {
-		self.0.clone()
+	fn calc(&self) -> NumberResult {
+		Ok(self.0.clone())
+	}
+
+	fn to_expression(self) -> Expression {
+		Expression::from(self)
 	}
 }
 
@@ -37,6 +42,14 @@ mod tests {
 	}
 
 	#[test]
+	fn to_expression() {
+		let fixture = create_fixture(42);
+		let expr = fixture.to_expression();
+
+		expr.extract_as_number().0.eq_i32(&42);
+	}
+
+	#[test]
 	fn from_number_test() {
 		for exp in -100i32..=100i32 {
 			let num = NumberValue::from(exp);
@@ -56,7 +69,7 @@ mod tests {
 	fn calc_test() {
 		for exp in -100..=100 {
 			let fixture = create_fixture(exp);
-			fixture.calc().eq_i32(&exp)
+			fixture.calc().unwrap().eq_i32(&exp)
 		}
 	}
 
