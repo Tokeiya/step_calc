@@ -12,31 +12,39 @@ pub enum Expression {
 
 impl From<Bracket> for Expression {
 	fn from(value: Bracket) -> Self {
-		todo!()
+		Expression::Bracket(value)
 	}
 }
 
 impl From<Number> for Expression {
 	fn from(value: Number) -> Self {
-		todo!()
+		Expression::Number(value)
 	}
 }
 
 impl From<BinaryOperation> for Expression {
 	fn from(value: BinaryOperation) -> Self {
-		todo!()
+		Expression::BinaryOperation(value)
 	}
 }
 
 impl Clone for Expression {
 	fn clone(&self) -> Self {
-		todo!()
+		match self {
+			Expression::Number(x) => Expression::Number(x.clone()),
+			Expression::Bracket(x) => Expression::Bracket(x.clone()),
+			Expression::BinaryOperation(x) => Expression::BinaryOperation(x.clone()),
+		}
 	}
 }
 
 impl ArithmeticExpression for Expression {
 	fn calc(&self) -> NumberValue {
-		todo!()
+		match self {
+			Expression::Number(x) => x.calc(),
+			Expression::Bracket(x) => x.calc(),
+			Expression::BinaryOperation(x) => x.calc(),
+		}
 	}
 }
 

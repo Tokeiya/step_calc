@@ -6,25 +6,25 @@ pub struct Bracket(Box<Expression>);
 
 impl From<Expression> for Bracket {
 	fn from(value: Expression) -> Self {
-		todo!()
+		Bracket(Box::new(value))
 	}
 }
 
 impl Clone for Bracket {
 	fn clone(&self) -> Self {
-		todo!()
+		Bracket(self.0.clone())
 	}
 }
 
 impl ArithmeticExpression for Bracket {
 	fn calc(&self) -> NumberValue {
-		todo!()
+		self.0.calc()
 	}
 }
 
 impl Bracket {
 	pub fn expression(&self) -> &Expression {
-		todo!()
+		&self.0
 	}
 }
 #[cfg(test)]

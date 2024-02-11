@@ -21,19 +21,23 @@ impl BinaryOperation {
 		right: impl ArithmeticExpression,
 		operation: Operation,
 	) -> Self {
-		todo!()
+		Self {
+			left: Box::new(left),
+			right: Box::new(Expression::from(right)),
+			operation,
+		}
 	}
 
 	pub fn left(&self) -> &Expression {
-		todo!()
+		&self.left
 	}
 
 	pub fn right(&self) -> &Expression {
-		todo!()
+		&self.right
 	}
 
 	pub fn operation(&self) -> &Operation {
-		todo!()
+		&self.operation
 	}
 }
 
