@@ -15,7 +15,7 @@ impl ArithmeticExpression for Number {
 	}
 
 	fn to_expression(self) -> Expression {
-		Expression::from(self)
+		Expression::Number(self)
 	}
 }
 

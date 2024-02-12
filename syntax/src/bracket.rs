@@ -22,7 +22,7 @@ impl ArithmeticExpression for Bracket {
 	}
 
 	fn to_expression(self) -> Expression {
-		Expression::from(self)
+		Expression::Bracket(self)
 	}
 }
 
