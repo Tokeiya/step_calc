@@ -1,14 +1,21 @@
 use std::io::prelude::*;
 use std::io::{self, Cursor, Write};
 
-fn write_hello<W: Write>(writer: &mut W) -> io::Result<()> {
-	write!(writer, "hello")
+pub enum NumericValue {
+	Integer(i32),
+	Real(f64),
 }
 
-fn main() {
-	let mut str = Cursor::new(Vec::<u8>::new());
-
-	write_hello(&mut str);
-
-	println!("{}", String::from_utf8(str.into_inner()).unwrap())
+impl From<i32> for NumericValue {
+	fn from(value: i32) -> Self {
+		NumericValue::Integer(value)
+	}
 }
+
+impl From<f64> for NumericValue {
+	fn from(value: f64) -> Self {
+		NumericValue::Real(value)
+	}
+}
+
+fn main() {}
