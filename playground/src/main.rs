@@ -1,3 +1,7 @@
+mod parser_sample;
+
+use combine::Parser;
+use parser_sample::*;
 use std::io::prelude::*;
 use std::io::{self, Cursor, Write};
 
@@ -18,4 +22,7 @@ impl From<f64> for NumericValue {
 	}
 }
 
-fn main() {}
+fn main() {
+	let ans = expr().parse("10+-2*3/{4+5}");
+	println!("{:?}", ans);
+}
