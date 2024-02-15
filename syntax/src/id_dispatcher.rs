@@ -27,7 +27,7 @@ impl Display for IdDispatcherError {
 
 impl Error for IdDispatcherError {}
 
-type IdResult = Result<usize, IdDispatcherError>;
+pub type IdResult = Result<usize, IdDispatcherError>;
 
 pub struct IdDispatcher(Vec<usize>, Option<usize>);
 
