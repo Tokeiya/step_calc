@@ -1,9 +1,9 @@
-use std::collections::VecDeque;
 use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
 
 pub enum IdDispatcherError {
 	EmptyParent,
+	EmptyCurrent,
 	Wraparound,
 }
 
@@ -11,7 +11,8 @@ impl Debug for IdDispatcherError {
 	fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
 		let msg = match self {
 			IdDispatcherError::EmptyParent => "Parent is empty.",
-			IdDispatcherError::Wraparound => "wraparound",
+			IdDispatcherError::Wraparound => "Wraparound.",
+			IdDispatcherError::EmptyCurrent => "Current is empty.",
 		};
 
 		write!(f, "{msg}")
@@ -28,33 +29,86 @@ impl Error for IdDispatcherError {}
 
 type IdResult = Result<usize, IdDispatcherError>;
 
-pub struct IdDispatcher(VecDeque<usize>, Option<usize>);
+pub struct IdDispatcher(Vec<usize>, Option<usize>);
 
 impl IdDispatcher {
 	pub fn new() -> Self {
-		todo!()
+		IdDispatcher(Vec::new(), Some(0))
 	}
 
 	pub fn current(&self) -> IdResult {
-		todo!()
+		Ok(*self.0.last().ok_or(IdDispatcherError::EmptyCurrent)?)
 	}
 
 	pub fn parent(&self) -> IdResult {
-		todo!()
+		if self.0.len() >= 2 {
+			Ok(self.0[self.0.len() - 2])
+		} else {
+			Err(IdDispatcherError::EmptyParent)
+		}
 	}
 
 	pub fn get(&mut self) -> IdResult {
-		todo!()
+		fn proc(v: &Option<usize>) -> IdResult {
+			1usize
+				.checked_add(v.ok_or(IdDispatcherError::Wraparound)?)
+				.ok_or(IdDispatcherError::Wraparound)
+		}
+
+		match proc(&self.1) {
+			Ok(v) => {
+				self.1 = Some(v);
+				self.0.push(v);
+				Ok(v)
+			}
+			Err(_) => Err(IdDispatcherError::Wraparound),
+		}
 	}
 
 	pub fn pop(&mut self) -> IdResult {
-		todo!()
+		self.0.pop().ok_or(IdDispatcherError::EmptyCurrent)
 	}
 }
 
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use once_cell::sync::Lazy;
+	use std::ops::Deref;
+
+	static ERRORS: Lazy<[IdDispatcherError; 3]> = Lazy::new(|| {
+		[
+			IdDispatcherError::EmptyCurrent,
+			IdDispatcherError::Wraparound,
+			IdDispatcherError::EmptyParent,
+		]
+	});
+
+	#[test]
+	fn debug() {
+		for err in ERRORS.deref() {
+			let actual = format!("{:?}", err);
+
+			match err {
+				IdDispatcherError::EmptyParent => assert_eq!(actual, "Parent is empty."),
+				IdDispatcherError::EmptyCurrent => assert_eq!(actual, "Current is empty."),
+				IdDispatcherError::Wraparound => assert_eq!(actual, "Wraparound."),
+			}
+		}
+	}
+
+	#[test]
+	fn display() {
+		for err in ERRORS.deref() {
+			let actual = format!("{}", err);
+
+			match err {
+				IdDispatcherError::EmptyParent => assert_eq!(actual, "Parent is empty."),
+				IdDispatcherError::EmptyCurrent => assert_eq!(actual, "Current is empty."),
+				IdDispatcherError::Wraparound => assert_eq!(actual, "Wraparound."),
+			}
+		}
+	}
 
 	#[test]
 	fn new() {
@@ -64,41 +118,54 @@ mod tests {
 	}
 
 	#[test]
-	fn current() {
+	fn after_initial() {
 		let mut fixture = IdDispatcher::new();
 
-		matches!(
+		assert!(matches!(
 			fixture.current().expect_err("unreachable!"),
+			IdDispatcherError::EmptyCurrent
+		));
+
+		assert!(matches!(
+			fixture.parent().expect_err(""),
 			IdDispatcherError::EmptyParent
-		);
-
-		let get = fixture.get().unwrap();
-		assert_eq!(fixture.current().unwrap(), 1);
-		assert_eq!(fixture.current().unwrap(), get);
-
-		fixture.1 = Some(usize::MAX);
-		_ = fixture.get();
-
-		matches!(
-			fixture.current().expect_err(""),
-			IdDispatcherError::Wraparound
-		);
+		));
 	}
 
 	#[test]
-	fn parent() {
-		let mut fixture = IdDispatcher::new();
-		matches!(
-			fixture.parent().expect_err(""),
-			IdDispatcherError::EmptyParent
-		);
+	fn wrap_around() {
+		let mut fixtuire = IdDispatcher::new();
+		fixtuire.1 = Some(usize::MAX - 1);
 
-		let recent = fixture.get().unwrap();
-		matches!(
-			fixture.parent().expect_err(""),
-			IdDispatcherError::EmptyParent
-		);
+		assert_eq!(fixtuire.get().unwrap(), usize::MAX);
 
-		_ = fixture.get();
+		assert!(matches!(fixtuire.get(), Err(IdDispatcherError::Wraparound)));
+		assert_eq!(fixtuire.current().unwrap(), usize::MAX);
+	}
+
+	#[test]
+	fn normal_iterative() {
+		//continue stack test.
+		let mut fixute = IdDispatcher::new();
+		assert_eq!(fixute.get().unwrap(), 1);
+
+		for expected in 2..100usize {
+			assert_eq!(fixute.get().unwrap(), expected);
+			assert_eq!(fixute.current().unwrap(), expected);
+			assert_eq!(fixute.parent().unwrap(), expected - 1);
+		}
+
+		//pop and push test.
+		fixute = IdDispatcher::new();
+		_ = fixute.get().unwrap();
+
+		for expected in 2..100usize {
+			assert_eq!(fixute.get().unwrap(), expected);
+			assert_eq!(fixute.current().unwrap(), expected);
+			assert_eq!(fixute.parent().unwrap(), 1);
+
+			assert_eq!(fixute.pop().unwrap(), expected);
+			assert_eq!(fixute.current().unwrap(), 1);
+		}
 	}
 }
