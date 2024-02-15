@@ -4,5 +4,6 @@ pub mod bracket;
 mod dot_writer;
 pub mod expression;
 mod expression_manipulator;
+mod id_dispatcher;
 pub mod number;
 pub mod number_value;
