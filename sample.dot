@@ -1,9 +1,15 @@
-digraph sample{
+digraph arithmetic_tree{
     node [fontname = "Cascadia Code Regular"];
 
-    box[label="NumberValue",shape = "box"];
-    hexagon[label="Operator",shape= "hexagon",fontname="Consolas"];
-    house[label="Bracket",shape="house"]
-
-    box->hexagon
+    1 [label="*",shape = "hexagon"]
+    2 [label="{...}",shape = "house"]
+    3 [label="+",shape = "hexagon"]
+    2 -> 3
+    4 [label="10",shape="box"]
+    3 -> 4
+    5 [label="20",shape="box"]
+    3 -> 5
+    1 -> 2
+    6 [label="30",shape="box"]
+    1 -> 6
 }

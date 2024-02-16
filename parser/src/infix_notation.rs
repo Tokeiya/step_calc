@@ -1,11 +1,13 @@
 use combine::parser::char::{char, digit};
 use combine::{chainl1, choice, many1, parser, token, ParseError, Parser, Stream};
+
 use syntax::arithmetic_expression::ArithmeticExpression;
 use syntax::binary_operation::{BinaryOperation, Operation};
 use syntax::bracket::Bracket;
 use syntax::expression::Expression;
 use syntax::number::Number;
-use syntax::number_value::{NumberResult, NumberValue};
+use syntax::number_value::NumberValue;
+
 fn expr_<Input>() -> impl Parser<Input, Output = Expression>
 where
 	Input: Stream<Token = char>,
@@ -67,12 +69,14 @@ parser! {
 
 #[cfg(test)]
 mod tests {
-	use super::expr;
-	use combine::Parser;
-	use std::fmt::Write;
 	use std::io::Cursor;
+
+	use combine::Parser;
+
 	use syntax::arithmetic_expression::ArithmeticExpression;
-	use syntax::dot_writer::{write_dot, WriterError};
+	use syntax::dot_writer::write_dot;
+
+	use super::expr;
 
 	#[test]
 	fn hoge() {
