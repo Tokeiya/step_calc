@@ -1,14 +1,15 @@
 #![feature(lazy_cell)]
 
-mod parser_sample;
+use std::io::prelude::*;
+use std::io::Write;
+use std::sync::LazyLock;
 
 use combine::Parser;
-use parser_sample::*;
-use std::collections::VecDeque;
-use std::io::prelude::*;
-use std::io::{self, Cursor, Write};
 
-use std::sync::{LazyLock, OnceLock};
+use parser_sample::*;
+
+mod foo;
+mod parser_sample;
 
 static FOO: LazyLock<usize> = LazyLock::new(|| 42usize);
 
@@ -17,4 +18,8 @@ fn parser_sample() {
 	println!("{:?}", ans);
 }
 
-fn main() {}
+fn main() {
+	let a="10".parse::<usize>();
+	
+	
+}

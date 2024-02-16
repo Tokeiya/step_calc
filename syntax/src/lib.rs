@@ -1,9 +1,9 @@
 pub mod arithmetic_expression;
 pub mod binary_operation;
 pub mod bracket;
-mod dot_writer;
+pub mod dot_writer;
 pub mod expression;
-mod expression_manipulator;
+pub mod expression_manipulator;
 mod id_dispatcher;
 pub mod number;
 pub mod number_value;
