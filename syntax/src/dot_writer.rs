@@ -22,7 +22,7 @@ use super::id_dispatcher::IdDispatcherError;
 //      box->hexagon
 // }
 
-enum WriterError {
+pub enum WriterError {
 	IoError(io::Error),
 	IdDispatcherError(IdDispatcherError),
 }
@@ -168,11 +168,9 @@ pub fn write_dot<W: Write, E: ArithmeticExpression>(
 
 #[cfg(test)]
 mod tests {
-	use std::io::{self, Cursor};
+	use std::io::Cursor;
 
 	use super::*;
-
-	type IoResult = io::Result<()>;
 
 	#[test]
 	fn write_header() {
@@ -263,7 +261,6 @@ mod tests {
 	#[test]
 	fn dot() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
-		let mut dispatcher = IdDispatcher::new();
 
 		let left = NumberExpr::from(NumberValue::from(42));
 		let right = NumberExpr::from(NumberValue::from(100));

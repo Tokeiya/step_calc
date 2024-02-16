@@ -1,9 +1,9 @@
 use crate::arithmetic_expression::ArithmeticExpression;
 use crate::binary_operation::BinaryOperation;
-use crate::bracket::Bracket;
+//use crate::bracket::Bracket;
 use crate::expression::Expression;
-use crate::number::Number as NumberExpr;
-use crate::number_value::NumberValue;
+//use crate::number::Number as NumberExpr;
+//use crate::number_value::NumberValue;
 
 fn erase_bracket(node: impl ArithmeticExpression) -> Expression {
 	let expr = node.to_expression();
@@ -32,7 +32,6 @@ pub fn simplify(root: &impl ArithmeticExpression) -> Expression {
 #[cfg(test)]
 mod tests {
 	use crate::arithmetic_expression::ArithmeticExpression;
-	use crate::binary_operation::{BinaryOperation, Operation};
 	use crate::bracket::Bracket;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
@@ -43,9 +42,9 @@ mod tests {
 	fn simple_simplify() {
 		let tmp = NumberExpr::from(NumberValue::from(42));
 		let tmp = Bracket::from(tmp.to_expression());
-		
+
 		let fixture = simplify(&tmp);
-		
+
 		tmp.expression().extract_as_number().number().eq_i32(&42);
 		fixture.extract_as_number().number().eq_i32(&42);
 	}

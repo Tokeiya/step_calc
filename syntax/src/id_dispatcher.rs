@@ -119,7 +119,7 @@ mod tests {
 
 	#[test]
 	fn after_initial() {
-		let mut fixture = IdDispatcher::new();
+		let fixture = IdDispatcher::new();
 
 		assert!(matches!(
 			fixture.current().expect_err("unreachable!"),
