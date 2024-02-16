@@ -1,14 +1,16 @@
-use super::id_dispatcher::{IdDispatcherError, IdResult};
+use std::fmt::{Debug, Display, Formatter};
+use std::io;
+use std::io::prelude::*;
+
 use crate::arithmetic_expression::ArithmeticExpression;
 use crate::binary_operation::{BinaryOperation, Operation};
 use crate::bracket::Bracket;
 use crate::expression::Expression;
 use crate::id_dispatcher::IdDispatcher;
 use crate::number::Number as NumberExpr;
-use crate::number_value::{NumberResult, NumberValue};
-use std::fmt::{Debug, Display, Formatter};
-use std::io;
-use std::io::prelude::*;
+use crate::number_value::NumberValue;
+
+use super::id_dispatcher::IdDispatcherError;
 
 // digraph sample{
 //      node [fontname = "Cascadia Code Regular"];
@@ -43,6 +45,7 @@ impl Display for WriterError {
 }
 
 impl std::error::Error for WriterError {}
+
 type WriterResult = Result<(), WriterError>;
 
 trait ToWriteError {
@@ -165,8 +168,9 @@ pub fn write_dot<W: Write, E: ArithmeticExpression>(
 
 #[cfg(test)]
 mod tests {
+	use std::io::{self, Cursor};
+
 	use super::*;
-	use std::io::{self, Cursor, Write};
 
 	type IoResult = io::Result<()>;
 
