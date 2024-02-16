@@ -77,17 +77,19 @@ mod tests {
 	use syntax::dot_writer::write_dot;
 
 	use super::expr;
+	use syntax::expression_manipulator::simplify;
 
 	#[test]
 	fn hoge() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
 
-		let expr = expr().parse("{10+20}*30").unwrap();
+		let expr = expr().parse("{30*{1+2}}/{10+20}").unwrap();
+		let expr = simplify(&expr.0);
 
-		write_dot(&mut cursor, &expr.0).unwrap();
+		write_dot(&mut cursor, &expr).unwrap();
 
 		let str = String::from_utf8(cursor.into_inner()).unwrap();
 		println!("{str}");
-		println!("{:?}", expr.0.calc().unwrap())
+		println!("{:?}", expr.calc().unwrap())
 	}
 }
