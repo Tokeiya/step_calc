@@ -109,10 +109,116 @@ where
 	additive
 }
 
-parser! {
-	pub fn expr[Input]()(Input)->Expression
-	where [Input:Stream<Token = char>]{
-		expr_()
+// parser! {
+// 	pub fn expr[Input]()(Input)->Expression
+// 	where [Input:Stream<Token = char>]{
+// 		expr_()
+// 	}
+// }
+
+#[allow(non_camel_case_types)]
+#[doc(hidden)]
+pub struct expr<Input>
+where
+	<Input as ::combine::stream::StreamOnce>::Error: ::combine::error::ParseError<
+		<Input as ::combine::stream::StreamOnce>::Token,
+		<Input as ::combine::stream::StreamOnce>::Range,
+		<Input as ::combine::stream::StreamOnce>::Position,
+	>,
+	Input: ::combine::stream::Stream,
+	Input: Stream<Token = char>,
+{
+	__marker: ::combine::lib::marker::PhantomData<fn(Input) -> Expression>,
+}
+#[allow(non_shorthand_field_patterns)]
+impl<Input> ::combine::Parser<Input> for expr<Input>
+where
+	<Input as ::combine::stream::StreamOnce>::Error: ::combine::error::ParseError<
+		<Input as ::combine::stream::StreamOnce>::Token,
+		<Input as ::combine::stream::StreamOnce>::Range,
+		<Input as ::combine::stream::StreamOnce>::Position,
+	>,
+	Input: ::combine::stream::Stream,
+	Input: Stream<Token = char>,
+{
+	type Output = Expression;
+	type PartialState = ();
+
+	#[inline]
+	fn parse_partial(
+		&mut self,
+		input: &mut Input,
+		state: &mut Self::PartialState,
+	) -> ::combine::error::ParseResult<Self::Output, <Input as ::combine::StreamOnce>::Error> {
+		self.parse_mode(::combine::parser::PartialMode::default(), input, state)
+	}
+	#[inline]
+	fn parse_first(
+		&mut self,
+		input: &mut Input,
+		state: &mut Self::PartialState,
+	) -> ::combine::error::ParseResult<Self::Output, <Input as ::combine::StreamOnce>::Error> {
+		self.parse_mode(::combine::parser::FirstMode, input, state)
+	}
+	#[inline]
+	fn parse_mode_impl<M>(
+		&mut self,
+		mode: M,
+		input: &mut Input,
+		state: &mut Self::PartialState,
+	) -> ::combine::error::ParseResult<Expression, <Input as ::combine::stream::StreamOnce>::Error>
+	where
+		M: ::combine::parser::ParseMode,
+	{
+		let expr { .. } = *self;
+		{
+			let _ = state;
+			let mut state = Default::default();
+			let state = &mut state;
+			{ expr_() }.parse_mode(mode, input, state)
+		}
+	}
+
+	#[inline]
+	fn add_error(
+		&mut self,
+		errors: &mut ::combine::error::Tracked<<Input as ::combine::stream::StreamOnce>::Error>,
+	) {
+		let expr { .. } = *self;
+		let mut parser = { expr_() };
+		{
+			let _: &mut dyn ::combine::Parser<Input, Output = Expression, PartialState = _> =
+				&mut parser;
+		}
+		parser.add_error(errors)
+	}
+
+	fn add_committed_expected_error(
+		&mut self,
+		errors: &mut ::combine::error::Tracked<<Input as ::combine::stream::StreamOnce>::Error>,
+	) {
+		let expr { .. } = *self;
+		let mut parser = { expr_() };
+		{
+			let _: &mut dyn ::combine::Parser<Input, Output = Expression, PartialState = _> =
+				&mut parser;
+		}
+		parser.add_committed_expected_error(errors)
+	}
+}
+#[inline]
+pub fn expr<Input>() -> expr<Input>
+where
+	<Input as ::combine::stream::StreamOnce>::Error: ::combine::error::ParseError<
+		<Input as ::combine::stream::StreamOnce>::Token,
+		<Input as ::combine::stream::StreamOnce>::Range,
+		<Input as ::combine::stream::StreamOnce>::Position,
+	>,
+	Input: ::combine::stream::Stream,
+	Input: Stream<Token = char>,
+{
+	expr {
+		__marker: ::combine::lib::marker::PhantomData,
 	}
 }
 
