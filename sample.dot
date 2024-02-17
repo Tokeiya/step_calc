@@ -1,5 +1,9 @@
-digraph arithmetic_tree{
-    node [fontname = "Cascadia Code Regular"];
+digraph G {
+    subgraph cluster_0 {
+    label = "Process #1";
+    a -> b -> c;
+    b -> d;
+    }
 
     1 [label="/",shape = "hexagon"]
     2 [label="-",shape = "hexagon"]

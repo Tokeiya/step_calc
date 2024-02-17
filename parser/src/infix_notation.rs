@@ -224,10 +224,9 @@ where
 
 #[cfg(test)]
 mod tests {
-	use std::io::Cursor;
-
+	use super::expr;
 	use combine::Parser;
-
+	use std::io::Cursor;
 	use syntax::arithmetic_expression::ArithmeticExpression;
 	use syntax::dot_writer::write_dot;
 
