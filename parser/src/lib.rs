@@ -1,3 +1,3 @@
-pub mod infix_notation;
+pub mod infix;
 mod rpn_notation;
 mod rpn_token;

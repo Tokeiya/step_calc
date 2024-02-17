@@ -1,26 +1,25 @@
-#![feature(lazy_cell)]
-
 use std::io::prelude::*;
 use std::io::Write;
-use std::sync::LazyLock;
 
-use combine::Parser;
+use combine::{ParseError, Parser, Stream};
 
 use parser_sample::*;
-
-mod foo;
 mod parser_sample;
-
-static FOO: LazyLock<usize> = LazyLock::new(|| 42usize);
-
-fn parser_sample() {
-	let ans = expr().parse("10+-2*3/{4+5}");
-	println!("{:?}", ans);
-}
+use combine as cmb;
+use combine::parser::char as chr;
 
 fn main() {
-	let mut buff = Vec::<String>::new();
-	buff.push("hello".to_string());
+	let mut num_parser = cmb::many1(chr::digit::<&str>()).map(|x: String| x);
 
-	let mut str = String::new();
+	let mut hoge = (chr::spaces(), num_parser, chr::spaces()).map(|(_, x, _)| x);
+
+	let a = hoge.parse("200");
+}
+
+fn foo<Input>(parser: impl Parser<Input, Output = String>) -> impl Parser<Input, Output = String>
+where
+	Input: Stream<Token = char>,
+	Input::Error: ParseError<Input::Token, Input::Range, Input::Position>,
+{
+	(chr::spaces(), parser, chr::spaces()).map(|(_, x, _)| x)
 }
