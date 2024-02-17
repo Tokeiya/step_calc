@@ -2,20 +2,28 @@ digraph arithmetic_tree{
     node [fontname = "Cascadia Code Regular"];
 
     1 [label="/",shape = "hexagon"]
-    2 [label="*",shape = "hexagon"]
+    2 [label="-",shape = "hexagon"]
     1 -> 2
-    3 [label="30",shape="box"]
+    3 [label="*",shape = "hexagon"]
     2 -> 3
-    4 [label="+",shape = "hexagon"]
-    2 -> 4
-    5 [label="1",shape="box"]
-    4 -> 5
-    6 [label="2",shape="box"]
-    4 -> 6
-    7 [label="+",shape = "hexagon"]
-    1 -> 7
-    8 [label="10",shape="box"]
-    7 -> 8
-    9 [label="20",shape="box"]
-    7 -> 9
+    4 [label="30",shape="box"]
+    3 -> 4
+    5 [label="+",shape = "hexagon"]
+    3 -> 5
+    6 [label="1",shape="box"]
+    5 -> 6
+    7 [label="2",shape="box"]
+    5 -> 7
+    8 [label="25",shape="box"]
+    2 -> 8
+    9 [label="+",shape = "hexagon"]
+    1 -> 9
+    10 [label="+",shape = "hexagon"]
+    9 -> 10
+    11 [label="10",shape="box"]
+    10 -> 11
+    12 [label="20",shape="box"]
+    10 -> 12
+    13 [label="15",shape="box"]
+    9 -> 13
 }

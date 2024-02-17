@@ -19,7 +19,8 @@ fn parser_sample() {
 }
 
 fn main() {
-	let a="10".parse::<usize>();
-	
-	
+	let mut buff = Vec::<String>::new();
+	buff.push("hello".to_string());
+
+	let mut str = String::new();
 }

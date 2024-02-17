@@ -8,6 +8,55 @@ use syntax::expression::Expression;
 use syntax::number::Number;
 use syntax::number_value::NumberValue;
 
+fn strict_expression(expr: &Expression, buffer: &mut String) {
+	match expr {
+		Expression::Number(num) => strict_number(num, buffer),
+		Expression::Bracket(bracket) => strict_bracket(bracket, buffer),
+		Expression::BinaryOperation(bin_op) => strict_binary_op(bin_op, buffer),
+	}
+}
+
+fn strict_number(number: &Number, buffer: &mut String) {
+	match number.number() {
+		NumberValue::Integer(int) => buffer.push_str(&format!(" {int}").to_string()),
+	}
+}
+
+fn strict_binary_op(binary_operation: &BinaryOperation, buffer: &mut String) {
+	buffer.push(' ');
+	buffer.push('(');
+
+	strict_expression(binary_operation.left(), buffer);
+	buffer.push(' ');
+
+	buffer.push(match binary_operation.operation() {
+		Operation::Add => '+',
+		Operation::Sub => '-',
+		Operation::Mul => '*',
+		Operation::Div => '/',
+	});
+
+	buffer.push(' ');
+	strict_expression(binary_operation.right(), buffer);
+	buffer.push(')');
+}
+
+fn strict_bracket(bracket: &Bracket, buffer: &mut String) {
+	buffer.push(' ');
+	buffer.push('{');
+
+	strict_expression(bracket.expression(), buffer);
+
+	buffer.push(' ');
+	buffer.push('}');
+}
+
+pub fn strict_infix_expression(expr: &Expression) -> String {
+	let mut buff = String::default();
+	strict_expression(&(expr.clone().to_expression()), &mut buff);
+	buff
+}
+
 fn expr_<Input>() -> impl Parser<Input, Output = Expression>
 where
 	Input: Stream<Token = char>,
@@ -76,14 +125,14 @@ mod tests {
 	use syntax::arithmetic_expression::ArithmeticExpression;
 	use syntax::dot_writer::write_dot;
 
-	use super::expr;
+	use super::*;
 	use syntax::expression_manipulator::simplify;
 
 	#[test]
 	fn hoge() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
 
-		let expr = expr().parse("{30*{1+2}}/{10+20}").unwrap();
+		let expr = expr().parse("{30*{1+2}-25}/{10+20+15}").unwrap();
 		let expr = simplify(&expr.0);
 
 		write_dot(&mut cursor, &expr).unwrap();
@@ -91,5 +140,12 @@ mod tests {
 		let str = String::from_utf8(cursor.into_inner()).unwrap();
 		println!("{str}");
 		println!("{:?}", expr.calc().unwrap())
+	}
+
+	#[test]
+	fn piyo() {
+		let expr = expr().parse("{30*{1+2}-25}/{10+20+15}").unwrap().0;
+		let ret = strict_infix_expression(&expr);
+		println!("{ret}");
 	}
 }
