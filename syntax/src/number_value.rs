@@ -135,10 +135,13 @@ impl Rem<Self> for NumberValue {
 	}
 }
 
-#[cfg(test)]
-mod test_helper {
+#[cfg(any(feature = "test_active", test))]
+pub mod test_helper {
 	use crate::number_value::NumberValue;
 
+	pub fn foo() {
+		println!("hello")
+	}
 	impl NumberValue {
 		pub fn eq_i32(&self, expected: &i32) {
 			match self {
