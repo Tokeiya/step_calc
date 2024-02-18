@@ -139,9 +139,6 @@ impl Rem<Self> for NumberValue {
 pub mod test_helper {
 	use crate::number_value::NumberValue;
 
-	pub fn foo() {
-		println!("hello")
-	}
 	impl NumberValue {
 		pub fn eq_i32(&self, expected: &i32) {
 			match self {

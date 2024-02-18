@@ -56,12 +56,12 @@ pub fn strict_infix_expression(expr: &Expression) -> String {
 #[cfg(test)]
 mod tests {
 	use crate::infix::formatter::strict_infix_expression;
-	use crate::infix::parser::expr;
+	use crate::infix::parser::get_parser;
 	use combine::Parser;
 
 	#[test]
 	fn piyo() {
-		let expr = expr().parse("{30*{1+2}-25}/{10+20+15}").unwrap().0;
+		let expr = get_parser().parse("{30*{1+2}-25}/{10+20+15}").unwrap().0;
 		let ret = strict_infix_expression(&expr);
 		println!("{ret}");
 	}

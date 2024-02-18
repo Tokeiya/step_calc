@@ -1,5 +1,6 @@
+use combine::error::StringStreamError;
 use combine::parser::char::{self as chr, char, digit};
-use combine::{chainl1, choice, many1, parser, token, ParseError, Parser, Stream};
+use combine::{chainl1, choice, many1, token, ParseError, Parser, Stream};
 
 use syntax::arithmetic_expression::ArithmeticExpression;
 use syntax::binary_operation::{BinaryOperation, Operation};
@@ -7,6 +8,18 @@ use syntax::bracket::Bracket;
 use syntax::expression::Expression;
 use syntax::number::Number;
 use syntax::number_value::NumberValue;
+
+pub fn parse(formula: &str) -> Result<(Expression, &str), StringStreamError> {
+	get_parser().parse(formula)
+}
+
+pub fn get_parser<Input>() -> impl Parser<Input, Output = Expression>
+where
+	Input: Stream<Token = char>,
+	Input::Error: ParseError<Input::Token, Input::Range, Input::Position>,
+{
+	expr::<Input>()
+}
 
 fn trim<Input, O>(parser: impl Parser<Input, Output = O>) -> impl Parser<Input, Output = O>
 where
@@ -73,7 +86,7 @@ where
 }
 
 // parser! {
-// 	pub fn expr[Input]()(Input)->Expression
+// 	fn expr[Input]()(Input)->Expression
 // 	where [Input:Stream<Token = char>]{
 // 		expr_()
 // 	}
@@ -81,7 +94,7 @@ where
 
 #[allow(non_camel_case_types)]
 #[doc(hidden)]
-pub struct expr<Input>
+struct expr<Input>
 where
 	<Input as ::combine::stream::StreamOnce>::Error: ::combine::error::ParseError<
 		<Input as ::combine::stream::StreamOnce>::Token,
@@ -170,7 +183,7 @@ where
 	}
 }
 #[inline]
-pub fn expr<Input>() -> expr<Input>
+fn expr<Input>() -> expr<Input>
 where
 	<Input as ::combine::stream::StreamOnce>::Error: ::combine::error::ParseError<
 		<Input as ::combine::stream::StreamOnce>::Token,
@@ -187,28 +200,27 @@ where
 
 #[cfg(test)]
 mod tests {
-	use super::expr;
-	use combine::Parser;
 	use std::io::Cursor;
-	use syntax::arithmetic_expression::ArithmeticExpression;
-	use syntax::dot_writer::write_dot;
 
+	use syntax::number_value::test_helper;
+
+	use super::expr;
 	use super::*;
-	use syntax::expression_manipulator::simplify;
 
 	#[test]
-	fn hoge() {
-		let mut cursor = Cursor::<Vec<u8>>::default();
-
+	fn parse() {
 		let expr = expr()
-			.parse("{ 30       *            {     1+2}-25}/{10+20+15       }")
-			.unwrap();
-		let expr = simplify(&expr.0);
+			.parse("{ 30       *            {     10+200}-25}/{10+20+15       }")
+			.unwrap()
+			.0;
 
-		write_dot(&mut cursor, &expr).unwrap();
+		expr.calc().unwrap().eq_i32(&139)
+	}
 
-		let str = String::from_utf8(cursor.into_inner()).unwrap();
-		println!("{str}");
-		println!("{:?}", expr.calc().unwrap())
+	#[test]
+	fn simplify() {
+		let expr= expr().parse("{{ 30       *            {     10+{200}}-25}/{10+20+15       }}").unwrap().0;
+		
+		let expr=expr.
 	}
 }
