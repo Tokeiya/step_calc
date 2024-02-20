@@ -209,6 +209,8 @@ mod tests {
 
 	#[test]
 	fn parse() {
+		println!("{}", std::env::current_dir().unwrap().display());
+
 		let expr = expr()
 			.parse("{ 30       *            {     10+200}-25}/{10+20+15       }")
 			.unwrap()

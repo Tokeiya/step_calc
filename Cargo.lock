@@ -43,6 +43,7 @@ name = "playground"
 version = "0.1.0"
 dependencies = [
  "combine",
+ "parser",
  "syntax",
 ]
 
