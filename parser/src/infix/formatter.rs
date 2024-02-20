@@ -22,7 +22,7 @@ fn minimal_expression(expr: &Expression, parent: Option<Operation>, buffer: &mut
 			minimal_binary_op(bin, Some(bin.operation().clone()), buffer);
 		}
 	}
-	
+
 	println!("expr:{}", buffer)
 }
 
@@ -54,19 +54,19 @@ fn require(expr: &BinaryOperation, parent: &Option<Operation>) -> bool {
 
 fn minimal_binary_op(expr: &BinaryOperation, parent: Option<Operation>, buffer: &mut String) {
 	let require = require(expr, &parent);
-	
+
 	if require {
 		buffer.push('{');
 	}
-	
+
 	minimal_expression(expr.left(), Some(expr.operation().clone()), buffer);
 	write_operator(expr.operation(), buffer);
 	minimal_expression(expr.right(), Some(expr.operation().clone()), buffer);
-	
+
 	if require {
 		buffer.push('}');
 	}
-	
+
 	println!("binary:{}", buffer)
 }
 
@@ -78,7 +78,7 @@ fn minimal_bracket(expr: &Bracket, parent: Option<Operation>, buffer: &mut Strin
 			minimal_binary_op(bin, Some(bin.operation().clone()), buffer)
 		}
 	}
-	
+
 	println!("bracket:{}", buffer)
 }
 
@@ -86,13 +86,13 @@ fn minimal_number(expr: &Number, parent: Option<Operation>, buffer: &mut String)
 	match expr.number() {
 		NumberValue::Integer(num) => buffer.push_str(&format!("{}", num)),
 	}
-	
+
 	println!("number:{}", buffer)
 }
 
 pub fn minimal_infix_notation(expr: &Expression) -> String {
 	let mut buff = String::default();
-	
+
 	match expr {
 		Expression::Number(num) => minimal_number(num, None, &mut buff),
 		Expression::Bracket(bracket) => minimal_bracket(bracket, None, &mut buff),
@@ -100,7 +100,7 @@ pub fn minimal_infix_notation(expr: &Expression) -> String {
 			minimal_binary_op(bin, Some(bin.operation().clone()), &mut buff)
 		}
 	};
-	
+
 	buff
 }
 
@@ -120,24 +120,24 @@ fn strict_number(number: &Number, buffer: &mut String) {
 
 fn strict_binary_op(binary_operation: &BinaryOperation, buffer: &mut String) {
 	buffer.push('{');
-	
+
 	strict_expression(binary_operation.left(), buffer);
-	
+
 	buffer.push(' ');
-	
+
 	write_operator(binary_operation.operation(), buffer);
-	
+
 	buffer.push(' ');
-	
+
 	strict_expression(binary_operation.right(), buffer);
 	buffer.push('}');
 }
 
 fn strict_bracket(bracket: &Bracket, buffer: &mut String) {
 	buffer.push('{');
-	
+
 	strict_expression(bracket.expression(), buffer);
-	
+
 	buffer.push('}');
 }
 
@@ -154,24 +154,24 @@ mod tests {
 	use combine::Parser;
 	use std::io::Cursor;
 	use syntax::dot_writer::write_dot;
-	
+
 	#[test]
 	fn strict() {
 		let expr = get_parser().parse("{30*{1+2}-25}/{10+20+15}").unwrap().0;
 		let ret = strict_infix_expression(&expr);
 		assert_eq!(ret, "{{{{30 * {{1 + 2}}} - 25}} / {{{10 + 20} + 15}}}");
 	}
-	
+
 	#[test]
 	fn simple() {
 		let expr = get_parser().parse("{{30*{1+2}-25}/{10+20+15}}").unwrap().0;
-		
+
 		let mut cursor = Cursor::<Vec<u8>>::default();
 		write_dot(&mut cursor, &expr).unwrap();
 		println!("{}", String::from_utf8(cursor.into_inner()).unwrap());
-		
+
 		let ret = minimal_infix_notation(&expr);
-		
+
 		println!("{}", ret);
 		//todo!()
 	}
