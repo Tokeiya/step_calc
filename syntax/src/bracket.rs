@@ -28,6 +28,10 @@ impl ArithmeticExpression for Bracket {
 	fn simplify(&self) -> Expression {
 		*self.0.clone()
 	}
+
+	fn step_calc(&self) -> (Expression, bool) {
+		(*self.0.clone(), true)
+	}
 }
 
 impl Bracket {
@@ -43,6 +47,15 @@ mod tests {
 	use crate::expression::Expression;
 	use crate::number::Number;
 	use crate::number_value::NumberValue;
+
+	#[test]
+	fn step_calc() {
+		let fixture = Bracket::from(Number::from(NumberValue::from(300)).to_expression());
+		let fixture = fixture.step_calc();
+
+		assert!(fixture.1);
+		fixture.0.extract_as_number().number().eq_i32(&300);
+	}
 
 	#[test]
 	fn simplify() {

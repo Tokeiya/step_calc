@@ -21,6 +21,10 @@ impl ArithmeticExpression for Number {
 	fn simplify(&self) -> Expression {
 		self.clone().to_expression()
 	}
+
+	fn step_calc(&self) -> (Expression, bool) {
+		(self.clone().to_expression(), false)
+	}
 }
 
 impl Number {
@@ -43,6 +47,15 @@ mod tests {
 
 	fn create_fixture(value: i32) -> Number {
 		Number::from(NumberValue::from(value))
+	}
+
+	#[test]
+	fn step_calc() {
+		let fixture = create_fixture(42);
+		let actual = fixture.step_calc();
+
+		assert!(!actual.1);
+		actual.0.extract_as_number().number().eq_i32(&42);
 	}
 
 	#[test]

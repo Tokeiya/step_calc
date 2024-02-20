@@ -58,6 +58,14 @@ impl ArithmeticExpression for Expression {
 			Expression::BinaryOperation(bin) => bin.simplify(),
 		}
 	}
+
+	fn step_calc(&self) -> (Expression, bool) {
+		match self {
+			Expression::Number(num) => num.step_calc(),
+			Expression::Bracket(bracket) => bracket.step_calc(),
+			Expression::BinaryOperation(bin) => bin.step_calc(),
+		}
+	}
 }
 
 #[cfg(test)]
@@ -172,7 +180,34 @@ mod tests {
 
 	use super::*;
 	use crate::binary_operation::Operation;
+	use crate::bracket::Bracket;
+	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
+
+	#[test]
+	fn step_calc() {
+		let fixture = NumberExpr::from(NumberValue::from(200)).to_expression();
+		let fixture = fixture.step_calc();
+
+		assert!(!fixture.1);
+		fixture.0.extract_as_number().number().eq_i32(&200);
+
+		let fixture =
+			Bracket::from(NumberExpr::from(NumberValue::from(42)).to_expression()).to_expression();
+		let fixture = fixture.step_calc();
+		assert!(fixture.1);
+		fixture.0.extract_as_number().number().eq_i32(&42);
+
+		let fixture = BinaryOperation::new(
+			NumberExpr::from(NumberValue::from(42)),
+			NumberExpr::from(NumberValue::from(100)),
+			Operation::Add,
+		)
+		.to_expression();
+		let fixture = fixture.step_calc();
+		assert!(fixture.1);
+		fixture.0.extract_as_number().number().eq_i32(&142);
+	}
 
 	#[test]
 	fn simplify() {

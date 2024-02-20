@@ -1,6 +1,7 @@
 use crate::arithmetic_expression::ArithmeticExpression;
 use crate::expression::Expression;
-use crate::number_value::NumberResult;
+use crate::number::Number;
+use crate::number_value::{NumberResult, NumberValue};
 
 #[derive(Clone)]
 pub enum Operation {
@@ -75,6 +76,30 @@ impl ArithmeticExpression for BinaryOperation {
 
 		BinaryOperation::new(left, right, self.operation.clone()).to_expression()
 	}
+
+	fn step_calc(&self) -> (Expression, bool) {
+		let tmp = self.left.step_calc();
+		if tmp.1 {
+			return (
+				BinaryOperation::new(tmp.0, *self.right.clone(), self.operation.clone())
+					.to_expression(),
+				true,
+			);
+		}
+
+		let tmp = self.right.step_calc();
+		if tmp.1 {
+			return (
+				BinaryOperation::new(*self.left.clone(), tmp.0, self.operation.clone())
+					.to_expression(),
+				true,
+			);
+		}
+
+		let tmp = self.calc().unwrap();
+
+		(Number::from(tmp).to_expression(), true)
+	}
 }
 
 #[cfg(test)]
@@ -85,6 +110,47 @@ mod tests {
 	use crate::bracket::Bracket;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
+
+	#[test]
+	fn step_calc() {
+		let left = BinaryOperation::new(
+			NumberExpr::from(NumberValue::from(2)),
+			NumberExpr::from(NumberValue::from(3)),
+			Operation::Mul,
+		);
+		let right = BinaryOperation::new(
+			NumberExpr::from(NumberValue::from(4)),
+			NumberExpr::from(NumberValue::from(2)),
+			Operation::Sub,
+		);
+
+		let fixture = BinaryOperation::new(left, right, Operation::Mul);
+
+		let fixture = fixture.step_calc();
+		assert!(fixture.1);
+
+		let fixture = fixture.0.extract_as_binary_operation();
+		fixture.left.extract_as_number().number().eq_i32(&6);
+
+		_ = fixture.right().extract_as_binary_operation();
+
+		let fixture = fixture.step_calc();
+		assert!(fixture.1);
+
+		let fixture = fixture.0.extract_as_binary_operation();
+		fixture.left.extract_as_number().number().eq_i32(&6);
+		fixture.right.extract_as_number().number().eq_i32(&2);
+
+		let fixture = fixture.step_calc();
+		assert!(fixture.1);
+		let fixture = fixture.0.extract_as_number();
+		fixture.number().eq_i32(&12);
+
+		let fixture = fixture.step_calc();
+		assert!(!fixture.1);
+		let fixture = fixture.0.extract_as_number();
+		fixture.number().eq_i32(&12);
+	}
 
 	#[test]
 	fn simplify() {
