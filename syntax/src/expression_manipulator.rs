@@ -31,7 +31,6 @@ pub fn simplify(root: &impl ArithmeticExpression) -> Expression {
 
 #[cfg(test)]
 mod tests {
-	use crate::arithmetic_expression::ArithmeticExpression;
 	use crate::bracket::Bracket;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;

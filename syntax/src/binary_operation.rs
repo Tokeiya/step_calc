@@ -68,6 +68,13 @@ impl ArithmeticExpression for BinaryOperation {
 	fn to_expression(self) -> Expression {
 		Expression::BinaryOperation(self)
 	}
+
+	fn simplify(&self) -> Expression {
+		let left = self.left.simplify();
+		let right = self.right.simplify();
+
+		BinaryOperation::new(left, right, self.operation.clone()).to_expression()
+	}
 }
 
 #[cfg(test)]
@@ -75,8 +82,21 @@ mod tests {
 	use super::BinaryOperation;
 	use crate::arithmetic_expression::ArithmeticExpression;
 	use crate::binary_operation::Operation;
+	use crate::bracket::Bracket;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
+
+	#[test]
+	fn simplify() {
+		let left = Bracket::from(NumberExpr::from(NumberValue::from(20)).to_expression());
+		let right = NumberExpr::from(NumberValue::from(2));
+
+		let bin = BinaryOperation::new(left.to_expression(), right.to_expression(), Operation::Mul);
+		let act = bin.simplify();
+		let act = act.extract_as_binary_operation();
+
+		act.left().extract_as_number().number().eq_i32(&20);
+	}
 
 	#[test]
 	fn new() {

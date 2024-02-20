@@ -24,6 +24,10 @@ impl ArithmeticExpression for Bracket {
 	fn to_expression(self) -> Expression {
 		Expression::from(self)
 	}
+
+	fn simplify(&self) -> Expression {
+		*self.0.clone()
+	}
 }
 
 impl Bracket {
@@ -39,6 +43,14 @@ mod tests {
 	use crate::expression::Expression;
 	use crate::number::Number;
 	use crate::number_value::NumberValue;
+
+	#[test]
+	fn simplify() {
+		let fixture = Bracket::from(Number::from(NumberValue::from(300)).to_expression());
+		let act = fixture.simplify();
+
+		act.extract_as_number().number().eq_i32(&300);
+	}
 
 	#[test]
 	fn from() {

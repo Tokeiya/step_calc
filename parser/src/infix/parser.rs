@@ -216,11 +216,4 @@ mod tests {
 
 		expr.calc().unwrap().eq_i32(&139)
 	}
-
-	#[test]
-	fn simplify() {
-		let expr= expr().parse("{{ 30       *            {     10+{200}}-25}/{10+20+15       }}").unwrap().0;
-		
-		let expr=expr.
-	}
 }

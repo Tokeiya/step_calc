@@ -50,6 +50,14 @@ impl ArithmeticExpression for Expression {
 	fn to_expression(self) -> Expression {
 		self
 	}
+
+	fn simplify(&self) -> Expression {
+		match self {
+			Expression::Number(num) => num.simplify(),
+			Expression::Bracket(bra) => bra.simplify(),
+			Expression::BinaryOperation(bin) => bin.simplify(),
+		}
+	}
 }
 
 #[cfg(test)]
@@ -59,7 +67,6 @@ pub mod helper {
 	use crate::expression::Expression;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
-
 	impl Expression {
 		pub fn extract_as_number(&self) -> &NumberExpr {
 			match self {
@@ -165,8 +172,39 @@ mod tests {
 
 	use super::*;
 	use crate::binary_operation::Operation;
-	use crate::number::Number;
 	use crate::number_value::NumberValue;
+
+	#[test]
+	fn simplify() {
+		//Number.
+		let fixture = Expression::from(Number::from(NumberValue::from(200)));
+		let fixture = fixture.simplify();
+
+		fixture.extract_as_number().number().eq_i32(&200);
+
+		//Bracket.
+		let fixture = Expression::from(Bracket::from(
+			Number::from(NumberValue::from(400)).to_expression(),
+		));
+		let fixture = fixture.simplify();
+
+		fixture.extract_as_number().number().eq_i32(&400);
+
+		//BinOp
+		let fixture = Expression::from(BinaryOperation::new(
+			Number::from(NumberValue::from(10)),
+			Number::from(NumberValue::from(30)),
+			Operation::Add,
+		));
+
+		let fixture = fixture.simplify();
+		let fixture = fixture.extract_as_binary_operation();
+
+		fixture.left().extract_as_number().number().eq_i32(&10);
+		fixture.right().extract_as_number().number().eq_i32(&30);
+
+		assert!(matches!(fixture.operation(), Operation::Add));
+	}
 
 	#[test]
 	fn from_number() {
