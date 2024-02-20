@@ -1,7 +1,7 @@
 use crate::arithmetic_expression::ArithmeticExpression;
 use crate::expression::Expression;
 use crate::number::Number;
-use crate::number_value::{NumberResult, NumberValue};
+use crate::number_value::NumberResult;
 
 #[derive(Clone)]
 pub enum Operation {

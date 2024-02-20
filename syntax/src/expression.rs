@@ -180,7 +180,6 @@ mod tests {
 
 	use super::*;
 	use crate::binary_operation::Operation;
-	use crate::bracket::Bracket;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
 
