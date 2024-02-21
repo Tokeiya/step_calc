@@ -6,24 +6,24 @@ use syntax::number::Number;
 use syntax::number_value::NumberValue;
 
 fn write_operator(operator: &Operation, buffer: &mut String) {
+	buffer.push(' ');
+
 	match operator {
 		Operation::Add => buffer.push('+'),
 		Operation::Sub => buffer.push('-'),
 		Operation::Mul => buffer.push('*'),
 		Operation::Div => buffer.push('/'),
 	}
+
+	buffer.push(' ');
 }
 
-fn minimal_expression(expr: &Expression, parent: Option<Operation>, buffer: &mut String) {
+fn minimal_expression(expr: &Expression, parent: &Option<&Operation>, buffer: &mut String) {
 	match expr {
-		Expression::Number(num) => minimal_number(num, None, buffer),
-		Expression::Bracket(bracket) => minimal_bracket(bracket, None, buffer),
-		Expression::BinaryOperation(bin) => {
-			minimal_binary_op(bin, Some(bin.operation().clone()), buffer);
-		}
+		Expression::Number(num) => minimal_number(num, buffer),
+		Expression::Bracket(bracket) => minimal_bracket(bracket, parent, buffer),
+		Expression::BinaryOperation(bin) => minimal_binary_op(bin, parent, buffer),
 	}
-
-	println!("expr:{}", buffer)
 }
 
 fn is_additive(operator: &Operation) -> bool {
@@ -35,72 +35,48 @@ fn is_additive(operator: &Operation) -> bool {
 	}
 }
 
-fn require(expr: &BinaryOperation, parent: &Option<Operation>) -> bool {
+fn require(expr: &BinaryOperation, parent: &Option<&Operation>) -> bool {
 	match parent {
 		None => false,
 		Some(p) => {
 			if is_additive(p) {
 				false
 			} else {
-				if is_additive(expr.operation()) {
-					true
-				} else {
-					false
-				}
+				is_additive(expr.operation())
 			}
 		}
 	}
 }
 
-fn minimal_binary_op(expr: &BinaryOperation, parent: Option<Operation>, buffer: &mut String) {
-	let require = require(expr, &parent);
-
-	if require {
+fn minimal_binary_op(expr: &BinaryOperation, parent: &Option<&Operation>, buffer: &mut String) {
+	if require(expr, parent) {
 		buffer.push('{');
 	}
 
-	minimal_expression(expr.left(), Some(expr.operation().clone()), buffer);
-	write_operator(expr.operation(), buffer);
-	minimal_expression(expr.right(), Some(expr.operation().clone()), buffer);
+	minimal_expression(expr.left(), &Some(expr.operation()), buffer);
 
-	if require {
+	write_operator(expr.operation(), buffer);
+
+	minimal_expression(expr.right(), &Some(expr.operation()), buffer);
+
+	if require(expr, parent) {
 		buffer.push('}');
 	}
-
-	println!("binary:{}", buffer)
 }
 
-fn minimal_bracket(expr: &Bracket, parent: Option<Operation>, buffer: &mut String) {
-	match expr.expression() {
-		Expression::Number(num) => minimal_number(num, None, buffer),
-		Expression::Bracket(bracket) => minimal_bracket(bracket, None, buffer),
-		Expression::BinaryOperation(bin) => {
-			minimal_binary_op(bin, Some(bin.operation().clone()), buffer)
-		}
-	}
-
-	println!("bracket:{}", buffer)
+fn minimal_bracket(expr: &Bracket, parent: &Option<&Operation>, buffer: &mut String) {
+	minimal_expression(expr.expression(), parent, buffer)
 }
 
-fn minimal_number(expr: &Number, parent: Option<Operation>, buffer: &mut String) {
+fn minimal_number(expr: &Number, buffer: &mut String) {
 	match expr.number() {
-		NumberValue::Integer(num) => buffer.push_str(&format!("{}", num)),
+		NumberValue::Integer(int) => buffer.push_str(&format!("{}", int)),
 	}
-
-	println!("number:{}", buffer)
 }
 
 pub fn minimal_infix_notation(expr: &Expression) -> String {
 	let mut buff = String::default();
-
-	match expr {
-		Expression::Number(num) => minimal_number(num, None, &mut buff),
-		Expression::Bracket(bracket) => minimal_bracket(bracket, None, &mut buff),
-		Expression::BinaryOperation(bin) => {
-			minimal_binary_op(bin, Some(bin.operation().clone()), &mut buff)
-		}
-	};
-
+	minimal_expression(expr, &None, &mut buff);
 	buff
 }
 
@@ -122,14 +98,9 @@ fn strict_binary_op(binary_operation: &BinaryOperation, buffer: &mut String) {
 	buffer.push('{');
 
 	strict_expression(binary_operation.left(), buffer);
-
-	buffer.push(' ');
-
 	write_operator(binary_operation.operation(), buffer);
-
-	buffer.push(' ');
-
 	strict_expression(binary_operation.right(), buffer);
+
 	buffer.push('}');
 }
 
@@ -149,11 +120,13 @@ pub fn strict_infix_expression(expr: &Expression) -> String {
 
 #[cfg(test)]
 mod tests {
+	use super::require;
 	use crate::infix::formatter::{minimal_infix_notation, strict_infix_expression};
 	use crate::infix::parser::get_parser;
 	use combine::Parser;
-	use std::io::Cursor;
-	use syntax::dot_writer::write_dot;
+	use syntax::binary_operation::{BinaryOperation, Operation};
+	use syntax::number::Number as NumExpr;
+	use syntax::number_value::NumberValue;
 
 	#[test]
 	fn strict() {
@@ -163,16 +136,48 @@ mod tests {
 	}
 
 	#[test]
-	fn simple() {
+	fn require_test() {
+		fn make_fixture(operator: Operation) -> BinaryOperation {
+			BinaryOperation::new(
+				NumExpr::from(NumberValue::from(42)),
+				NumExpr::from(NumberValue::from(114514)),
+				operator,
+			)
+		}
+
+		let bin = make_fixture(Operation::Add);
+		assert!(!require(&bin, &Some(&Operation::Add)));
+		assert!(!require(&bin, &Some(&Operation::Sub)));
+		assert!(!require(&bin, &None));
+		assert!(require(&bin, &Some(&Operation::Mul)));
+		assert!(require(&bin, &Some(&Operation::Div)));
+
+		let bin = make_fixture(Operation::Sub);
+		assert!(!require(&bin, &Some(&Operation::Add)));
+		assert!(!require(&bin, &Some(&Operation::Sub)));
+		assert!(!require(&bin, &None));
+		assert!(require(&bin, &Some(&Operation::Mul)));
+		assert!(require(&bin, &Some(&Operation::Div)));
+
+		let bin = make_fixture(Operation::Mul);
+		assert!(!require(&bin, &Some(&Operation::Add)));
+		assert!(!require(&bin, &Some(&Operation::Sub)));
+		assert!(!require(&bin, &None));
+		assert!(!require(&bin, &Some(&Operation::Mul)));
+		assert!(!require(&bin, &Some(&Operation::Div)));
+
+		let bin = make_fixture(Operation::Div);
+		assert!(!require(&bin, &Some(&Operation::Add)));
+		assert!(!require(&bin, &Some(&Operation::Sub)));
+		assert!(!require(&bin, &None));
+		assert!(!require(&bin, &Some(&Operation::Mul)));
+		assert!(!require(&bin, &Some(&Operation::Div)));
+	}
+
+	#[test]
+	fn minimal() {
 		let expr = get_parser().parse("{{30*{1+2}-25}/{10+20+15}}").unwrap().0;
-
-		let mut cursor = Cursor::<Vec<u8>>::default();
-		write_dot(&mut cursor, &expr).unwrap();
-		println!("{}", String::from_utf8(cursor.into_inner()).unwrap());
-
 		let ret = minimal_infix_notation(&expr);
-
-		println!("{}", ret);
-		//todo!()
+		assert_eq!(ret, "{30 * {1 + 2} - 25} / {10 + 20 + 15}");
 	}
 }

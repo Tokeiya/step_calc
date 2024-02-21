@@ -106,6 +106,7 @@ where
 {
 	__marker: ::combine::lib::marker::PhantomData<fn(Input) -> Expression>,
 }
+
 #[allow(non_shorthand_field_patterns)]
 impl<Input> ::combine::Parser<Input> for expr<Input>
 where
@@ -182,10 +183,11 @@ where
 		parser.add_committed_expected_error(errors)
 	}
 }
+
 #[inline]
 fn expr<Input>() -> expr<Input>
 where
-	<Input as ::combine::stream::StreamOnce>::Error: ::combine::error::ParseError<
+	<Input as ::combine::stream::StreamOnce>::Error: ParseError<
 		<Input as ::combine::stream::StreamOnce>::Token,
 		<Input as ::combine::stream::StreamOnce>::Range,
 		<Input as ::combine::stream::StreamOnce>::Position,
@@ -200,10 +202,6 @@ where
 
 #[cfg(test)]
 mod tests {
-	use std::io::Cursor;
-
-	use syntax::number_value::test_helper;
-
 	use super::expr;
 	use super::*;
 
