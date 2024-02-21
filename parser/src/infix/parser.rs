@@ -202,7 +202,6 @@ where
 
 #[cfg(test)]
 mod tests {
-	use super::expr;
 	use super::*;
 
 	#[test]

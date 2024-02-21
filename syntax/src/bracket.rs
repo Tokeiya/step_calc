@@ -39,14 +39,16 @@ impl Bracket {
 		&self.0
 	}
 }
+
 #[cfg(test)]
 mod tests {
-	use super::Bracket;
 	use crate::arithmetic_expression::ArithmeticExpression;
 	use crate::binary_operation::{BinaryOperation, Operation};
 	use crate::expression::Expression;
 	use crate::number::Number;
 	use crate::number_value::NumberValue;
+
+	use super::Bracket;
 
 	#[test]
 	fn step_calc() {

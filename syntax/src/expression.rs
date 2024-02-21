@@ -75,6 +75,7 @@ pub mod helper {
 	use crate::expression::Expression;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
+
 	impl Expression {
 		pub fn extract_as_number(&self) -> &NumberExpr {
 			match self {
@@ -177,11 +178,11 @@ pub mod helper {
 
 #[cfg(test)]
 mod tests {
-
-	use super::*;
 	use crate::binary_operation::Operation;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
+
+	use super::*;
 
 	#[test]
 	fn step_calc() {

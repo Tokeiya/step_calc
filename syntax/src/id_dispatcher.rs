@@ -72,9 +72,11 @@ impl IdDispatcher {
 
 #[cfg(test)]
 mod tests {
-	use super::*;
-	use once_cell::sync::Lazy;
 	use std::ops::Deref;
+
+	use once_cell::sync::Lazy;
+
+	use super::*;
 
 	static ERRORS: Lazy<[IdDispatcherError; 3]> = Lazy::new(|| {
 		[

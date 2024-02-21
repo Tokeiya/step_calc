@@ -104,12 +104,13 @@ impl ArithmeticExpression for BinaryOperation {
 
 #[cfg(test)]
 mod tests {
-	use super::BinaryOperation;
 	use crate::arithmetic_expression::ArithmeticExpression;
 	use crate::binary_operation::Operation;
 	use crate::bracket::Bracket;
 	use crate::number::Number as NumberExpr;
 	use crate::number_value::NumberValue;
+
+	use super::BinaryOperation;
 
 	#[test]
 	fn step_calc() {
