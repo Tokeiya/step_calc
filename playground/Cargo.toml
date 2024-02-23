@@ -9,3 +9,5 @@ edition = "2021"
 syntax = { path = "../syntax" }
 combine = "*"
 parser = { path = "../parser" }
+regex = "*"
+

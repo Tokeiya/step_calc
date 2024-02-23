@@ -1,25 +1,10 @@
+use parser::infix::parser::parse;
 use std::env;
 
+use parser::infix::formatter::{minimal_infix_notation, strict_infix_expression};
 use syntax::arithmetic_expression::ArithmeticExpression;
+use syntax::dot_writer::{write_dot, WriterError};
 
 fn main() {
-	println!("{}", env::current_dir().unwrap().display());
-	
-	let expr = parser::infix::parser::parse("20+40+30*20-{400/4}").unwrap().0;
-	
-	println!(
-		"{}",
-		parser::infix::formatter::strict_infix_expression(&expr)
-	);
-	
-	let mut tmp = expr.step_calc();
-	
-	while tmp.1 {
-		println!(
-			"{}",
-			parser::infix::formatter::strict_infix_expression(&tmp.0)
-		);
-		
-		tmp = tmp.0.step_calc();
-	}
+	//	let expr = parse("{10+30*{40+2}}/{1+2/3}").unwrap().0;
 }

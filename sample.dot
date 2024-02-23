@@ -1,37 +1,28 @@
-digraph arithmetic_tree {
-    node [fontname = "Cascadia Code Regular"];
-
-    1 [label = "{...}",shape = "house"]
-    2 [label = "/",shape = "hexagon"]
-    1 -> 2
-    3 [label = "{...}",shape = "house"]
-    4 [label = "-",shape = "hexagon"]
-    3 -> 4
-    5 [label = "*",shape = "hexagon"]
-    4 -> 5
-    6 [label = "30",shape = "box"]
-    5 -> 6
-    7 [label = "{...}",shape = "house"]
-    8 [label = "+",shape = "hexagon"]
-    7 -> 8
-    9 [label = "1",shape = "box"]
-    8 -> 9
-    10 [label = "2",shape = "box"]
-    8 -> 10
-    5 -> 7
-    11 [label = "25",shape = "box"]
-    4 -> 11
-    2 -> 3
-    12 [label = "{...}",shape = "house"]
-    13 [label = "+",shape = "hexagon"]
-    12 -> 13
-    14 [label = "+",shape = "hexagon"]
-    13 -> 14
-    15 [label = "10",shape = "box"]
-    14 -> 15
-    16 [label = "20",shape = "box"]
-    14 -> 16
-    17 [label = "15",shape = "box"]
-    13 -> 17
-    2 -> 12
+digraph structs {
+node [shape=plaintext]
+struct1 [label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+<TR><TD>left</TD><TD PORT="f1">mid dle</TD><TD PORT="f2">right</TD></TR>
+</TABLE>>];
+struct2 [label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+<TR><TD PORT="f0">one</TD><TD>two</TD></TR>
+</TABLE>>];
+struct3 [label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<TR>
+<TD ROWSPAN="3">hello<BR/>world</TD>
+<TD COLSPAN="3">b</TD>
+<TD ROWSPAN="3">g</TD>
+<TD ROWSPAN="3">h</TD>
+</TR>
+<TR>
+<TD>c</TD><TD PORT="here">d</TD><TD>e</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">f</TD>
+</TR>
+</TABLE>>];
+struct1:f1 -> struct2:f0;
+struct1:f2 -> struct3:here;
 }
