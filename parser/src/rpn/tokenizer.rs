@@ -12,8 +12,9 @@ pub fn tokenize(scr: &str) -> (Vec<Token>, &str) {
 
 #[cfg(test)]
 pub mod helper {
-	use super::Token;
 	use syntax::binary_operation::Operation;
+
+	use super::Token;
 
 	fn get_order(value: &Operation) -> usize {
 		match value {

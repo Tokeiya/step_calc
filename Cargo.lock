@@ -12,6 +12,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.80"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5ad32ce52e4161730f7098c077cd2ed6229b5804ccf99e5366be1ab72a98b4e1"
+
+[[package]]
 name = "bytes"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -52,10 +58,12 @@ dependencies = [
 name = "playground"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "combine",
  "parser",
  "regex",
  "syntax",
+ "xml-rs",
 ]
 
 [[package]]
@@ -93,3 +101,9 @@ version = "0.1.0"
 dependencies = [
  "once_cell",
 ]
+
+[[package]]
+name = "xml-rs"
+version = "0.8.19"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0fcb9cbac069e033553e8bb871be2fbdffcab578eb25bd0f7c508cedc6dcd75a"

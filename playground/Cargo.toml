@@ -11,3 +11,5 @@ combine = "*"
 parser = { path = "../parser" }
 regex = "*"
 
+xml-rs = "*"
+anyhow = "*"
