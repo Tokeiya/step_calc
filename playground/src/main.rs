@@ -9,12 +9,21 @@ use syntax::arithmetic_expression::ArithmeticExpression;
 use syntax::dot_writer::write_dot;
 
 use std::env;
+use std::io::Cursor;
 use std::process::{Command, Stdio};
 
 mod html_writer;
 
 fn main() {
-	write_samples()
+	let tree = parse("{1+2*3}/{{4-5}*{{6+7}/2}}").unwrap().0.simplify();
+	let tree = tree.simplify();
+
+	let mut cursor = Cursor::<Vec<u8>>::default();
+
+	_ = write_dot(&mut cursor, &tree).unwrap();
+
+	let str = String::from_utf8(cursor.into_inner()).unwrap();
+	println!("{}", &str)
 }
 
 fn write_samples() {
