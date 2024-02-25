@@ -78,10 +78,12 @@ pub fn create_document(title: &str, svg: &str, path: &str) {}
 
 #[cfg(test)]
 pub mod tests {
-	use super::*;
-	use once_cell::sync::Lazy;
 	use std::fs::File;
-	use std::io::{BufReader, BufWriter, Cursor, Read, Write};
+	use std::io::{Cursor, Read};
+
+	use once_cell::sync::Lazy;
+
+	use super::*;
 
 	const EXPECTED_DOT: Lazy<String> = Lazy::new(|| {
 		let mut file = File::open("./test_artifacts/sample.dot").unwrap();

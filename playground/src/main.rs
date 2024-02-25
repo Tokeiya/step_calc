@@ -1,16 +1,15 @@
-use anyhow::{Context, Result};
+use std::env;
 use std::fs::File;
-use std::io::{BufRead, BufReader, Read, Write};
+use std::io::Cursor;
+use std::io::{BufRead, Read, Write};
 use std::ops::Index;
+use std::process::Command;
+
+use anyhow::Context;
 
 use parser::infix::parser::parse;
-use regex::Regex;
 use syntax::arithmetic_expression::ArithmeticExpression;
 use syntax::dot_writer::write_dot;
-
-use std::env;
-use std::io::Cursor;
-use std::process::{Command, Stdio};
 
 mod html_writer;
 

@@ -1,7 +1,6 @@
 use std::fmt::{Debug, Display, Formatter};
 use std::io;
 use std::io::prelude::*;
-use std::io::Cursor;
 
 use crate::arithmetic_expression::ArithmeticExpression;
 use crate::binary_operation::{BinaryOperation, Operation};
