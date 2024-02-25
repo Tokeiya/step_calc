@@ -15,7 +15,8 @@ fn main() {
 }
 
 fn check() {
-	let tree = parse("{{{1+2*3}/{{4-5}*{{6+7}/2}}}}").unwrap().0;
+	let tree = parse("{{{10+20*3}/{{4-5}*{{6+7}/2}}}}").unwrap().0;
+	println!("{:?}", tree.calc());
 	let minimal = parser::infix::formatter::minimal_infix_notation(&tree);
 	println!("{}", &minimal);
 }

@@ -181,8 +181,11 @@ mod tests {
 
 	#[test]
 	fn minimal() {
-		let expr = get_parser().parse("{{30*{1+2}-25}/{10+20+15}}").unwrap().0;
+		let expr = get_parser()
+			.parse("{{{10+20*3}/{{4-5}*{{6+7}/2}}}}")
+			.unwrap()
+			.0;
 		let ret = minimal_infix_notation(&expr);
-		assert_eq!(ret, "{30 * {1 + 2} - 25} / {10 + 20 + 15}");
+		assert_eq!(ret, "{10 + 20 * 3} / {{4 - 5} * {6 + 7} / 2}");
 	}
 }
