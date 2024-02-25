@@ -60,6 +60,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "combine",
+ "once_cell",
  "parser",
  "regex",
  "syntax",
