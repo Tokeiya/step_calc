@@ -26,7 +26,8 @@ impl ArithmeticExpression for Bracket {
 	}
 
 	fn simplify(&self) -> Expression {
-		*self.0.clone()
+		self.0.simplify()
+		//*self.0.clone()
 	}
 
 	fn step_calc(&self) -> (Expression, bool) {
@@ -65,6 +66,14 @@ mod tests {
 		let act = fixture.simplify();
 
 		act.extract_as_number().number().eq_i32(&300);
+
+		let fixture = Number::from(NumberValue::from(42));
+		let fixture = Bracket::from(fixture.to_expression());
+		let fixture = Bracket::from(fixture.to_expression());
+		let fixture = Bracket::from(fixture.to_expression());
+		let fixture = Bracket::from(fixture.to_expression());
+
+		fixture.simplify().extract_as_number().number().eq_i32(&42);
 	}
 
 	#[test]
