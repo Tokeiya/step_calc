@@ -1,28 +1,39 @@
-digraph structs {
-node [shape = plaintext]
-struct1 [label = <
-<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-<TR><TD>left</TD><TD PORT="f1">mid dle</TD><TD PORT="f2">right</TD></TR>
-</TABLE>>];
-struct2 [label = <
-<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-<TR><TD PORT="f0">one</TD><TD>two</TD></TR>
-</TABLE>>];
-struct3 [label = <
-<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
-<TR>
-<TD ROWSPAN="3">hello<BR/>world</TD>
-<TD COLSPAN="3">b</TD>
-<TD ROWSPAN="3">g</TD>
-<TD ROWSPAN="3">h</TD>
-</TR>
-<TR>
-<TD>c</TD><TD PORT="here">d</TD><TD>e</TD>
-</TR>
-<TR>
-<TD COLSPAN="3">f</TD>
-</TR>
-</TABLE>>];
-struct1 : f1 -> struct2 : f0;
-struct1 : f2 -> struct3 :here;
+digraph arithmetic_tree{
+   node [fontname = "Cascadia Code Regular"];
+
+	1 [label="/",shape = "hexagon"]
+	2 [label="+",shape = "hexagon"]
+	1 -> 2
+	3 [label="1",shape="box"]
+	2 -> 3
+	4 [label="*",shape = "hexagon"]
+	2 -> 4
+	5 [label="2",shape="box"]
+	4 -> 5
+	6 [label="3",shape="box"]
+	4 -> 6
+	7 [label="*",shape = "hexagon"]
+	1 -> 7
+	8 [label="{...}",shape = "house"]
+	9 [label="-",shape = "hexagon"]
+	8 -> 9
+	10 [label="4",shape="box"]
+	9 -> 10
+	11 [label="5",shape="box"]
+	9 -> 11
+	7 -> 8
+	12 [label="{...}",shape = "house"]
+	13 [label="/",shape = "hexagon"]
+	12 -> 13
+	14 [label="{...}",shape = "house"]
+	15 [label="+",shape = "hexagon"]
+	14 -> 15
+	16 [label="6",shape="box"]
+	15 -> 16
+	17 [label="7",shape="box"]
+	15 -> 17
+	13 -> 14
+	18 [label="2",shape="box"]
+	13 -> 18
+	7 -> 12
 }

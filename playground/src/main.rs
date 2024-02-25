@@ -8,39 +8,35 @@ use regex::Regex;
 use syntax::arithmetic_expression::ArithmeticExpression;
 use syntax::dot_writer::write_dot;
 
+use std::env;
+use std::process::{Command, Stdio};
+
 mod html_writer;
 
 fn main() {
-	check();
+	write_samples()
 }
 
-fn check() {
-	let tree = parse("{{{10+20*3}/{{4-5}*{{6+7}/2}}}}").unwrap().0;
-	println!("{:?}", tree.calc());
-	let minimal = parser::infix::formatter::minimal_infix_notation(&tree);
-	println!("{}", &minimal);
-}
-
-fn write_sample_dot() {
+fn write_samples() {
+	let current_dir = env::current_dir().unwrap();
+	println!("The current directory is {}", current_dir.display());
 	let tree = parse("{1+2*3}/{{4-5}*{{6+7}/2}}").unwrap().0.simplify();
-	let mut cursor = std::io::Cursor::<Vec<u8>>::default();
+	{
+		let mut file = File::create("./playground/test_artifacts/sample.dot").unwrap();
+		write_dot(&mut file, &tree).unwrap();
+	}
 
-	syntax::dot_writer::write_dot(&mut cursor, &tree).unwrap();
-	println!("{}", String::from_utf8(cursor.into_inner()).unwrap());
+	{
+		let mut proc = Command::new("dot")
+			.args(&[
+				r"-Tsvg",
+				r".\playground\test_artifacts\sample.dot",
+				r"-o",
+				r".\playground\test_artifacts\sample.svg",
+			])
+			.output()
+			.unwrap();
 
-	let a = parser::infix::formatter::minimal_infix_notation(&tree);
-	println!("{a}");
-
-	let tree = parse("{1 + 2 * 3} / {4 - 5} * {6 + 7} / 2")
-		.unwrap()
-		.0
-		.simplify();
-
-	let mut cursor = std::io::Cursor::<Vec<u8>>::default();
-
-	syntax::dot_writer::write_dot(&mut cursor, &tree).unwrap();
-	println!("{}", String::from_utf8(cursor.into_inner()).unwrap());
-
-	let a = parser::infix::formatter::minimal_infix_notation(&tree);
-	println!("{a}");
+		println!("{:?}", proc)
+	}
 }
