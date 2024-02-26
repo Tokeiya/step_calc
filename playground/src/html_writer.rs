@@ -70,8 +70,13 @@ pub fn write_html(formula: &str, writer: &mut dyn Write) -> IoResult<()> {
 	todo!()
 }
 
-fn write_footer() -> IoResult<()> {
-	todo!()
+fn write_footer(writer: &mut dyn Write) -> IoResult<()> {
+	writer.write(br"</body>")?;
+	writer.write(b"\n")?;
+
+	writer.write(br"</html>")?;
+
+	Ok(())
 }
 
 pub fn create_document(title: &str, svg: &str, path: &str) {}
@@ -136,5 +141,16 @@ pub mod tests {
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
 
 		assert_eq!(act, expected)
+	}
+
+	#[test]
+	fn footer() {
+		const EXPECTED: &str = "</body>\n</html>";
+
+		let mut cursor = create_cursor();
+		write_footer(&mut cursor).unwrap();
+
+		let act = String::from_utf8(cursor.into_inner()).unwrap();
+		assert_eq!(&act, EXPECTED)
 	}
 }
