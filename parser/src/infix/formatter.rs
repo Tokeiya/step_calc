@@ -169,14 +169,14 @@ mod tests {
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(!require(&bin, &Some(&Operation::Mul)));
-		assert!(!require(&bin, &Some(&Operation::Div)));
+		assert!(require(&bin, &Some(&Operation::Div)));
 
 		let bin = make_fixture(Operation::Div);
 		assert!(!require(&bin, &Some(&Operation::Add)));
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(!require(&bin, &Some(&Operation::Mul)));
-		assert!(!require(&bin, &Some(&Operation::Div)));
+		assert!(require(&bin, &Some(&Operation::Div)));
 	}
 
 	#[test]
