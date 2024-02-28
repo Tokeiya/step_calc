@@ -17,22 +17,9 @@ use crate::html_writer::{extract_svg_element, generate_svg, write_header};
 use html_writer::write_infix_html;
 
 fn main() {
-	const formula: &str = "{1+2*3}/{{4-5}*{{6+7}/2}}";
+	let str = "hello world".to_string();
 
-	let mut writer = Cursor::<Vec<u8>>::default();
-	//write_html(&formula, &mut cursor).unwrap();
-
-	write_header(formula, &mut writer).unwrap();
-
-	let svg = generate_svg(formula).unwrap();
-
-	println!("{}", &svg);
-
-	//let svg = extract_svg_element(&svg).unwrap();
-
-	//_ = writer.write(svg.as_bytes()).unwrap();
-
-	//crate::html_writer::write_footer(writer)?;
+	for elem in str.chars().enumerate() {}
 }
 
 // fn write_samples() {
