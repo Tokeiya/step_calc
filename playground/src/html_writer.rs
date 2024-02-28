@@ -1,11 +1,13 @@
+use anyhow::Result as AnyResult;
 use std::io::{Cursor, Read, Result as IoResult, Write};
 use std::ops::Index;
 use std::process::{Command, Stdio};
 
-use anyhow::Result as AnyResult;
-
+use parser::infix::formatter::minimal_infix_notation;
 use parser::infix::parser::parse;
+use syntax::arithmetic_expression::ArithmeticExpression;
 use syntax::dot_writer::write_dot;
+use syntax::expression::Expression;
 
 fn generate_svg(scr: &str) -> IoResult<String> {
 	let mut proc = Command::new("dot")
@@ -43,32 +45,41 @@ fn extract_svg_element(scr: &str) -> AnyResult<String> {
 	};
 }
 
-fn write_header(formula: &str, writer: &mut dyn Write) -> IoResult<()> {
-	_ = writer.write(br"<!DOCTYPE html>")?;
-	_ = writer.write(b"\n")?;
+pub fn write_single_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<()> {
+	fn write_header(formula: &str, writer: &mut dyn Write) -> IoResult<()> {
+		_ = writer.write(br"<!DOCTYPE html>")?;
+		_ = writer.write(b"\n")?;
 
-	_ = writer.write(br#"<html lang="ja">"#)?;
-	_ = writer.write(b"\n")?;
+		_ = writer.write(br#"<html lang="ja">"#)?;
+		_ = writer.write(b"\n")?;
 
-	_ = writer.write(br"<head>")?;
-	_ = writer.write(b"\n")?;
+		_ = writer.write(br"<head>")?;
+		_ = writer.write(b"\n")?;
 
-	_ = writer.write(br#"<meta charset="UTF-8">"#)?;
-	_ = writer.write(b"\n")?;
+		_ = writer.write(br#"<meta charset="UTF-8">"#)?;
+		_ = writer.write(b"\n")?;
 
-	writer.write_fmt(format_args!(r#"<title>{formula}</title>"#))?;
-	_ = writer.write(b"\n")?;
+		writer.write_fmt(format_args!(r#"<title>{formula}</title>"#))?;
+		_ = writer.write(b"\n")?;
 
-	_ = writer.write(br"</head>")?;
-	_ = writer.write(b"\n")?;
+		_ = writer.write(br"</head>")?;
+		_ = writer.write(b"\n")?;
 
-	_ = writer.write(br"<body>")?;
-	_ = writer.write(b"\n")?;
+		_ = writer.write(br"<body>")?;
+		_ = writer.write(b"\n")?;
 
-	writer.write_fmt(format_args!(r#"<h1>{}</h1>"#, formula))
-}
+		writer.write_fmt(format_args!(r#"<h1>{}</h1>"#, formula))
+	}
 
-fn write_single_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<()> {
+	fn write_footer(writer: &mut dyn Write) -> IoResult<()> {
+		_ = writer.write(br"</body>")?;
+		_ = writer.write(b"\n")?;
+
+		_ = writer.write(br"</html>")?;
+
+		Ok(())
+	}
+
 	write_header(formula, writer)?;
 
 	let tree = parse(formula)?.0;
@@ -88,17 +99,97 @@ fn write_single_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<(
 	Ok(())
 }
 
-fn write_footer(writer: &mut dyn Write) -> IoResult<()> {
-	_ = writer.write(br"</body>")?;
-	_ = writer.write(b"\n")?;
+fn gen_svg(expr: &Expression) -> AnyResult<String> {
+	let mut cursor = Cursor::<Vec<u8>>::default();
+	write_dot(&mut cursor, expr)?;
 
-	_ = writer.write(br"</html>")?;
+	let txt = String::from_utf8(cursor.into_inner())?;
+	let txt = extract_svg_element(&generate_svg(&txt)?)?;
+
+	Ok(txt)
+}
+
+fn write_step(recent: Option<&str>, expr: &Expression, writer: &mut dyn Write) -> AnyResult<()> {
+	let current_expr = minimal_infix_notation(&expr);
+	writer.write(
+		br##"<div class="step">
+    <h1 class="formula">
+"##,
+	)?;
+
+	if let Some(recent) = recent {
+		writer.write_fmt(format_args!(
+			r"{}<br/>
+		{}
+		",
+			recent, current_expr
+		))?;
+	} else {
+		writer.write_fmt(format_args!(
+			r"{}
+		",
+			current_expr
+		))?;
+	}
+	writer.write(b"</h1>")?;
+
+	let svg = gen_svg(&expr)?;
+	writer.write(svg.as_bytes())?;
+
+	writer.write(b"</div>")?;
+
+	Ok(())
+}
+
+pub fn write_step_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<()> {
+	writer.write_fmt(format_args!(
+		r##"<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>{}</title>
+</head>
+<style>
+    .step {{
+        margin-bottom: 40px; /* 各<div>の下に20pxの余白を追加 */
+        border-bottom: 2px solid black; /* 下側にのみ黒の境界線を追加 */
+    }}
+
+    .formula{{
+        margin-bottom: 10px;
+        border-bottom: 5px solid darkgray;
+    }}
+    
+</style>
+
+<body>"##,
+		formula
+	))?;
+
+	let mut recent = parse(formula)?.0.simplify();
+	write_step(None, &recent, writer)?;
+
+	loop {
+		let (expr, is_proceed) = recent.step_calc();
+
+		println!("{}", minimal_infix_notation(&expr));
+
+		if !is_proceed {
+			break;
+		}
+		let recent_expr = minimal_infix_notation(&recent);
+		write_step(Some(&recent_expr), &expr, writer)?;
+
+		recent = expr;
+	}
+
+	writer.write(br"</body></html>")?;
 
 	Ok(())
 }
 
 #[cfg(test)]
-pub mod tests {
+mod tests {
 	use std::fs::File;
 
 	use once_cell::sync::Lazy;
@@ -175,30 +266,5 @@ pub mod tests {
 
 		let act = extract_svg_element(EXPECTED_FULL_SVG.as_str()).unwrap();
 		assert_text(&act, expected)
-	}
-
-	#[test]
-	fn header() {
-		let reg = regex::Regex::new(r"(?s)^<!DOCTYPE.*?</h1>").unwrap();
-		let binding = EXPECTED_HTML.as_str();
-		let cap = reg.captures(binding);
-		let expected = cap.unwrap().index(0).to_string();
-
-		let mut cursor = create_cursor();
-		write_header(SAMPLE_FORMULA, &mut cursor).unwrap();
-		let act = String::from_utf8(cursor.into_inner()).unwrap();
-
-		assert_text(&act, &expected);
-	}
-
-	#[test]
-	fn footer() {
-		const EXPECTED: &str = "</body>\n</html>";
-
-		let mut cursor = create_cursor();
-		write_footer(&mut cursor).unwrap();
-
-		let act = String::from_utf8(cursor.into_inner()).unwrap();
-		assert_text(&act, EXPECTED);
 	}
 }
