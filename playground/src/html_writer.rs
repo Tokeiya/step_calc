@@ -7,7 +7,7 @@ use anyhow::Result as AnyResult;
 use parser::infix::parser::parse;
 use syntax::dot_writer::write_dot;
 
-pub fn generate_svg(scr: &str) -> IoResult<String> {
+fn generate_svg(scr: &str) -> IoResult<String> {
 	let mut proc = Command::new("dot")
 		.args(&["-Tsvg"])
 		.stdin(Stdio::piped())
@@ -26,7 +26,7 @@ pub fn generate_svg(scr: &str) -> IoResult<String> {
 	Ok(buff)
 }
 
-pub fn extract_svg_element(scr: &str) -> AnyResult<String> {
+fn extract_svg_element(scr: &str) -> AnyResult<String> {
 	let reg = regex::Regex::new(r"(?s)<svg.*?</svg>")?;
 
 	return if let Some(cap) = reg.captures(scr) {
@@ -43,7 +43,7 @@ pub fn extract_svg_element(scr: &str) -> AnyResult<String> {
 	};
 }
 
-pub fn write_header(formula: &str, writer: &mut dyn Write) -> IoResult<()> {
+fn write_header(formula: &str, writer: &mut dyn Write) -> IoResult<()> {
 	_ = writer.write(br"<!DOCTYPE html>")?;
 	_ = writer.write(b"\n")?;
 
@@ -68,7 +68,7 @@ pub fn write_header(formula: &str, writer: &mut dyn Write) -> IoResult<()> {
 	writer.write_fmt(format_args!(r#"<h1>{}</h1>"#, formula))
 }
 
-pub fn write_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<()> {
+fn write_single_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<()> {
 	write_header(formula, writer)?;
 
 	let tree = parse(formula)?.0;
@@ -157,9 +157,9 @@ pub mod tests {
 	}
 
 	#[test]
-	fn html() {
+	fn single_infix_html() {
 		let mut cursor = create_cursor();
-		write_infix_html(SAMPLE_FORMULA, &mut cursor).unwrap();
+		write_single_infix_html(SAMPLE_FORMULA, &mut cursor).unwrap();
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
 
 		assert_text(&act, EXPECTED_HTML.as_str())
