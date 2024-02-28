@@ -1,25 +1,28 @@
-use std::env;
 use std::fs::File;
 use std::io::Cursor;
-use std::io::{BufRead, Read, Write};
-use std::ops::Index;
-use std::process::Command;
-
-use anyhow::Context;
-
-use parser::infix::parser::parse;
-use syntax::arithmetic_expression::ArithmeticExpression;
-use syntax::dot_writer::write_dot;
+use std::io::{BufRead, BufReader};
 
 mod html_writer;
 
-use crate::html_writer::{extract_svg_element, generate_svg, write_header};
-use html_writer::write_infix_html;
-
 fn main() {
-	let str = "hello world".to_string();
+	const FORMULA: &str = "{1+2*3}/{{4-5}*{{6+7}/2}}";
 
-	for elem in str.chars().enumerate() {}
+	let file = File::open("./playground/test_artifacts/full_html.txt").unwrap();
+	let expected: Vec<_> = BufReader::new(file).lines().map(|x| x.unwrap()).collect();
+
+	let mut cursor = Cursor::<Vec<u8>>::default();
+	html_writer::write_infix_html(FORMULA, &mut cursor).unwrap();
+
+	cursor.set_position(0);
+	let act: Vec<_> = cursor.lines().map(|x| x.unwrap()).collect();
+
+	assert_eq!(act.len(), expected.len());
+
+	for (exp, act) in expected.iter().zip(act.iter()) {
+		assert_eq!(exp, act)
+	}
+
+	//let actual:Vec<String> =
 }
 
 // fn write_samples() {

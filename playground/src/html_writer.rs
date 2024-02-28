@@ -1,9 +1,11 @@
-use anyhow::Result as AnyResult;
-use parser::infix::parser::parse;
 use std::io::{Cursor, Read, Result as IoResult, Write};
 use std::ops::Index;
 use std::process::{Command, Stdio};
-use syntax::dot_writer::{write_dot, WriterError};
+
+use anyhow::Result as AnyResult;
+
+use parser::infix::parser::parse;
+use syntax::dot_writer::write_dot;
 
 pub fn generate_svg(scr: &str) -> IoResult<String> {
 	let mut proc = Command::new("dot")
@@ -95,26 +97,13 @@ fn write_footer(writer: &mut dyn Write) -> IoResult<()> {
 	Ok(())
 }
 
-pub fn create_document(title: &str, svg: &str, path: &str) {}
-
 #[cfg(test)]
 pub mod tests {
 	use std::fs::File;
-	use std::io::{Cursor, Read};
 
 	use once_cell::sync::Lazy;
 
 	use super::*;
-	use parser::infix::parser::parse;
-	use syntax::dot_writer::write_dot;
-
-	static EXPECTED_DOT: Lazy<String> = Lazy::new(|| {
-		let mut file = File::open("./test_artifacts/sample.txt").unwrap();
-		let mut str = String::default();
-
-		file.read_to_string(&mut str).unwrap();
-		str
-	});
 
 	static EXPECTED_FULL_SVG: Lazy<String> = Lazy::new(|| {
 		let mut file = File::open("./test_artifacts/sample.txt").unwrap();
@@ -138,6 +127,22 @@ pub mod tests {
 		Cursor::<Vec<u8>>::default()
 	}
 
+	fn assert_text(actual: &str, expected: &str) {
+		let a: Vec<_> = actual.lines().collect();
+		let e: Vec<_> = expected.lines().collect();
+
+		assert_eq!(a.len(), e.len());
+
+		for (idx, exp, act) in e
+			.iter()
+			.enumerate()
+			.zip(e.iter())
+			.map(|(x, y)| (x.0, x.1, y))
+		{
+			assert_eq!(act, exp, "{} {} {}", idx, exp, act);
+		}
+	}
+
 	#[test]
 	fn generate() {
 		let tree = parse(SAMPLE_FORMULA).unwrap().0;
@@ -148,23 +153,16 @@ pub mod tests {
 		let dot = String::from_utf8(cursor.into_inner()).unwrap();
 		let act = generate_svg(&dot).unwrap();
 
-		assert_eq!(&act, EXPECTED_FULL_SVG.as_str())
+		assert_text(&act, EXPECTED_FULL_SVG.as_str())
 	}
 
 	#[test]
 	fn html() {
-		//let mut cursor = create_cursor();
-
-		let mut cursor = std::fs::File::create("./test_artifacts/actual.txt").unwrap();
+		let mut cursor = create_cursor();
 		write_infix_html(SAMPLE_FORMULA, &mut cursor).unwrap();
+		let act = String::from_utf8(cursor.into_inner()).unwrap();
 
-		//let act = String::from_utf8(cursor.into_inner()).unwrap();
-
-		//assert_eq!(act.len(), EXPECTED_HTML.len());
-
-		//println!("{:?}", &act)
-
-		//assert_eq!(&act, EXPECTED_HTML.as_str());
+		assert_text(&act, EXPECTED_HTML.as_str())
 	}
 
 	#[test]
@@ -176,7 +174,7 @@ pub mod tests {
 		let expected = binding.index(0);
 
 		let act = extract_svg_element(EXPECTED_FULL_SVG.as_str()).unwrap();
-		assert_eq!(&act, expected)
+		assert_text(&act, expected)
 	}
 
 	#[test]
@@ -190,7 +188,7 @@ pub mod tests {
 		write_header(SAMPLE_FORMULA, &mut cursor).unwrap();
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
 
-		assert_eq!(act, expected)
+		assert_text(&act, &expected);
 	}
 
 	#[test]
@@ -201,6 +199,6 @@ pub mod tests {
 		write_footer(&mut cursor).unwrap();
 
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
-		assert_eq!(&act, EXPECTED)
+		assert_text(&act, EXPECTED);
 	}
 }
