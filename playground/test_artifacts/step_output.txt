@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>{1+2*30}-{{42+4-5}*{{6+7}/2}}*{30+40*{20+4-1}}</title>
+</head>
+<style>
+    .step {
+        margin-bottom: 40px; /* 各<div>の下に20pxの余白を追加 */
+        border-bottom: 2px solid black; /* 下側にのみ黒の境界線を追加 */
+    }
+
+    .formula{
+        margin-bottom: 10px;
+        border-bottom: 5px solid darkgray;
+    }
+    
+</style>
+
+<body><div class="step">
+    <h1 class="formula">
+1 + 2 * 30 - {42 + 4 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="530pt" height="476pt"
+ viewBox="0.00 0.00 530.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 526,-472 526,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="198,-450 184.5,-468 157.5,-468 144,-450 157.5,-432 184.5,-432 198,-450"/>
+<text text-anchor="middle" x="171" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="126,-378 112.5,-396 85.5,-396 72,-378 85.5,-360 112.5,-360 126,-378"/>
+<text text-anchor="middle" x="99" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M155.73,-434.15C145.99,-424.69 133.19,-412.24 122.21,-401.56"/>
+<polygon fill="black" stroke="black" points="124.94,-399.34 115.33,-394.88 120.06,-404.36 124.94,-399.34"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="234,-378 220.5,-396 193.5,-396 180,-378 193.5,-360 220.5,-360 234,-378"/>
+<text text-anchor="middle" x="207" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>1&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M179.9,-431.7C183.87,-423.98 188.63,-414.71 193.06,-406.11"/>
+<polygon fill="black" stroke="black" points="196.05,-407.94 197.51,-397.45 189.83,-404.74 196.05,-407.94"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="54,-324 0,-324 0,-288 54,-288 54,-324"/>
+<text text-anchor="middle" x="27" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M83.73,-362.15C74.74,-353.41 63.13,-342.13 52.76,-332.05"/>
+<polygon fill="black" stroke="black" points="55.48,-329.81 45.87,-325.35 50.6,-334.83 55.48,-329.81"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="126,-306 112.5,-324 85.5,-324 72,-306 85.5,-288 112.5,-288 126,-306"/>
+<text text-anchor="middle" x="99" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M99,-359.7C99,-352.41 99,-343.73 99,-335.54"/>
+<polygon fill="black" stroke="black" points="102.5,-335.62 99,-325.62 95.5,-335.62 102.5,-335.62"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="54,-252 0,-252 0,-216 54,-216 54,-252"/>
+<text text-anchor="middle" x="27" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">2</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M83.73,-290.15C74.74,-281.41 63.13,-270.13 52.76,-260.05"/>
+<polygon fill="black" stroke="black" points="55.48,-257.81 45.87,-253.35 50.6,-262.83 55.48,-257.81"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-252 72,-252 72,-216 126,-216 126,-252"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M99,-287.7C99,-280.41 99,-271.73 99,-263.54"/>
+<polygon fill="black" stroke="black" points="102.5,-263.62 99,-253.62 95.5,-263.62 102.5,-263.62"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="234,-306 220.5,-324 193.5,-324 180,-306 193.5,-288 220.5,-288 234,-306"/>
+<text text-anchor="middle" x="207" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 7&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>7&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M207,-359.7C207,-352.41 207,-343.73 207,-335.54"/>
+<polygon fill="black" stroke="black" points="210.5,-335.62 207,-325.62 203.5,-335.62 210.5,-335.62"/>
+</g>
+<!-- 19 -->
+<g id="node19" class="node">
+<title>19</title>
+<polygon fill="none" stroke="black" points="342,-306 328.5,-324 301.5,-324 288,-306 301.5,-288 328.5,-288 342,-306"/>
+<text text-anchor="middle" x="315" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 7&#45;&gt;19 -->
+<g id="edge18" class="edge">
+<title>7&#45;&gt;19</title>
+<path fill="none" stroke="black" d="M224.83,-365.44C241.87,-354.4 267.81,-337.59 287.49,-324.83"/>
+<polygon fill="black" stroke="black" points="289.38,-327.78 295.87,-319.4 285.57,-321.9 289.38,-327.78"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="198,-234 184.5,-252 157.5,-252 144,-234 157.5,-216 184.5,-216 198,-234"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 8&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>8&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M198.1,-287.7C194.13,-279.98 189.37,-270.71 184.94,-262.11"/>
+<polygon fill="black" stroke="black" points="188.17,-260.74 180.49,-253.45 181.95,-263.94 188.17,-260.74"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node">
+<title>14</title>
+<polygon fill="none" stroke="black" points="270,-234 256.5,-252 229.5,-252 216,-234 229.5,-216 256.5,-216 270,-234"/>
+<text text-anchor="middle" x="243" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">/</text>
+</g>
+<!-- 8&#45;&gt;14 -->
+<g id="edge13" class="edge">
+<title>8&#45;&gt;14</title>
+<path fill="none" stroke="black" d="M215.9,-287.7C219.87,-279.98 224.63,-270.71 229.06,-262.11"/>
+<polygon fill="black" stroke="black" points="232.05,-263.94 233.51,-253.45 225.83,-260.74 232.05,-263.94"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="126,-162 112.5,-180 85.5,-180 72,-162 85.5,-144 112.5,-144 126,-162"/>
+<text text-anchor="middle" x="99" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 9&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>9&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M155.73,-218.15C145.99,-208.69 133.19,-196.24 122.21,-185.56"/>
+<polygon fill="black" stroke="black" points="124.94,-183.34 115.33,-178.88 120.06,-188.36 124.94,-183.34"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="198,-180 144,-180 144,-144 198,-144 198,-180"/>
+<text text-anchor="middle" x="171" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">5</text>
+</g>
+<!-- 9&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>9&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M171,-215.7C171,-208.41 171,-199.73 171,-191.54"/>
+<polygon fill="black" stroke="black" points="174.5,-191.62 171,-181.62 167.5,-191.62 174.5,-191.62"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="126,-108 72,-108 72,-72 126,-72 126,-108"/>
+<text text-anchor="middle" x="99" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">42</text>
+</g>
+<!-- 10&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>10&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M99,-143.7C99,-136.41 99,-127.73 99,-119.54"/>
+<polygon fill="black" stroke="black" points="102.5,-119.62 99,-109.62 95.5,-119.62 102.5,-119.62"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="198,-108 144,-108 144,-72 198,-72 198,-108"/>
+<text text-anchor="middle" x="171" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 10&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>10&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M114.27,-146.15C123.26,-137.41 134.87,-126.13 145.24,-116.05"/>
+<polygon fill="black" stroke="black" points="147.4,-118.83 152.13,-109.35 142.52,-113.81 147.4,-118.83"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node">
+<title>15</title>
+<polygon fill="none" stroke="black" points="270,-162 256.5,-180 229.5,-180 216,-162 229.5,-144 256.5,-144 270,-162"/>
+<text text-anchor="middle" x="243" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 14&#45;&gt;15 -->
+<g id="edge14" class="edge">
+<title>14&#45;&gt;15</title>
+<path fill="none" stroke="black" d="M243,-215.7C243,-208.41 243,-199.73 243,-191.54"/>
+<polygon fill="black" stroke="black" points="246.5,-191.62 243,-181.62 239.5,-191.62 246.5,-191.62"/>
+</g>
+<!-- 18 -->
+<g id="node18" class="node">
+<title>18</title>
+<polygon fill="none" stroke="black" points="342,-180 288,-180 288,-144 342,-144 342,-180"/>
+<text text-anchor="middle" x="315" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">2</text>
+</g>
+<!-- 14&#45;&gt;18 -->
+<g id="edge17" class="edge">
+<title>14&#45;&gt;18</title>
+<path fill="none" stroke="black" d="M258.27,-218.15C267.26,-209.41 278.87,-198.13 289.24,-188.05"/>
+<polygon fill="black" stroke="black" points="291.4,-190.83 296.13,-181.35 286.52,-185.81 291.4,-190.83"/>
+</g>
+<!-- 16 -->
+<g id="node16" class="node">
+<title>16</title>
+<polygon fill="none" stroke="black" points="270,-108 216,-108 216,-72 270,-72 270,-108"/>
+<text text-anchor="middle" x="243" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">6</text>
+</g>
+<!-- 15&#45;&gt;16 -->
+<g id="edge15" class="edge">
+<title>15&#45;&gt;16</title>
+<path fill="none" stroke="black" d="M243,-143.7C243,-136.41 243,-127.73 243,-119.54"/>
+<polygon fill="black" stroke="black" points="246.5,-119.62 243,-109.62 239.5,-119.62 246.5,-119.62"/>
+</g>
+<!-- 17 -->
+<g id="node17" class="node">
+<title>17</title>
+<polygon fill="none" stroke="black" points="342,-108 288,-108 288,-72 342,-72 342,-108"/>
+<text text-anchor="middle" x="315" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">7</text>
+</g>
+<!-- 15&#45;&gt;17 -->
+<g id="edge16" class="edge">
+<title>15&#45;&gt;17</title>
+<path fill="none" stroke="black" d="M258.27,-146.15C267.26,-137.41 278.87,-126.13 289.24,-116.05"/>
+<polygon fill="black" stroke="black" points="291.4,-118.83 296.13,-109.35 286.52,-113.81 291.4,-118.83"/>
+</g>
+<!-- 20 -->
+<g id="node20" class="node">
+<title>20</title>
+<polygon fill="none" stroke="black" points="342,-252 288,-252 288,-216 342,-216 342,-252"/>
+<text text-anchor="middle" x="315" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 19&#45;&gt;20 -->
+<g id="edge19" class="edge">
+<title>19&#45;&gt;20</title>
+<path fill="none" stroke="black" d="M315,-287.7C315,-280.41 315,-271.73 315,-263.54"/>
+<polygon fill="black" stroke="black" points="318.5,-263.62 315,-253.62 311.5,-263.62 318.5,-263.62"/>
+</g>
+<!-- 21 -->
+<g id="node21" class="node">
+<title>21</title>
+<polygon fill="none" stroke="black" points="414,-234 400.5,-252 373.5,-252 360,-234 373.5,-216 400.5,-216 414,-234"/>
+<text text-anchor="middle" x="387" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 19&#45;&gt;21 -->
+<g id="edge20" class="edge">
+<title>19&#45;&gt;21</title>
+<path fill="none" stroke="black" d="M330.27,-290.15C340.01,-280.69 352.81,-268.24 363.79,-257.56"/>
+<polygon fill="black" stroke="black" points="365.94,-260.36 370.67,-250.88 361.06,-255.34 365.94,-260.36"/>
+</g>
+<!-- 22 -->
+<g id="node22" class="node">
+<title>22</title>
+<polygon fill="none" stroke="black" points="414,-180 360,-180 360,-144 414,-144 414,-180"/>
+<text text-anchor="middle" x="387" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 21&#45;&gt;22 -->
+<g id="edge21" class="edge">
+<title>21&#45;&gt;22</title>
+<path fill="none" stroke="black" d="M387,-215.7C387,-208.41 387,-199.73 387,-191.54"/>
+<polygon fill="black" stroke="black" points="390.5,-191.62 387,-181.62 383.5,-191.62 390.5,-191.62"/>
+</g>
+<!-- 23 -->
+<g id="node23" class="node">
+<title>23</title>
+<polygon fill="none" stroke="black" points="486,-162 472.5,-180 445.5,-180 432,-162 445.5,-144 472.5,-144 486,-162"/>
+<text text-anchor="middle" x="459" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 21&#45;&gt;23 -->
+<g id="edge22" class="edge">
+<title>21&#45;&gt;23</title>
+<path fill="none" stroke="black" d="M402.27,-218.15C412.01,-208.69 424.81,-196.24 435.79,-185.56"/>
+<polygon fill="black" stroke="black" points="437.94,-188.36 442.67,-178.88 433.06,-183.34 437.94,-188.36"/>
+</g>
+<!-- 24 -->
+<g id="node24" class="node">
+<title>24</title>
+<polygon fill="none" stroke="black" points="450,-90 436.5,-108 409.5,-108 396,-90 409.5,-72 436.5,-72 450,-90"/>
+<text text-anchor="middle" x="423" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 23&#45;&gt;24 -->
+<g id="edge23" class="edge">
+<title>23&#45;&gt;24</title>
+<path fill="none" stroke="black" d="M450.1,-143.7C446.13,-135.98 441.37,-126.71 436.94,-118.11"/>
+<polygon fill="black" stroke="black" points="440.17,-116.74 432.49,-109.45 433.95,-119.94 440.17,-116.74"/>
+</g>
+<!-- 27 -->
+<g id="node27" class="node">
+<title>27</title>
+<polygon fill="none" stroke="black" points="522,-108 468,-108 468,-72 522,-72 522,-108"/>
+<text text-anchor="middle" x="495" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 23&#45;&gt;27 -->
+<g id="edge26" class="edge">
+<title>23&#45;&gt;27</title>
+<path fill="none" stroke="black" d="M467.9,-143.7C471.87,-135.98 476.63,-126.71 481.06,-118.11"/>
+<polygon fill="black" stroke="black" points="484.05,-119.94 485.51,-109.45 477.83,-116.74 484.05,-119.94"/>
+</g>
+<!-- 25 -->
+<g id="node25" class="node">
+<title>25</title>
+<polygon fill="none" stroke="black" points="414,-36 360,-36 360,0 414,0 414,-36"/>
+<text text-anchor="middle" x="387" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 24&#45;&gt;25 -->
+<g id="edge24" class="edge">
+<title>24&#45;&gt;25</title>
+<path fill="none" stroke="black" d="M414.1,-71.7C410.13,-63.98 405.37,-54.71 400.94,-46.11"/>
+<polygon fill="black" stroke="black" points="404.17,-44.74 396.49,-37.45 397.95,-47.94 404.17,-44.74"/>
+</g>
+<!-- 26 -->
+<g id="node26" class="node">
+<title>26</title>
+<polygon fill="none" stroke="black" points="486,-36 432,-36 432,0 486,0 486,-36"/>
+<text text-anchor="middle" x="459" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 24&#45;&gt;26 -->
+<g id="edge25" class="edge">
+<title>24&#45;&gt;26</title>
+<path fill="none" stroke="black" d="M431.9,-71.7C435.87,-63.98 440.63,-54.71 445.06,-46.11"/>
+<polygon fill="black" stroke="black" points="448.05,-47.94 449.51,-37.45 441.83,-44.74 448.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+1 + 2 * 30 - {42 + 4 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}<br/>
+		1 + 60 - {42 + 4 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="422pt" height="476pt"
+ viewBox="0.00 0.00 422.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 418,-472 418,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="162,-450 148.5,-468 121.5,-468 108,-450 121.5,-432 148.5,-432 162,-450"/>
+<text text-anchor="middle" x="135" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="126,-378 112.5,-396 85.5,-396 72,-378 85.5,-360 112.5,-360 126,-378"/>
+<text text-anchor="middle" x="99" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M126.1,-431.7C122.13,-423.98 117.37,-414.71 112.94,-406.11"/>
+<polygon fill="black" stroke="black" points="116.17,-404.74 108.49,-397.45 109.95,-407.94 116.17,-404.74"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="198,-378 184.5,-396 157.5,-396 144,-378 157.5,-360 184.5,-360 198,-378"/>
+<text text-anchor="middle" x="171" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>1&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M143.9,-431.7C147.87,-423.98 152.63,-414.71 157.06,-406.11"/>
+<polygon fill="black" stroke="black" points="160.05,-407.94 161.51,-397.45 153.83,-404.74 160.05,-407.94"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="54,-324 0,-324 0,-288 54,-288 54,-324"/>
+<text text-anchor="middle" x="27" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M83.73,-362.15C74.74,-353.41 63.13,-342.13 52.76,-332.05"/>
+<polygon fill="black" stroke="black" points="55.48,-329.81 45.87,-325.35 50.6,-334.83 55.48,-329.81"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="126,-324 72,-324 72,-288 126,-288 126,-324"/>
+<text text-anchor="middle" x="99" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">60</text>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M99,-359.7C99,-352.41 99,-343.73 99,-335.54"/>
+<polygon fill="black" stroke="black" points="102.5,-335.62 99,-325.62 95.5,-335.62 102.5,-335.62"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="198,-306 184.5,-324 157.5,-324 144,-306 157.5,-288 184.5,-288 198,-306"/>
+<text text-anchor="middle" x="171" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M171,-359.7C171,-352.41 171,-343.73 171,-335.54"/>
+<polygon fill="black" stroke="black" points="174.5,-335.62 171,-325.62 167.5,-335.62 174.5,-335.62"/>
+</g>
+<!-- 17 -->
+<g id="node17" class="node">
+<title>17</title>
+<polygon fill="none" stroke="black" points="270,-306 256.5,-324 229.5,-324 216,-306 229.5,-288 256.5,-288 270,-306"/>
+<text text-anchor="middle" x="243" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 5&#45;&gt;17 -->
+<g id="edge16" class="edge">
+<title>5&#45;&gt;17</title>
+<path fill="none" stroke="black" d="M186.27,-362.15C196.01,-352.69 208.81,-340.24 219.79,-329.56"/>
+<polygon fill="black" stroke="black" points="221.94,-332.36 226.67,-322.88 217.06,-327.34 221.94,-332.36"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="126,-234 112.5,-252 85.5,-252 72,-234 85.5,-216 112.5,-216 126,-234"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 6&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>6&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M155.73,-290.15C145.99,-280.69 133.19,-268.24 122.21,-257.56"/>
+<polygon fill="black" stroke="black" points="124.94,-255.34 115.33,-250.88 120.06,-260.36 124.94,-255.34"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="198,-234 184.5,-252 157.5,-252 144,-234 157.5,-216 184.5,-216 198,-234"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">/</text>
+</g>
+<!-- 6&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>6&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M171,-287.7C171,-280.41 171,-271.73 171,-263.54"/>
+<polygon fill="black" stroke="black" points="174.5,-263.62 171,-253.62 167.5,-263.62 174.5,-263.62"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="54,-162 40.5,-180 13.5,-180 0,-162 13.5,-144 40.5,-144 54,-162"/>
+<text text-anchor="middle" x="27" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 7&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>7&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M83.73,-218.15C73.99,-208.69 61.19,-196.24 50.21,-185.56"/>
+<polygon fill="black" stroke="black" points="52.94,-183.34 43.33,-178.88 48.06,-188.36 52.94,-183.34"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="126,-180 72,-180 72,-144 126,-144 126,-180"/>
+<text text-anchor="middle" x="99" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">5</text>
+</g>
+<!-- 7&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>7&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M99,-215.7C99,-208.41 99,-199.73 99,-191.54"/>
+<polygon fill="black" stroke="black" points="102.5,-191.62 99,-181.62 95.5,-191.62 102.5,-191.62"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="54,-108 0,-108 0,-72 54,-72 54,-108"/>
+<text text-anchor="middle" x="27" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">42</text>
+</g>
+<!-- 8&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>8&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M27,-143.7C27,-136.41 27,-127.73 27,-119.54"/>
+<polygon fill="black" stroke="black" points="30.5,-119.62 27,-109.62 23.5,-119.62 30.5,-119.62"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="126,-108 72,-108 72,-72 126,-72 126,-108"/>
+<text text-anchor="middle" x="99" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 8&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>8&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M42.27,-146.15C51.26,-137.41 62.87,-126.13 73.24,-116.05"/>
+<polygon fill="black" stroke="black" points="75.4,-118.83 80.13,-109.35 70.52,-113.81 75.4,-118.83"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="198,-162 184.5,-180 157.5,-180 144,-162 157.5,-144 184.5,-144 198,-162"/>
+<text text-anchor="middle" x="171" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 12&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>12&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M171,-215.7C171,-208.41 171,-199.73 171,-191.54"/>
+<polygon fill="black" stroke="black" points="174.5,-191.62 171,-181.62 167.5,-191.62 174.5,-191.62"/>
+</g>
+<!-- 16 -->
+<g id="node16" class="node">
+<title>16</title>
+<polygon fill="none" stroke="black" points="270,-180 216,-180 216,-144 270,-144 270,-180"/>
+<text text-anchor="middle" x="243" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">2</text>
+</g>
+<!-- 12&#45;&gt;16 -->
+<g id="edge15" class="edge">
+<title>12&#45;&gt;16</title>
+<path fill="none" stroke="black" d="M186.27,-218.15C195.26,-209.41 206.87,-198.13 217.24,-188.05"/>
+<polygon fill="black" stroke="black" points="219.4,-190.83 224.13,-181.35 214.52,-185.81 219.4,-190.83"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node">
+<title>14</title>
+<polygon fill="none" stroke="black" points="198,-108 144,-108 144,-72 198,-72 198,-108"/>
+<text text-anchor="middle" x="171" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">6</text>
+</g>
+<!-- 13&#45;&gt;14 -->
+<g id="edge13" class="edge">
+<title>13&#45;&gt;14</title>
+<path fill="none" stroke="black" d="M171,-143.7C171,-136.41 171,-127.73 171,-119.54"/>
+<polygon fill="black" stroke="black" points="174.5,-119.62 171,-109.62 167.5,-119.62 174.5,-119.62"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node">
+<title>15</title>
+<polygon fill="none" stroke="black" points="270,-108 216,-108 216,-72 270,-72 270,-108"/>
+<text text-anchor="middle" x="243" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">7</text>
+</g>
+<!-- 13&#45;&gt;15 -->
+<g id="edge14" class="edge">
+<title>13&#45;&gt;15</title>
+<path fill="none" stroke="black" d="M186.27,-146.15C195.26,-137.41 206.87,-126.13 217.24,-116.05"/>
+<polygon fill="black" stroke="black" points="219.4,-118.83 224.13,-109.35 214.52,-113.81 219.4,-118.83"/>
+</g>
+<!-- 18 -->
+<g id="node18" class="node">
+<title>18</title>
+<polygon fill="none" stroke="black" points="270,-252 216,-252 216,-216 270,-216 270,-252"/>
+<text text-anchor="middle" x="243" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 17&#45;&gt;18 -->
+<g id="edge17" class="edge">
+<title>17&#45;&gt;18</title>
+<path fill="none" stroke="black" d="M243,-287.7C243,-280.41 243,-271.73 243,-263.54"/>
+<polygon fill="black" stroke="black" points="246.5,-263.62 243,-253.62 239.5,-263.62 246.5,-263.62"/>
+</g>
+<!-- 19 -->
+<g id="node19" class="node">
+<title>19</title>
+<polygon fill="none" stroke="black" points="342,-234 328.5,-252 301.5,-252 288,-234 301.5,-216 328.5,-216 342,-234"/>
+<text text-anchor="middle" x="315" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 17&#45;&gt;19 -->
+<g id="edge18" class="edge">
+<title>17&#45;&gt;19</title>
+<path fill="none" stroke="black" d="M258.27,-290.15C268.01,-280.69 280.81,-268.24 291.79,-257.56"/>
+<polygon fill="black" stroke="black" points="293.94,-260.36 298.67,-250.88 289.06,-255.34 293.94,-260.36"/>
+</g>
+<!-- 20 -->
+<g id="node20" class="node">
+<title>20</title>
+<polygon fill="none" stroke="black" points="342,-180 288,-180 288,-144 342,-144 342,-180"/>
+<text text-anchor="middle" x="315" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 19&#45;&gt;20 -->
+<g id="edge19" class="edge">
+<title>19&#45;&gt;20</title>
+<path fill="none" stroke="black" d="M315,-215.7C315,-208.41 315,-199.73 315,-191.54"/>
+<polygon fill="black" stroke="black" points="318.5,-191.62 315,-181.62 311.5,-191.62 318.5,-191.62"/>
+</g>
+<!-- 21 -->
+<g id="node21" class="node">
+<title>21</title>
+<polygon fill="none" stroke="black" points="414,-162 400.5,-180 373.5,-180 360,-162 373.5,-144 400.5,-144 414,-162"/>
+<text text-anchor="middle" x="387" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 19&#45;&gt;21 -->
+<g id="edge20" class="edge">
+<title>19&#45;&gt;21</title>
+<path fill="none" stroke="black" d="M330.27,-218.15C340.01,-208.69 352.81,-196.24 363.79,-185.56"/>
+<polygon fill="black" stroke="black" points="365.94,-188.36 370.67,-178.88 361.06,-183.34 365.94,-188.36"/>
+</g>
+<!-- 22 -->
+<g id="node22" class="node">
+<title>22</title>
+<polygon fill="none" stroke="black" points="342,-90 328.5,-108 301.5,-108 288,-90 301.5,-72 328.5,-72 342,-90"/>
+<text text-anchor="middle" x="315" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 21&#45;&gt;22 -->
+<g id="edge21" class="edge">
+<title>21&#45;&gt;22</title>
+<path fill="none" stroke="black" d="M371.73,-146.15C361.99,-136.69 349.19,-124.24 338.21,-113.56"/>
+<polygon fill="black" stroke="black" points="340.94,-111.34 331.33,-106.88 336.06,-116.36 340.94,-111.34"/>
+</g>
+<!-- 25 -->
+<g id="node25" class="node">
+<title>25</title>
+<polygon fill="none" stroke="black" points="414,-108 360,-108 360,-72 414,-72 414,-108"/>
+<text text-anchor="middle" x="387" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 21&#45;&gt;25 -->
+<g id="edge24" class="edge">
+<title>21&#45;&gt;25</title>
+<path fill="none" stroke="black" d="M387,-143.7C387,-136.41 387,-127.73 387,-119.54"/>
+<polygon fill="black" stroke="black" points="390.5,-119.62 387,-109.62 383.5,-119.62 390.5,-119.62"/>
+</g>
+<!-- 23 -->
+<g id="node23" class="node">
+<title>23</title>
+<polygon fill="none" stroke="black" points="306,-36 252,-36 252,0 306,0 306,-36"/>
+<text text-anchor="middle" x="279" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 22&#45;&gt;23 -->
+<g id="edge22" class="edge">
+<title>22&#45;&gt;23</title>
+<path fill="none" stroke="black" d="M306.1,-71.7C302.13,-63.98 297.37,-54.71 292.94,-46.11"/>
+<polygon fill="black" stroke="black" points="296.17,-44.74 288.49,-37.45 289.95,-47.94 296.17,-44.74"/>
+</g>
+<!-- 24 -->
+<g id="node24" class="node">
+<title>24</title>
+<polygon fill="none" stroke="black" points="378,-36 324,-36 324,0 378,0 378,-36"/>
+<text text-anchor="middle" x="351" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 22&#45;&gt;24 -->
+<g id="edge23" class="edge">
+<title>22&#45;&gt;24</title>
+<path fill="none" stroke="black" d="M323.9,-71.7C327.87,-63.98 332.63,-54.71 337.06,-46.11"/>
+<polygon fill="black" stroke="black" points="340.05,-47.94 341.51,-37.45 333.83,-44.74 340.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+1 + 60 - {42 + 4 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}<br/>
+		61 - {42 + 4 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="422pt" height="476pt"
+ viewBox="0.00 0.00 422.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 418,-472 418,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="198,-450 184.5,-468 157.5,-468 144,-450 157.5,-432 184.5,-432 198,-450"/>
+<text text-anchor="middle" x="171" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="162,-396 108,-396 108,-360 162,-360 162,-396"/>
+<text text-anchor="middle" x="135" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M162.1,-431.7C158.13,-423.98 153.37,-414.71 148.94,-406.11"/>
+<polygon fill="black" stroke="black" points="152.17,-404.74 144.49,-397.45 145.95,-407.94 152.17,-404.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="234,-378 220.5,-396 193.5,-396 180,-378 193.5,-360 220.5,-360 234,-378"/>
+<text text-anchor="middle" x="207" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M179.9,-431.7C183.87,-423.98 188.63,-414.71 193.06,-406.11"/>
+<polygon fill="black" stroke="black" points="196.05,-407.94 197.51,-397.45 189.83,-404.74 196.05,-407.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="198,-306 184.5,-324 157.5,-324 144,-306 157.5,-288 184.5,-288 198,-306"/>
+<text text-anchor="middle" x="171" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M198.1,-359.7C194.13,-351.98 189.37,-342.71 184.94,-334.11"/>
+<polygon fill="black" stroke="black" points="188.17,-332.74 180.49,-325.45 181.95,-335.94 188.17,-332.74"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node">
+<title>15</title>
+<polygon fill="none" stroke="black" points="270,-306 256.5,-324 229.5,-324 216,-306 229.5,-288 256.5,-288 270,-306"/>
+<text text-anchor="middle" x="243" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;15 -->
+<g id="edge14" class="edge">
+<title>3&#45;&gt;15</title>
+<path fill="none" stroke="black" d="M215.9,-359.7C219.87,-351.98 224.63,-342.71 229.06,-334.11"/>
+<polygon fill="black" stroke="black" points="232.05,-335.94 233.51,-325.45 225.83,-332.74 232.05,-335.94"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="126,-234 112.5,-252 85.5,-252 72,-234 85.5,-216 112.5,-216 126,-234"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M155.73,-290.15C145.99,-280.69 133.19,-268.24 122.21,-257.56"/>
+<polygon fill="black" stroke="black" points="124.94,-255.34 115.33,-250.88 120.06,-260.36 124.94,-255.34"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="198,-234 184.5,-252 157.5,-252 144,-234 157.5,-216 184.5,-216 198,-234"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">/</text>
+</g>
+<!-- 4&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>4&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M171,-287.7C171,-280.41 171,-271.73 171,-263.54"/>
+<polygon fill="black" stroke="black" points="174.5,-263.62 171,-253.62 167.5,-263.62 174.5,-263.62"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="54,-162 40.5,-180 13.5,-180 0,-162 13.5,-144 40.5,-144 54,-162"/>
+<text text-anchor="middle" x="27" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M83.73,-218.15C73.99,-208.69 61.19,-196.24 50.21,-185.56"/>
+<polygon fill="black" stroke="black" points="52.94,-183.34 43.33,-178.88 48.06,-188.36 52.94,-183.34"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="126,-180 72,-180 72,-144 126,-144 126,-180"/>
+<text text-anchor="middle" x="99" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">5</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>5&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M99,-215.7C99,-208.41 99,-199.73 99,-191.54"/>
+<polygon fill="black" stroke="black" points="102.5,-191.62 99,-181.62 95.5,-191.62 102.5,-191.62"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="54,-108 0,-108 0,-72 54,-72 54,-108"/>
+<text text-anchor="middle" x="27" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">42</text>
+</g>
+<!-- 6&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>6&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M27,-143.7C27,-136.41 27,-127.73 27,-119.54"/>
+<polygon fill="black" stroke="black" points="30.5,-119.62 27,-109.62 23.5,-119.62 30.5,-119.62"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="126,-108 72,-108 72,-72 126,-72 126,-108"/>
+<text text-anchor="middle" x="99" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 6&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>6&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M42.27,-146.15C51.26,-137.41 62.87,-126.13 73.24,-116.05"/>
+<polygon fill="black" stroke="black" points="75.4,-118.83 80.13,-109.35 70.52,-113.81 75.4,-118.83"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="198,-162 184.5,-180 157.5,-180 144,-162 157.5,-144 184.5,-144 198,-162"/>
+<text text-anchor="middle" x="171" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 10&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>10&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M171,-215.7C171,-208.41 171,-199.73 171,-191.54"/>
+<polygon fill="black" stroke="black" points="174.5,-191.62 171,-181.62 167.5,-191.62 174.5,-191.62"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node">
+<title>14</title>
+<polygon fill="none" stroke="black" points="270,-180 216,-180 216,-144 270,-144 270,-180"/>
+<text text-anchor="middle" x="243" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">2</text>
+</g>
+<!-- 10&#45;&gt;14 -->
+<g id="edge13" class="edge">
+<title>10&#45;&gt;14</title>
+<path fill="none" stroke="black" d="M186.27,-218.15C195.26,-209.41 206.87,-198.13 217.24,-188.05"/>
+<polygon fill="black" stroke="black" points="219.4,-190.83 224.13,-181.35 214.52,-185.81 219.4,-190.83"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="198,-108 144,-108 144,-72 198,-72 198,-108"/>
+<text text-anchor="middle" x="171" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">6</text>
+</g>
+<!-- 11&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>11&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M171,-143.7C171,-136.41 171,-127.73 171,-119.54"/>
+<polygon fill="black" stroke="black" points="174.5,-119.62 171,-109.62 167.5,-119.62 174.5,-119.62"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="270,-108 216,-108 216,-72 270,-72 270,-108"/>
+<text text-anchor="middle" x="243" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">7</text>
+</g>
+<!-- 11&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>11&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M186.27,-146.15C195.26,-137.41 206.87,-126.13 217.24,-116.05"/>
+<polygon fill="black" stroke="black" points="219.4,-118.83 224.13,-109.35 214.52,-113.81 219.4,-118.83"/>
+</g>
+<!-- 16 -->
+<g id="node16" class="node">
+<title>16</title>
+<polygon fill="none" stroke="black" points="270,-252 216,-252 216,-216 270,-216 270,-252"/>
+<text text-anchor="middle" x="243" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 15&#45;&gt;16 -->
+<g id="edge15" class="edge">
+<title>15&#45;&gt;16</title>
+<path fill="none" stroke="black" d="M243,-287.7C243,-280.41 243,-271.73 243,-263.54"/>
+<polygon fill="black" stroke="black" points="246.5,-263.62 243,-253.62 239.5,-263.62 246.5,-263.62"/>
+</g>
+<!-- 17 -->
+<g id="node17" class="node">
+<title>17</title>
+<polygon fill="none" stroke="black" points="342,-234 328.5,-252 301.5,-252 288,-234 301.5,-216 328.5,-216 342,-234"/>
+<text text-anchor="middle" x="315" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 15&#45;&gt;17 -->
+<g id="edge16" class="edge">
+<title>15&#45;&gt;17</title>
+<path fill="none" stroke="black" d="M258.27,-290.15C268.01,-280.69 280.81,-268.24 291.79,-257.56"/>
+<polygon fill="black" stroke="black" points="293.94,-260.36 298.67,-250.88 289.06,-255.34 293.94,-260.36"/>
+</g>
+<!-- 18 -->
+<g id="node18" class="node">
+<title>18</title>
+<polygon fill="none" stroke="black" points="342,-180 288,-180 288,-144 342,-144 342,-180"/>
+<text text-anchor="middle" x="315" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 17&#45;&gt;18 -->
+<g id="edge17" class="edge">
+<title>17&#45;&gt;18</title>
+<path fill="none" stroke="black" d="M315,-215.7C315,-208.41 315,-199.73 315,-191.54"/>
+<polygon fill="black" stroke="black" points="318.5,-191.62 315,-181.62 311.5,-191.62 318.5,-191.62"/>
+</g>
+<!-- 19 -->
+<g id="node19" class="node">
+<title>19</title>
+<polygon fill="none" stroke="black" points="414,-162 400.5,-180 373.5,-180 360,-162 373.5,-144 400.5,-144 414,-162"/>
+<text text-anchor="middle" x="387" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 17&#45;&gt;19 -->
+<g id="edge18" class="edge">
+<title>17&#45;&gt;19</title>
+<path fill="none" stroke="black" d="M330.27,-218.15C340.01,-208.69 352.81,-196.24 363.79,-185.56"/>
+<polygon fill="black" stroke="black" points="365.94,-188.36 370.67,-178.88 361.06,-183.34 365.94,-188.36"/>
+</g>
+<!-- 20 -->
+<g id="node20" class="node">
+<title>20</title>
+<polygon fill="none" stroke="black" points="342,-90 328.5,-108 301.5,-108 288,-90 301.5,-72 328.5,-72 342,-90"/>
+<text text-anchor="middle" x="315" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 19&#45;&gt;20 -->
+<g id="edge19" class="edge">
+<title>19&#45;&gt;20</title>
+<path fill="none" stroke="black" d="M371.73,-146.15C361.99,-136.69 349.19,-124.24 338.21,-113.56"/>
+<polygon fill="black" stroke="black" points="340.94,-111.34 331.33,-106.88 336.06,-116.36 340.94,-111.34"/>
+</g>
+<!-- 23 -->
+<g id="node23" class="node">
+<title>23</title>
+<polygon fill="none" stroke="black" points="414,-108 360,-108 360,-72 414,-72 414,-108"/>
+<text text-anchor="middle" x="387" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 19&#45;&gt;23 -->
+<g id="edge22" class="edge">
+<title>19&#45;&gt;23</title>
+<path fill="none" stroke="black" d="M387,-143.7C387,-136.41 387,-127.73 387,-119.54"/>
+<polygon fill="black" stroke="black" points="390.5,-119.62 387,-109.62 383.5,-119.62 390.5,-119.62"/>
+</g>
+<!-- 21 -->
+<g id="node21" class="node">
+<title>21</title>
+<polygon fill="none" stroke="black" points="306,-36 252,-36 252,0 306,0 306,-36"/>
+<text text-anchor="middle" x="279" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 20&#45;&gt;21 -->
+<g id="edge20" class="edge">
+<title>20&#45;&gt;21</title>
+<path fill="none" stroke="black" d="M306.1,-71.7C302.13,-63.98 297.37,-54.71 292.94,-46.11"/>
+<polygon fill="black" stroke="black" points="296.17,-44.74 288.49,-37.45 289.95,-47.94 296.17,-44.74"/>
+</g>
+<!-- 22 -->
+<g id="node22" class="node">
+<title>22</title>
+<polygon fill="none" stroke="black" points="378,-36 324,-36 324,0 378,0 378,-36"/>
+<text text-anchor="middle" x="351" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 20&#45;&gt;22 -->
+<g id="edge21" class="edge">
+<title>20&#45;&gt;22</title>
+<path fill="none" stroke="black" d="M323.9,-71.7C327.87,-63.98 332.63,-54.71 337.06,-46.11"/>
+<polygon fill="black" stroke="black" points="340.05,-47.94 341.51,-37.45 333.83,-44.74 340.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - {42 + 4 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}<br/>
+		61 - {46 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="458pt" height="476pt"
+ viewBox="0.00 0.00 458.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 454,-472 454,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="198,-450 184.5,-468 157.5,-468 144,-450 157.5,-432 184.5,-432 198,-450"/>
+<text text-anchor="middle" x="171" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="162,-396 108,-396 108,-360 162,-360 162,-396"/>
+<text text-anchor="middle" x="135" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M162.1,-431.7C158.13,-423.98 153.37,-414.71 148.94,-406.11"/>
+<polygon fill="black" stroke="black" points="152.17,-404.74 144.49,-397.45 145.95,-407.94 152.17,-404.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="234,-378 220.5,-396 193.5,-396 180,-378 193.5,-360 220.5,-360 234,-378"/>
+<text text-anchor="middle" x="207" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M179.9,-431.7C183.87,-423.98 188.63,-414.71 193.06,-406.11"/>
+<polygon fill="black" stroke="black" points="196.05,-407.94 197.51,-397.45 189.83,-404.74 196.05,-407.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="198,-306 184.5,-324 157.5,-324 144,-306 157.5,-288 184.5,-288 198,-306"/>
+<text text-anchor="middle" x="171" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M198.1,-359.7C194.13,-351.98 189.37,-342.71 184.94,-334.11"/>
+<polygon fill="black" stroke="black" points="188.17,-332.74 180.49,-325.45 181.95,-335.94 188.17,-332.74"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="270,-306 256.5,-324 229.5,-324 216,-306 229.5,-288 256.5,-288 270,-306"/>
+<text text-anchor="middle" x="243" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>3&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M215.9,-359.7C219.87,-351.98 224.63,-342.71 229.06,-334.11"/>
+<polygon fill="black" stroke="black" points="232.05,-335.94 233.51,-325.45 225.83,-332.74 232.05,-335.94"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="126,-234 112.5,-252 85.5,-252 72,-234 85.5,-216 112.5,-216 126,-234"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M155.73,-290.15C145.99,-280.69 133.19,-268.24 122.21,-257.56"/>
+<polygon fill="black" stroke="black" points="124.94,-255.34 115.33,-250.88 120.06,-260.36 124.94,-255.34"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="198,-234 184.5,-252 157.5,-252 144,-234 157.5,-216 184.5,-216 198,-234"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">/</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>4&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M171,-287.7C171,-280.41 171,-271.73 171,-263.54"/>
+<polygon fill="black" stroke="black" points="174.5,-263.62 171,-253.62 167.5,-263.62 174.5,-263.62"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="54,-180 0,-180 0,-144 54,-144 54,-180"/>
+<text text-anchor="middle" x="27" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">46</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M83.73,-218.15C74.74,-209.41 63.13,-198.13 52.76,-188.05"/>
+<polygon fill="black" stroke="black" points="55.48,-185.81 45.87,-181.35 50.6,-190.83 55.48,-185.81"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="126,-180 72,-180 72,-144 126,-144 126,-180"/>
+<text text-anchor="middle" x="99" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">5</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M99,-215.7C99,-208.41 99,-199.73 99,-191.54"/>
+<polygon fill="black" stroke="black" points="102.5,-191.62 99,-181.62 95.5,-191.62 102.5,-191.62"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="198,-162 184.5,-180 157.5,-180 144,-162 157.5,-144 184.5,-144 198,-162"/>
+<text text-anchor="middle" x="171" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 8&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>8&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M171,-215.7C171,-208.41 171,-199.73 171,-191.54"/>
+<polygon fill="black" stroke="black" points="174.5,-191.62 171,-181.62 167.5,-191.62 174.5,-191.62"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="270,-180 216,-180 216,-144 270,-144 270,-180"/>
+<text text-anchor="middle" x="243" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">2</text>
+</g>
+<!-- 8&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>8&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M186.27,-218.15C195.26,-209.41 206.87,-198.13 217.24,-188.05"/>
+<polygon fill="black" stroke="black" points="219.4,-190.83 224.13,-181.35 214.52,-185.81 219.4,-190.83"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="162,-108 108,-108 108,-72 162,-72 162,-108"/>
+<text text-anchor="middle" x="135" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">6</text>
+</g>
+<!-- 9&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>9&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M162.1,-143.7C158.13,-135.98 153.37,-126.71 148.94,-118.11"/>
+<polygon fill="black" stroke="black" points="152.17,-116.74 144.49,-109.45 145.95,-119.94 152.17,-116.74"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="234,-108 180,-108 180,-72 234,-72 234,-108"/>
+<text text-anchor="middle" x="207" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">7</text>
+</g>
+<!-- 9&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>9&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M179.9,-143.7C183.87,-135.98 188.63,-126.71 193.06,-118.11"/>
+<polygon fill="black" stroke="black" points="196.05,-119.94 197.51,-109.45 189.83,-116.74 196.05,-119.94"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node">
+<title>14</title>
+<polygon fill="none" stroke="black" points="270,-252 216,-252 216,-216 270,-216 270,-252"/>
+<text text-anchor="middle" x="243" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 13&#45;&gt;14 -->
+<g id="edge13" class="edge">
+<title>13&#45;&gt;14</title>
+<path fill="none" stroke="black" d="M243,-287.7C243,-280.41 243,-271.73 243,-263.54"/>
+<polygon fill="black" stroke="black" points="246.5,-263.62 243,-253.62 239.5,-263.62 246.5,-263.62"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node">
+<title>15</title>
+<polygon fill="none" stroke="black" points="342,-234 328.5,-252 301.5,-252 288,-234 301.5,-216 328.5,-216 342,-234"/>
+<text text-anchor="middle" x="315" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 13&#45;&gt;15 -->
+<g id="edge14" class="edge">
+<title>13&#45;&gt;15</title>
+<path fill="none" stroke="black" d="M258.27,-290.15C268.01,-280.69 280.81,-268.24 291.79,-257.56"/>
+<polygon fill="black" stroke="black" points="293.94,-260.36 298.67,-250.88 289.06,-255.34 293.94,-260.36"/>
+</g>
+<!-- 16 -->
+<g id="node16" class="node">
+<title>16</title>
+<polygon fill="none" stroke="black" points="342,-180 288,-180 288,-144 342,-144 342,-180"/>
+<text text-anchor="middle" x="315" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 15&#45;&gt;16 -->
+<g id="edge15" class="edge">
+<title>15&#45;&gt;16</title>
+<path fill="none" stroke="black" d="M315,-215.7C315,-208.41 315,-199.73 315,-191.54"/>
+<polygon fill="black" stroke="black" points="318.5,-191.62 315,-181.62 311.5,-191.62 318.5,-191.62"/>
+</g>
+<!-- 17 -->
+<g id="node17" class="node">
+<title>17</title>
+<polygon fill="none" stroke="black" points="414,-162 400.5,-180 373.5,-180 360,-162 373.5,-144 400.5,-144 414,-162"/>
+<text text-anchor="middle" x="387" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 15&#45;&gt;17 -->
+<g id="edge16" class="edge">
+<title>15&#45;&gt;17</title>
+<path fill="none" stroke="black" d="M330.27,-218.15C340.01,-208.69 352.81,-196.24 363.79,-185.56"/>
+<polygon fill="black" stroke="black" points="365.94,-188.36 370.67,-178.88 361.06,-183.34 365.94,-188.36"/>
+</g>
+<!-- 18 -->
+<g id="node18" class="node">
+<title>18</title>
+<polygon fill="none" stroke="black" points="378,-90 364.5,-108 337.5,-108 324,-90 337.5,-72 364.5,-72 378,-90"/>
+<text text-anchor="middle" x="351" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 17&#45;&gt;18 -->
+<g id="edge17" class="edge">
+<title>17&#45;&gt;18</title>
+<path fill="none" stroke="black" d="M378.1,-143.7C374.13,-135.98 369.37,-126.71 364.94,-118.11"/>
+<polygon fill="black" stroke="black" points="368.17,-116.74 360.49,-109.45 361.95,-119.94 368.17,-116.74"/>
+</g>
+<!-- 21 -->
+<g id="node21" class="node">
+<title>21</title>
+<polygon fill="none" stroke="black" points="450,-108 396,-108 396,-72 450,-72 450,-108"/>
+<text text-anchor="middle" x="423" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 17&#45;&gt;21 -->
+<g id="edge20" class="edge">
+<title>17&#45;&gt;21</title>
+<path fill="none" stroke="black" d="M395.9,-143.7C399.87,-135.98 404.63,-126.71 409.06,-118.11"/>
+<polygon fill="black" stroke="black" points="412.05,-119.94 413.51,-109.45 405.83,-116.74 412.05,-119.94"/>
+</g>
+<!-- 19 -->
+<g id="node19" class="node">
+<title>19</title>
+<polygon fill="none" stroke="black" points="342,-36 288,-36 288,0 342,0 342,-36"/>
+<text text-anchor="middle" x="315" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 18&#45;&gt;19 -->
+<g id="edge18" class="edge">
+<title>18&#45;&gt;19</title>
+<path fill="none" stroke="black" d="M342.1,-71.7C338.13,-63.98 333.37,-54.71 328.94,-46.11"/>
+<polygon fill="black" stroke="black" points="332.17,-44.74 324.49,-37.45 325.95,-47.94 332.17,-44.74"/>
+</g>
+<!-- 20 -->
+<g id="node20" class="node">
+<title>20</title>
+<polygon fill="none" stroke="black" points="414,-36 360,-36 360,0 414,0 414,-36"/>
+<text text-anchor="middle" x="387" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 18&#45;&gt;20 -->
+<g id="edge19" class="edge">
+<title>18&#45;&gt;20</title>
+<path fill="none" stroke="black" d="M359.9,-71.7C363.87,-63.98 368.63,-54.71 373.06,-46.11"/>
+<polygon fill="black" stroke="black" points="376.05,-47.94 377.51,-37.45 369.83,-44.74 376.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - {46 - 5} * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}<br/>
+		61 - 41 * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="350pt" height="476pt"
+ viewBox="0.00 0.00 350.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 346,-472 346,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="126,-450 112.5,-468 85.5,-468 72,-450 85.5,-432 112.5,-432 126,-450"/>
+<text text-anchor="middle" x="99" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="90,-396 36,-396 36,-360 90,-360 90,-396"/>
+<text text-anchor="middle" x="63" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M90.1,-431.7C86.13,-423.98 81.37,-414.71 76.94,-406.11"/>
+<polygon fill="black" stroke="black" points="80.17,-404.74 72.49,-397.45 73.95,-407.94 80.17,-404.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="162,-378 148.5,-396 121.5,-396 108,-378 121.5,-360 148.5,-360 162,-378"/>
+<text text-anchor="middle" x="135" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M107.9,-431.7C111.87,-423.98 116.63,-414.71 121.06,-406.11"/>
+<polygon fill="black" stroke="black" points="124.05,-407.94 125.51,-397.45 117.83,-404.74 124.05,-407.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="126,-306 112.5,-324 85.5,-324 72,-306 85.5,-288 112.5,-288 126,-306"/>
+<text text-anchor="middle" x="99" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M126.1,-359.7C122.13,-351.98 117.37,-342.71 112.94,-334.11"/>
+<polygon fill="black" stroke="black" points="116.17,-332.74 108.49,-325.45 109.95,-335.94 116.17,-332.74"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="198,-306 184.5,-324 157.5,-324 144,-306 157.5,-288 184.5,-288 198,-306"/>
+<text text-anchor="middle" x="171" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>3&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M143.9,-359.7C147.87,-351.98 152.63,-342.71 157.06,-334.11"/>
+<polygon fill="black" stroke="black" points="160.05,-335.94 161.51,-325.45 153.83,-332.74 160.05,-335.94"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="54,-252 0,-252 0,-216 54,-216 54,-252"/>
+<text text-anchor="middle" x="27" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">41</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M83.73,-290.15C74.74,-281.41 63.13,-270.13 52.76,-260.05"/>
+<polygon fill="black" stroke="black" points="55.48,-257.81 45.87,-253.35 50.6,-262.83 55.48,-257.81"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-234 112.5,-252 85.5,-252 72,-234 85.5,-216 112.5,-216 126,-234"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">/</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M99,-287.7C99,-280.41 99,-271.73 99,-263.54"/>
+<polygon fill="black" stroke="black" points="102.5,-263.62 99,-253.62 95.5,-263.62 102.5,-263.62"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="90,-162 76.5,-180 49.5,-180 36,-162 49.5,-144 76.5,-144 90,-162"/>
+<text text-anchor="middle" x="63" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 6&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>6&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M90.1,-215.7C86.13,-207.98 81.37,-198.71 76.94,-190.11"/>
+<polygon fill="black" stroke="black" points="80.17,-188.74 72.49,-181.45 73.95,-191.94 80.17,-188.74"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="162,-180 108,-180 108,-144 162,-144 162,-180"/>
+<text text-anchor="middle" x="135" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">2</text>
+</g>
+<!-- 6&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>6&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M107.9,-215.7C111.87,-207.98 116.63,-198.71 121.06,-190.11"/>
+<polygon fill="black" stroke="black" points="124.05,-191.94 125.51,-181.45 117.83,-188.74 124.05,-191.94"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="90,-108 36,-108 36,-72 90,-72 90,-108"/>
+<text text-anchor="middle" x="63" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">6</text>
+</g>
+<!-- 7&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>7&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M63,-143.7C63,-136.41 63,-127.73 63,-119.54"/>
+<polygon fill="black" stroke="black" points="66.5,-119.62 63,-109.62 59.5,-119.62 66.5,-119.62"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="162,-108 108,-108 108,-72 162,-72 162,-108"/>
+<text text-anchor="middle" x="135" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">7</text>
+</g>
+<!-- 7&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>7&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M78.27,-146.15C87.26,-137.41 98.87,-126.13 109.24,-116.05"/>
+<polygon fill="black" stroke="black" points="111.4,-118.83 116.13,-109.35 106.52,-113.81 111.4,-118.83"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="198,-252 144,-252 144,-216 198,-216 198,-252"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 11&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>11&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M171,-287.7C171,-280.41 171,-271.73 171,-263.54"/>
+<polygon fill="black" stroke="black" points="174.5,-263.62 171,-253.62 167.5,-263.62 174.5,-263.62"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="270,-234 256.5,-252 229.5,-252 216,-234 229.5,-216 256.5,-216 270,-234"/>
+<text text-anchor="middle" x="243" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 11&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>11&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M186.27,-290.15C196.01,-280.69 208.81,-268.24 219.79,-257.56"/>
+<polygon fill="black" stroke="black" points="221.94,-260.36 226.67,-250.88 217.06,-255.34 221.94,-260.36"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node">
+<title>14</title>
+<polygon fill="none" stroke="black" points="234,-180 180,-180 180,-144 234,-144 234,-180"/>
+<text text-anchor="middle" x="207" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 13&#45;&gt;14 -->
+<g id="edge13" class="edge">
+<title>13&#45;&gt;14</title>
+<path fill="none" stroke="black" d="M234.1,-215.7C230.13,-207.98 225.37,-198.71 220.94,-190.11"/>
+<polygon fill="black" stroke="black" points="224.17,-188.74 216.49,-181.45 217.95,-191.94 224.17,-188.74"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node">
+<title>15</title>
+<polygon fill="none" stroke="black" points="306,-162 292.5,-180 265.5,-180 252,-162 265.5,-144 292.5,-144 306,-162"/>
+<text text-anchor="middle" x="279" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 13&#45;&gt;15 -->
+<g id="edge14" class="edge">
+<title>13&#45;&gt;15</title>
+<path fill="none" stroke="black" d="M251.9,-215.7C255.87,-207.98 260.63,-198.71 265.06,-190.11"/>
+<polygon fill="black" stroke="black" points="268.05,-191.94 269.51,-181.45 261.83,-188.74 268.05,-191.94"/>
+</g>
+<!-- 16 -->
+<g id="node16" class="node">
+<title>16</title>
+<polygon fill="none" stroke="black" points="270,-90 256.5,-108 229.5,-108 216,-90 229.5,-72 256.5,-72 270,-90"/>
+<text text-anchor="middle" x="243" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 15&#45;&gt;16 -->
+<g id="edge15" class="edge">
+<title>15&#45;&gt;16</title>
+<path fill="none" stroke="black" d="M270.1,-143.7C266.13,-135.98 261.37,-126.71 256.94,-118.11"/>
+<polygon fill="black" stroke="black" points="260.17,-116.74 252.49,-109.45 253.95,-119.94 260.17,-116.74"/>
+</g>
+<!-- 19 -->
+<g id="node19" class="node">
+<title>19</title>
+<polygon fill="none" stroke="black" points="342,-108 288,-108 288,-72 342,-72 342,-108"/>
+<text text-anchor="middle" x="315" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 15&#45;&gt;19 -->
+<g id="edge18" class="edge">
+<title>15&#45;&gt;19</title>
+<path fill="none" stroke="black" d="M287.9,-143.7C291.87,-135.98 296.63,-126.71 301.06,-118.11"/>
+<polygon fill="black" stroke="black" points="304.05,-119.94 305.51,-109.45 297.83,-116.74 304.05,-119.94"/>
+</g>
+<!-- 17 -->
+<g id="node17" class="node">
+<title>17</title>
+<polygon fill="none" stroke="black" points="234,-36 180,-36 180,0 234,0 234,-36"/>
+<text text-anchor="middle" x="207" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 16&#45;&gt;17 -->
+<g id="edge16" class="edge">
+<title>16&#45;&gt;17</title>
+<path fill="none" stroke="black" d="M234.1,-71.7C230.13,-63.98 225.37,-54.71 220.94,-46.11"/>
+<polygon fill="black" stroke="black" points="224.17,-44.74 216.49,-37.45 217.95,-47.94 224.17,-44.74"/>
+</g>
+<!-- 18 -->
+<g id="node18" class="node">
+<title>18</title>
+<polygon fill="none" stroke="black" points="306,-36 252,-36 252,0 306,0 306,-36"/>
+<text text-anchor="middle" x="279" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 16&#45;&gt;18 -->
+<g id="edge17" class="edge">
+<title>16&#45;&gt;18</title>
+<path fill="none" stroke="black" d="M251.9,-71.7C255.87,-63.98 260.63,-54.71 265.06,-46.11"/>
+<polygon fill="black" stroke="black" points="268.05,-47.94 269.51,-37.45 261.83,-44.74 268.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 41 * {6 + 7} / 2 * {30 + 40 * {20 + 4 - 1}}<br/>
+		61 - 41 * 13 / 2 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="368pt" height="476pt"
+ viewBox="0.00 0.00 368.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 364,-472 364,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="126,-450 112.5,-468 85.5,-468 72,-450 85.5,-432 112.5,-432 126,-450"/>
+<text text-anchor="middle" x="99" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="90,-396 36,-396 36,-360 90,-360 90,-396"/>
+<text text-anchor="middle" x="63" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M90.1,-431.7C86.13,-423.98 81.37,-414.71 76.94,-406.11"/>
+<polygon fill="black" stroke="black" points="80.17,-404.74 72.49,-397.45 73.95,-407.94 80.17,-404.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="162,-378 148.5,-396 121.5,-396 108,-378 121.5,-360 148.5,-360 162,-378"/>
+<text text-anchor="middle" x="135" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M107.9,-431.7C111.87,-423.98 116.63,-414.71 121.06,-406.11"/>
+<polygon fill="black" stroke="black" points="124.05,-407.94 125.51,-397.45 117.83,-404.74 124.05,-407.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="126,-306 112.5,-324 85.5,-324 72,-306 85.5,-288 112.5,-288 126,-306"/>
+<text text-anchor="middle" x="99" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M126.1,-359.7C122.13,-351.98 117.37,-342.71 112.94,-334.11"/>
+<polygon fill="black" stroke="black" points="116.17,-332.74 108.49,-325.45 109.95,-335.94 116.17,-332.74"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="198,-306 184.5,-324 157.5,-324 144,-306 157.5,-288 184.5,-288 198,-306"/>
+<text text-anchor="middle" x="171" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>3&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M143.9,-359.7C147.87,-351.98 152.63,-342.71 157.06,-334.11"/>
+<polygon fill="black" stroke="black" points="160.05,-335.94 161.51,-325.45 153.83,-332.74 160.05,-335.94"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="54,-252 0,-252 0,-216 54,-216 54,-252"/>
+<text text-anchor="middle" x="27" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">41</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M83.73,-290.15C74.74,-281.41 63.13,-270.13 52.76,-260.05"/>
+<polygon fill="black" stroke="black" points="55.48,-257.81 45.87,-253.35 50.6,-262.83 55.48,-257.81"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-234 112.5,-252 85.5,-252 72,-234 85.5,-216 112.5,-216 126,-234"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">/</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M99,-287.7C99,-280.41 99,-271.73 99,-263.54"/>
+<polygon fill="black" stroke="black" points="102.5,-263.62 99,-253.62 95.5,-263.62 102.5,-263.62"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="90,-180 36,-180 36,-144 90,-144 90,-180"/>
+<text text-anchor="middle" x="63" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">13</text>
+</g>
+<!-- 6&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>6&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M90.1,-215.7C86.13,-207.98 81.37,-198.71 76.94,-190.11"/>
+<polygon fill="black" stroke="black" points="80.17,-188.74 72.49,-181.45 73.95,-191.94 80.17,-188.74"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="162,-180 108,-180 108,-144 162,-144 162,-180"/>
+<text text-anchor="middle" x="135" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">2</text>
+</g>
+<!-- 6&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>6&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M107.9,-215.7C111.87,-207.98 116.63,-198.71 121.06,-190.11"/>
+<polygon fill="black" stroke="black" points="124.05,-191.94 125.51,-181.45 117.83,-188.74 124.05,-191.94"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="198,-252 144,-252 144,-216 198,-216 198,-252"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 9&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>9&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M171,-287.7C171,-280.41 171,-271.73 171,-263.54"/>
+<polygon fill="black" stroke="black" points="174.5,-263.62 171,-253.62 167.5,-263.62 174.5,-263.62"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="270,-234 256.5,-252 229.5,-252 216,-234 229.5,-216 256.5,-216 270,-234"/>
+<text text-anchor="middle" x="243" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 9&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>9&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M186.27,-290.15C196.01,-280.69 208.81,-268.24 219.79,-257.56"/>
+<polygon fill="black" stroke="black" points="221.94,-260.36 226.67,-250.88 217.06,-255.34 221.94,-260.36"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="252,-180 198,-180 198,-144 252,-144 252,-180"/>
+<text text-anchor="middle" x="225" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 11&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>11&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M238.55,-215.7C236.65,-208.32 234.39,-199.52 232.26,-191.25"/>
+<polygon fill="black" stroke="black" points="235.66,-190.38 229.78,-181.57 228.88,-192.13 235.66,-190.38"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="324,-162 310.5,-180 283.5,-180 270,-162 283.5,-144 310.5,-144 324,-162"/>
+<text text-anchor="middle" x="297" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 11&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>11&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M256.35,-215.7C262.56,-207.64 270.08,-197.89 276.96,-188.98"/>
+<polygon fill="black" stroke="black" points="279.54,-191.36 282.88,-181.3 274,-187.08 279.54,-191.36"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node">
+<title>14</title>
+<polygon fill="none" stroke="black" points="288,-90 274.5,-108 247.5,-108 234,-90 247.5,-72 274.5,-72 288,-90"/>
+<text text-anchor="middle" x="261" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 13&#45;&gt;14 -->
+<g id="edge13" class="edge">
+<title>13&#45;&gt;14</title>
+<path fill="none" stroke="black" d="M288.1,-143.7C284.13,-135.98 279.37,-126.71 274.94,-118.11"/>
+<polygon fill="black" stroke="black" points="278.17,-116.74 270.49,-109.45 271.95,-119.94 278.17,-116.74"/>
+</g>
+<!-- 17 -->
+<g id="node17" class="node">
+<title>17</title>
+<polygon fill="none" stroke="black" points="360,-108 306,-108 306,-72 360,-72 360,-108"/>
+<text text-anchor="middle" x="333" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 13&#45;&gt;17 -->
+<g id="edge16" class="edge">
+<title>13&#45;&gt;17</title>
+<path fill="none" stroke="black" d="M305.9,-143.7C309.87,-135.98 314.63,-126.71 319.06,-118.11"/>
+<polygon fill="black" stroke="black" points="322.05,-119.94 323.51,-109.45 315.83,-116.74 322.05,-119.94"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node">
+<title>15</title>
+<polygon fill="none" stroke="black" points="252,-36 198,-36 198,0 252,0 252,-36"/>
+<text text-anchor="middle" x="225" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 14&#45;&gt;15 -->
+<g id="edge14" class="edge">
+<title>14&#45;&gt;15</title>
+<path fill="none" stroke="black" d="M252.1,-71.7C248.13,-63.98 243.37,-54.71 238.94,-46.11"/>
+<polygon fill="black" stroke="black" points="242.17,-44.74 234.49,-37.45 235.95,-47.94 242.17,-44.74"/>
+</g>
+<!-- 16 -->
+<g id="node16" class="node">
+<title>16</title>
+<polygon fill="none" stroke="black" points="324,-36 270,-36 270,0 324,0 324,-36"/>
+<text text-anchor="middle" x="297" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 14&#45;&gt;16 -->
+<g id="edge15" class="edge">
+<title>14&#45;&gt;16</title>
+<path fill="none" stroke="black" d="M269.9,-71.7C273.87,-63.98 278.63,-54.71 283.06,-46.11"/>
+<polygon fill="black" stroke="black" points="286.05,-47.94 287.51,-37.45 279.83,-44.74 286.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 41 * 13 / 2 * {30 + 40 * {20 + 4 - 1}}<br/>
+		61 - 41 * 6 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="350pt" height="476pt"
+ viewBox="0.00 0.00 350.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 346,-472 346,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="126,-450 112.5,-468 85.5,-468 72,-450 85.5,-432 112.5,-432 126,-450"/>
+<text text-anchor="middle" x="99" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="90,-396 36,-396 36,-360 90,-360 90,-396"/>
+<text text-anchor="middle" x="63" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M90.1,-431.7C86.13,-423.98 81.37,-414.71 76.94,-406.11"/>
+<polygon fill="black" stroke="black" points="80.17,-404.74 72.49,-397.45 73.95,-407.94 80.17,-404.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="162,-378 148.5,-396 121.5,-396 108,-378 121.5,-360 148.5,-360 162,-378"/>
+<text text-anchor="middle" x="135" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M107.9,-431.7C111.87,-423.98 116.63,-414.71 121.06,-406.11"/>
+<polygon fill="black" stroke="black" points="124.05,-407.94 125.51,-397.45 117.83,-404.74 124.05,-407.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="126,-306 112.5,-324 85.5,-324 72,-306 85.5,-288 112.5,-288 126,-306"/>
+<text text-anchor="middle" x="99" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M126.1,-359.7C122.13,-351.98 117.37,-342.71 112.94,-334.11"/>
+<polygon fill="black" stroke="black" points="116.17,-332.74 108.49,-325.45 109.95,-335.94 116.17,-332.74"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="198,-306 184.5,-324 157.5,-324 144,-306 157.5,-288 184.5,-288 198,-306"/>
+<text text-anchor="middle" x="171" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>3&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M143.9,-359.7C147.87,-351.98 152.63,-342.71 157.06,-334.11"/>
+<polygon fill="black" stroke="black" points="160.05,-335.94 161.51,-325.45 153.83,-332.74 160.05,-335.94"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="54,-252 0,-252 0,-216 54,-216 54,-252"/>
+<text text-anchor="middle" x="27" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">41</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M83.73,-290.15C74.74,-281.41 63.13,-270.13 52.76,-260.05"/>
+<polygon fill="black" stroke="black" points="55.48,-257.81 45.87,-253.35 50.6,-262.83 55.48,-257.81"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-252 72,-252 72,-216 126,-216 126,-252"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>4&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M99,-287.7C99,-280.41 99,-271.73 99,-263.54"/>
+<polygon fill="black" stroke="black" points="102.5,-263.62 99,-253.62 95.5,-263.62 102.5,-263.62"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="198,-252 144,-252 144,-216 198,-216 198,-252"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 7&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>7&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M171,-287.7C171,-280.41 171,-271.73 171,-263.54"/>
+<polygon fill="black" stroke="black" points="174.5,-263.62 171,-253.62 167.5,-263.62 174.5,-263.62"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="270,-234 256.5,-252 229.5,-252 216,-234 229.5,-216 256.5,-216 270,-234"/>
+<text text-anchor="middle" x="243" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 7&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>7&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M186.27,-290.15C196.01,-280.69 208.81,-268.24 219.79,-257.56"/>
+<polygon fill="black" stroke="black" points="221.94,-260.36 226.67,-250.88 217.06,-255.34 221.94,-260.36"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="234,-180 180,-180 180,-144 234,-144 234,-180"/>
+<text text-anchor="middle" x="207" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 9&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>9&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M234.1,-215.7C230.13,-207.98 225.37,-198.71 220.94,-190.11"/>
+<polygon fill="black" stroke="black" points="224.17,-188.74 216.49,-181.45 217.95,-191.94 224.17,-188.74"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="306,-162 292.5,-180 265.5,-180 252,-162 265.5,-144 292.5,-144 306,-162"/>
+<text text-anchor="middle" x="279" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 9&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>9&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M251.9,-215.7C255.87,-207.98 260.63,-198.71 265.06,-190.11"/>
+<polygon fill="black" stroke="black" points="268.05,-191.94 269.51,-181.45 261.83,-188.74 268.05,-191.94"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="270,-90 256.5,-108 229.5,-108 216,-90 229.5,-72 256.5,-72 270,-90"/>
+<text text-anchor="middle" x="243" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 11&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>11&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M270.1,-143.7C266.13,-135.98 261.37,-126.71 256.94,-118.11"/>
+<polygon fill="black" stroke="black" points="260.17,-116.74 252.49,-109.45 253.95,-119.94 260.17,-116.74"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node">
+<title>15</title>
+<polygon fill="none" stroke="black" points="342,-108 288,-108 288,-72 342,-72 342,-108"/>
+<text text-anchor="middle" x="315" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 11&#45;&gt;15 -->
+<g id="edge14" class="edge">
+<title>11&#45;&gt;15</title>
+<path fill="none" stroke="black" d="M287.9,-143.7C291.87,-135.98 296.63,-126.71 301.06,-118.11"/>
+<polygon fill="black" stroke="black" points="304.05,-119.94 305.51,-109.45 297.83,-116.74 304.05,-119.94"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="234,-36 180,-36 180,0 234,0 234,-36"/>
+<text text-anchor="middle" x="207" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 12&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>12&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M234.1,-71.7C230.13,-63.98 225.37,-54.71 220.94,-46.11"/>
+<polygon fill="black" stroke="black" points="224.17,-44.74 216.49,-37.45 217.95,-47.94 224.17,-44.74"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node">
+<title>14</title>
+<polygon fill="none" stroke="black" points="306,-36 252,-36 252,0 306,0 306,-36"/>
+<text text-anchor="middle" x="279" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 12&#45;&gt;14 -->
+<g id="edge13" class="edge">
+<title>12&#45;&gt;14</title>
+<path fill="none" stroke="black" d="M251.9,-71.7C255.87,-63.98 260.63,-54.71 265.06,-46.11"/>
+<polygon fill="black" stroke="black" points="268.05,-47.94 269.51,-37.45 261.83,-44.74 268.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 41 * 6 * {30 + 40 * {20 + 4 - 1}}<br/>
+		61 - 246 * {30 + 40 * {20 + 4 - 1}}
+		</h1><svg width="278pt" height="476pt"
+ viewBox="0.00 0.00 278.00 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-472 274,-472 274,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="90,-450 76.5,-468 49.5,-468 36,-450 49.5,-432 76.5,-432 90,-450"/>
+<text text-anchor="middle" x="63" y="-445.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="54,-396 0,-396 0,-360 54,-360 54,-396"/>
+<text text-anchor="middle" x="27" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M54.1,-431.7C50.13,-423.98 45.37,-414.71 40.94,-406.11"/>
+<polygon fill="black" stroke="black" points="44.17,-404.74 36.49,-397.45 37.95,-407.94 44.17,-404.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="126,-378 112.5,-396 85.5,-396 72,-378 85.5,-360 112.5,-360 126,-378"/>
+<text text-anchor="middle" x="99" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M71.9,-431.7C75.87,-423.98 80.63,-414.71 85.06,-406.11"/>
+<polygon fill="black" stroke="black" points="88.05,-407.94 89.51,-397.45 81.83,-404.74 88.05,-407.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="90,-324 36,-324 36,-288 90,-288 90,-324"/>
+<text text-anchor="middle" x="63" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">246</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M90.1,-359.7C86.13,-351.98 81.37,-342.71 76.94,-334.11"/>
+<polygon fill="black" stroke="black" points="80.17,-332.74 72.49,-325.45 73.95,-335.94 80.17,-332.74"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="162,-306 148.5,-324 121.5,-324 108,-306 121.5,-288 148.5,-288 162,-306"/>
+<text text-anchor="middle" x="135" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M107.9,-359.7C111.87,-351.98 116.63,-342.71 121.06,-334.11"/>
+<polygon fill="black" stroke="black" points="124.05,-335.94 125.51,-325.45 117.83,-332.74 124.05,-335.94"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-252 72,-252 72,-216 126,-216 126,-252"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M126.1,-287.7C122.13,-279.98 117.37,-270.71 112.94,-262.11"/>
+<polygon fill="black" stroke="black" points="116.17,-260.74 108.49,-253.45 109.95,-263.94 116.17,-260.74"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="198,-234 184.5,-252 157.5,-252 144,-234 157.5,-216 184.5,-216 198,-234"/>
+<text text-anchor="middle" x="171" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M143.9,-287.7C147.87,-279.98 152.63,-270.71 157.06,-262.11"/>
+<polygon fill="black" stroke="black" points="160.05,-263.94 161.51,-253.45 153.83,-260.74 160.05,-263.94"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="162,-180 108,-180 108,-144 162,-144 162,-180"/>
+<text text-anchor="middle" x="135" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 7&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>7&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M162.1,-215.7C158.13,-207.98 153.37,-198.71 148.94,-190.11"/>
+<polygon fill="black" stroke="black" points="152.17,-188.74 144.49,-181.45 145.95,-191.94 152.17,-188.74"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="234,-162 220.5,-180 193.5,-180 180,-162 193.5,-144 220.5,-144 234,-162"/>
+<text text-anchor="middle" x="207" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 7&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>7&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M179.9,-215.7C183.87,-207.98 188.63,-198.71 193.06,-190.11"/>
+<polygon fill="black" stroke="black" points="196.05,-191.94 197.51,-181.45 189.83,-188.74 196.05,-191.94"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="198,-90 184.5,-108 157.5,-108 144,-90 157.5,-72 184.5,-72 198,-90"/>
+<text text-anchor="middle" x="171" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 9&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>9&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M198.1,-143.7C194.13,-135.98 189.37,-126.71 184.94,-118.11"/>
+<polygon fill="black" stroke="black" points="188.17,-116.74 180.49,-109.45 181.95,-119.94 188.17,-116.74"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node">
+<title>13</title>
+<polygon fill="none" stroke="black" points="270,-108 216,-108 216,-72 270,-72 270,-108"/>
+<text text-anchor="middle" x="243" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 9&#45;&gt;13 -->
+<g id="edge12" class="edge">
+<title>9&#45;&gt;13</title>
+<path fill="none" stroke="black" d="M215.9,-143.7C219.87,-135.98 224.63,-126.71 229.06,-118.11"/>
+<polygon fill="black" stroke="black" points="232.05,-119.94 233.51,-109.45 225.83,-116.74 232.05,-119.94"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="162,-36 108,-36 108,0 162,0 162,-36"/>
+<text text-anchor="middle" x="135" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">20</text>
+</g>
+<!-- 10&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>10&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M162.1,-71.7C158.13,-63.98 153.37,-54.71 148.94,-46.11"/>
+<polygon fill="black" stroke="black" points="152.17,-44.74 144.49,-37.45 145.95,-47.94 152.17,-44.74"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<polygon fill="none" stroke="black" points="234,-36 180,-36 180,0 234,0 234,-36"/>
+<text text-anchor="middle" x="207" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">4</text>
+</g>
+<!-- 10&#45;&gt;12 -->
+<g id="edge11" class="edge">
+<title>10&#45;&gt;12</title>
+<path fill="none" stroke="black" d="M179.9,-71.7C183.87,-63.98 188.63,-54.71 193.06,-46.11"/>
+<polygon fill="black" stroke="black" points="196.05,-47.94 197.51,-37.45 189.83,-44.74 196.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 246 * {30 + 40 * {20 + 4 - 1}}<br/>
+		61 - 246 * {30 + 40 * {24 - 1}}
+		</h1><svg width="278pt" height="404pt"
+ viewBox="0.00 0.00 278.00 404.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 400)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-400 274,-400 274,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="90,-378 76.5,-396 49.5,-396 36,-378 49.5,-360 76.5,-360 90,-378"/>
+<text text-anchor="middle" x="63" y="-373.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="54,-324 0,-324 0,-288 54,-288 54,-324"/>
+<text text-anchor="middle" x="27" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M54.1,-359.7C50.13,-351.98 45.37,-342.71 40.94,-334.11"/>
+<polygon fill="black" stroke="black" points="44.17,-332.74 36.49,-325.45 37.95,-335.94 44.17,-332.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="126,-306 112.5,-324 85.5,-324 72,-306 85.5,-288 112.5,-288 126,-306"/>
+<text text-anchor="middle" x="99" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M71.9,-359.7C75.87,-351.98 80.63,-342.71 85.06,-334.11"/>
+<polygon fill="black" stroke="black" points="88.05,-335.94 89.51,-325.45 81.83,-332.74 88.05,-335.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="90,-252 36,-252 36,-216 90,-216 90,-252"/>
+<text text-anchor="middle" x="63" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">246</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M90.1,-287.7C86.13,-279.98 81.37,-270.71 76.94,-262.11"/>
+<polygon fill="black" stroke="black" points="80.17,-260.74 72.49,-253.45 73.95,-263.94 80.17,-260.74"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="162,-234 148.5,-252 121.5,-252 108,-234 121.5,-216 148.5,-216 162,-234"/>
+<text text-anchor="middle" x="135" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M107.9,-287.7C111.87,-279.98 116.63,-270.71 121.06,-262.11"/>
+<polygon fill="black" stroke="black" points="124.05,-263.94 125.51,-253.45 117.83,-260.74 124.05,-263.94"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-180 72,-180 72,-144 126,-144 126,-180"/>
+<text text-anchor="middle" x="99" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M126.1,-215.7C122.13,-207.98 117.37,-198.71 112.94,-190.11"/>
+<polygon fill="black" stroke="black" points="116.17,-188.74 108.49,-181.45 109.95,-191.94 116.17,-188.74"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="198,-162 184.5,-180 157.5,-180 144,-162 157.5,-144 184.5,-144 198,-162"/>
+<text text-anchor="middle" x="171" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M143.9,-215.7C147.87,-207.98 152.63,-198.71 157.06,-190.11"/>
+<polygon fill="black" stroke="black" points="160.05,-191.94 161.51,-181.45 153.83,-188.74 160.05,-191.94"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="162,-108 108,-108 108,-72 162,-72 162,-108"/>
+<text text-anchor="middle" x="135" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 7&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>7&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M162.1,-143.7C158.13,-135.98 153.37,-126.71 148.94,-118.11"/>
+<polygon fill="black" stroke="black" points="152.17,-116.74 144.49,-109.45 145.95,-119.94 152.17,-116.74"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="234,-90 220.5,-108 193.5,-108 180,-90 193.5,-72 220.5,-72 234,-90"/>
+<text text-anchor="middle" x="207" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 7&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>7&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M179.9,-143.7C183.87,-135.98 188.63,-126.71 193.06,-118.11"/>
+<polygon fill="black" stroke="black" points="196.05,-119.94 197.51,-109.45 189.83,-116.74 196.05,-119.94"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<polygon fill="none" stroke="black" points="198,-36 144,-36 144,0 198,0 198,-36"/>
+<text text-anchor="middle" x="171" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">24</text>
+</g>
+<!-- 9&#45;&gt;10 -->
+<g id="edge9" class="edge">
+<title>9&#45;&gt;10</title>
+<path fill="none" stroke="black" d="M198.1,-71.7C194.13,-63.98 189.37,-54.71 184.94,-46.11"/>
+<polygon fill="black" stroke="black" points="188.17,-44.74 180.49,-37.45 181.95,-47.94 188.17,-44.74"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<polygon fill="none" stroke="black" points="270,-36 216,-36 216,0 270,0 270,-36"/>
+<text text-anchor="middle" x="243" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">1</text>
+</g>
+<!-- 9&#45;&gt;11 -->
+<g id="edge10" class="edge">
+<title>9&#45;&gt;11</title>
+<path fill="none" stroke="black" d="M215.9,-71.7C219.87,-63.98 224.63,-54.71 229.06,-46.11"/>
+<polygon fill="black" stroke="black" points="232.05,-47.94 233.51,-37.45 225.83,-44.74 232.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 246 * {30 + 40 * {24 - 1}}<br/>
+		61 - 246 * {30 + 40 * 23}
+		</h1><svg width="242pt" height="332pt"
+ viewBox="0.00 0.00 242.00 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-328 238,-328 238,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="90,-306 76.5,-324 49.5,-324 36,-306 49.5,-288 76.5,-288 90,-306"/>
+<text text-anchor="middle" x="63" y="-301.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="54,-252 0,-252 0,-216 54,-216 54,-252"/>
+<text text-anchor="middle" x="27" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M54.1,-287.7C50.13,-279.98 45.37,-270.71 40.94,-262.11"/>
+<polygon fill="black" stroke="black" points="44.17,-260.74 36.49,-253.45 37.95,-263.94 44.17,-260.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="126,-234 112.5,-252 85.5,-252 72,-234 85.5,-216 112.5,-216 126,-234"/>
+<text text-anchor="middle" x="99" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M71.9,-287.7C75.87,-279.98 80.63,-270.71 85.06,-262.11"/>
+<polygon fill="black" stroke="black" points="88.05,-263.94 89.51,-253.45 81.83,-260.74 88.05,-263.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="90,-180 36,-180 36,-144 90,-144 90,-180"/>
+<text text-anchor="middle" x="63" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">246</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M90.1,-215.7C86.13,-207.98 81.37,-198.71 76.94,-190.11"/>
+<polygon fill="black" stroke="black" points="80.17,-188.74 72.49,-181.45 73.95,-191.94 80.17,-188.74"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="162,-162 148.5,-180 121.5,-180 108,-162 121.5,-144 148.5,-144 162,-162"/>
+<text text-anchor="middle" x="135" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M107.9,-215.7C111.87,-207.98 116.63,-198.71 121.06,-190.11"/>
+<polygon fill="black" stroke="black" points="124.05,-191.94 125.51,-181.45 117.83,-188.74 124.05,-191.94"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-108 72,-108 72,-72 126,-72 126,-108"/>
+<text text-anchor="middle" x="99" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M126.1,-143.7C122.13,-135.98 117.37,-126.71 112.94,-118.11"/>
+<polygon fill="black" stroke="black" points="116.17,-116.74 108.49,-109.45 109.95,-119.94 116.17,-116.74"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="198,-90 184.5,-108 157.5,-108 144,-90 157.5,-72 184.5,-72 198,-90"/>
+<text text-anchor="middle" x="171" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M143.9,-143.7C147.87,-135.98 152.63,-126.71 157.06,-118.11"/>
+<polygon fill="black" stroke="black" points="160.05,-119.94 161.51,-109.45 153.83,-116.74 160.05,-119.94"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<polygon fill="none" stroke="black" points="162,-36 108,-36 108,0 162,0 162,-36"/>
+<text text-anchor="middle" x="135" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">40</text>
+</g>
+<!-- 7&#45;&gt;8 -->
+<g id="edge7" class="edge">
+<title>7&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M162.1,-71.7C158.13,-63.98 153.37,-54.71 148.94,-46.11"/>
+<polygon fill="black" stroke="black" points="152.17,-44.74 144.49,-37.45 145.95,-47.94 152.17,-44.74"/>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<polygon fill="none" stroke="black" points="234,-36 180,-36 180,0 234,0 234,-36"/>
+<text text-anchor="middle" x="207" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">23</text>
+</g>
+<!-- 7&#45;&gt;9 -->
+<g id="edge8" class="edge">
+<title>7&#45;&gt;9</title>
+<path fill="none" stroke="black" d="M179.9,-71.7C183.87,-63.98 188.63,-54.71 193.06,-46.11"/>
+<polygon fill="black" stroke="black" points="196.05,-47.94 197.51,-37.45 189.83,-44.74 196.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 246 * {30 + 40 * 23}<br/>
+		61 - 246 * {30 + 920}
+		</h1><svg width="206pt" height="260pt"
+ viewBox="0.00 0.00 206.00 260.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 256)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-256 202,-256 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="90,-234 76.5,-252 49.5,-252 36,-234 49.5,-216 76.5,-216 90,-234"/>
+<text text-anchor="middle" x="63" y="-229.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="54,-180 0,-180 0,-144 54,-144 54,-180"/>
+<text text-anchor="middle" x="27" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M54.1,-215.7C50.13,-207.98 45.37,-198.71 40.94,-190.11"/>
+<polygon fill="black" stroke="black" points="44.17,-188.74 36.49,-181.45 37.95,-191.94 44.17,-188.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="126,-162 112.5,-180 85.5,-180 72,-162 85.5,-144 112.5,-144 126,-162"/>
+<text text-anchor="middle" x="99" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M71.9,-215.7C75.87,-207.98 80.63,-198.71 85.06,-190.11"/>
+<polygon fill="black" stroke="black" points="88.05,-191.94 89.51,-181.45 81.83,-188.74 88.05,-191.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="90,-108 36,-108 36,-72 90,-72 90,-108"/>
+<text text-anchor="middle" x="63" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">246</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M90.1,-143.7C86.13,-135.98 81.37,-126.71 76.94,-118.11"/>
+<polygon fill="black" stroke="black" points="80.17,-116.74 72.49,-109.45 73.95,-119.94 80.17,-116.74"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="162,-90 148.5,-108 121.5,-108 108,-90 121.5,-72 148.5,-72 162,-90"/>
+<text text-anchor="middle" x="135" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">+</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M107.9,-143.7C111.87,-135.98 116.63,-126.71 121.06,-118.11"/>
+<polygon fill="black" stroke="black" points="124.05,-119.94 125.51,-109.45 117.83,-116.74 124.05,-119.94"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<polygon fill="none" stroke="black" points="126,-36 72,-36 72,0 126,0 126,-36"/>
+<text text-anchor="middle" x="99" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">30</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge5" class="edge">
+<title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M126.1,-71.7C122.13,-63.98 117.37,-54.71 112.94,-46.11"/>
+<polygon fill="black" stroke="black" points="116.17,-44.74 108.49,-37.45 109.95,-47.94 116.17,-44.74"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<polygon fill="none" stroke="black" points="198,-36 144,-36 144,0 198,0 198,-36"/>
+<text text-anchor="middle" x="171" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">920</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6" class="edge">
+<title>5&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M143.9,-71.7C147.87,-63.98 152.63,-54.71 157.06,-46.11"/>
+<polygon fill="black" stroke="black" points="160.05,-47.94 161.51,-37.45 153.83,-44.74 160.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 246 * {30 + 920}<br/>
+		61 - 246 * 950
+		</h1><svg width="170pt" height="188pt"
+ viewBox="0.00 0.00 170.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-184 166,-184 166,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="90,-162 76.5,-180 49.5,-180 36,-162 49.5,-144 76.5,-144 90,-162"/>
+<text text-anchor="middle" x="63" y="-157.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="54,-108 0,-108 0,-72 54,-72 54,-108"/>
+<text text-anchor="middle" x="27" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M54.1,-143.7C50.13,-135.98 45.37,-126.71 40.94,-118.11"/>
+<polygon fill="black" stroke="black" points="44.17,-116.74 36.49,-109.45 37.95,-119.94 44.17,-116.74"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="126,-90 112.5,-108 85.5,-108 72,-90 85.5,-72 112.5,-72 126,-90"/>
+<text text-anchor="middle" x="99" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">*</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M71.9,-143.7C75.87,-135.98 80.63,-126.71 85.06,-118.11"/>
+<polygon fill="black" stroke="black" points="88.05,-119.94 89.51,-109.45 81.83,-116.74 88.05,-119.94"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<polygon fill="none" stroke="black" points="90,-36 36,-36 36,0 90,0 90,-36"/>
+<text text-anchor="middle" x="63" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">246</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3" class="edge">
+<title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M90.1,-71.7C86.13,-63.98 81.37,-54.71 76.94,-46.11"/>
+<polygon fill="black" stroke="black" points="80.17,-44.74 72.49,-37.45 73.95,-47.94 80.17,-44.74"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<polygon fill="none" stroke="black" points="162,-36 108,-36 108,0 162,0 162,-36"/>
+<text text-anchor="middle" x="135" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">950</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge4" class="edge">
+<title>3&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M107.9,-71.7C111.87,-63.98 116.63,-54.71 121.06,-46.11"/>
+<polygon fill="black" stroke="black" points="124.05,-47.94 125.51,-37.45 117.83,-44.74 124.05,-47.94"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 246 * 950<br/>
+		61 - 233700
+		</h1><svg width="146pt" height="116pt"
+ viewBox="0.00 0.00 145.75 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-112 141.75,-112 141.75,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="93,-90 79.5,-108 52.5,-108 39,-90 52.5,-72 79.5,-72 93,-90"/>
+<text text-anchor="middle" x="66" y="-85.33" font-family="Cascadia Code Regular" font-size="14.00">&#45;</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node">
+<title>2</title>
+<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"/>
+<text text-anchor="middle" x="27" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">61</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge1" class="edge">
+<title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M56.36,-71.7C52.06,-63.98 46.9,-54.71 42.11,-46.11"/>
+<polygon fill="black" stroke="black" points="45.19,-44.46 37.27,-37.43 39.08,-47.87 45.19,-44.46"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node">
+<title>3</title>
+<polygon fill="none" stroke="black" points="137.75,-36 72.25,-36 72.25,0 137.75,0 137.75,-36"/>
+<text text-anchor="middle" x="105" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">233700</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge">
+<title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M75.64,-71.7C79.94,-63.98 85.1,-54.71 89.89,-46.11"/>
+<polygon fill="black" stroke="black" points="92.92,-47.87 94.73,-37.43 86.81,-44.46 92.92,-47.87"/>
+</g>
+</g>
+</svg></div><div class="step">
+    <h1 class="formula">
+61 - 233700<br/>
+		-233639
+		</h1><svg width="82pt" height="44pt"
+ viewBox="0.00 0.00 81.75 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<title>arithmetic_tree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-40 77.75,-40 77.75,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node">
+<title>1</title>
+<polygon fill="none" stroke="black" points="73.75,-36 0,-36 0,0 73.75,0 73.75,-36"/>
+<text text-anchor="middle" x="36.88" y="-13.32" font-family="Cascadia Code Regular" font-size="14.00">&#45;233639</text>
+</g>
+</g>
+</svg></div></body></html>

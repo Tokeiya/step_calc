@@ -7,14 +7,14 @@ use syntax::number_value::NumberValue;
 
 fn write_operator(operator: &Operation, buffer: &mut String) {
 	buffer.push(' ');
-	
+
 	match operator {
 		Operation::Add => buffer.push('+'),
 		Operation::Sub => buffer.push('-'),
 		Operation::Mul => buffer.push('*'),
 		Operation::Div => buffer.push('/'),
 	}
-	
+
 	buffer.push(' ');
 }
 
@@ -39,7 +39,9 @@ fn require(expr: &BinaryOperation, parent: &Option<&Operation>) -> bool {
 	match parent {
 		None => false,
 		Some(p) => {
-			if is_additive(p) {
+			if let Operation::Div = p {
+				true
+			} else if is_additive(p) {
 				false
 			} else {
 				is_additive(expr.operation())
@@ -52,13 +54,13 @@ fn minimal_binary_op(expr: &BinaryOperation, parent: &Option<&Operation>, buffer
 	if require(expr, parent) {
 		buffer.push('{');
 	}
-	
+
 	minimal_expression(expr.left(), &Some(expr.operation()), buffer);
-	
+
 	write_operator(expr.operation(), buffer);
-	
+
 	minimal_expression(expr.right(), &Some(expr.operation()), buffer);
-	
+
 	if require(expr, parent) {
 		buffer.push('}');
 	}
@@ -96,19 +98,19 @@ fn strict_number(number: &Number, buffer: &mut String) {
 
 fn strict_binary_op(binary_operation: &BinaryOperation, buffer: &mut String) {
 	buffer.push('{');
-	
+
 	strict_expression(binary_operation.left(), buffer);
 	write_operator(binary_operation.operation(), buffer);
 	strict_expression(binary_operation.right(), buffer);
-	
+
 	buffer.push('}');
 }
 
 fn strict_bracket(bracket: &Bracket, buffer: &mut String) {
 	buffer.push('{');
-	
+
 	strict_expression(bracket.expression(), buffer);
-	
+
 	buffer.push('}');
 }
 
@@ -121,23 +123,23 @@ pub fn strict_infix_expression(expr: &Expression) -> String {
 #[cfg(test)]
 mod tests {
 	use combine::Parser;
-	
+
 	use syntax::binary_operation::{BinaryOperation, Operation};
 	use syntax::number::Number as NumExpr;
 	use syntax::number_value::NumberValue;
-	
+
 	use crate::infix::formatter::{minimal_infix_notation, strict_infix_expression};
 	use crate::infix::parser::get_parser;
-	
+
 	use super::require;
-	
+
 	#[test]
 	fn strict() {
 		let expr = get_parser().parse("{30*{1+2}-25}/{10+20+15}").unwrap().0;
 		let ret = strict_infix_expression(&expr);
 		assert_eq!(ret, "{{{{30 * {{1 + 2}}} - 25}} / {{{10 + 20} + 15}}}");
 	}
-	
+
 	#[test]
 	fn require_test() {
 		fn make_fixture(operator: Operation) -> BinaryOperation {
@@ -147,40 +149,43 @@ mod tests {
 				operator,
 			)
 		}
-		
+
 		let bin = make_fixture(Operation::Add);
 		assert!(!require(&bin, &Some(&Operation::Add)));
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(require(&bin, &Some(&Operation::Mul)));
 		assert!(require(&bin, &Some(&Operation::Div)));
-		
+
 		let bin = make_fixture(Operation::Sub);
 		assert!(!require(&bin, &Some(&Operation::Add)));
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(require(&bin, &Some(&Operation::Mul)));
 		assert!(require(&bin, &Some(&Operation::Div)));
-		
+
 		let bin = make_fixture(Operation::Mul);
 		assert!(!require(&bin, &Some(&Operation::Add)));
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(!require(&bin, &Some(&Operation::Mul)));
-		assert!(!require(&bin, &Some(&Operation::Div)));
-		
+		assert!(require(&bin, &Some(&Operation::Div)));
+
 		let bin = make_fixture(Operation::Div);
 		assert!(!require(&bin, &Some(&Operation::Add)));
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(!require(&bin, &Some(&Operation::Mul)));
-		assert!(!require(&bin, &Some(&Operation::Div)));
+		assert!(require(&bin, &Some(&Operation::Div)));
 	}
-	
+
 	#[test]
 	fn minimal() {
-		let expr = get_parser().parse("{{30*{1+2}-25}/{10+20+15}}").unwrap().0;
+		let expr = get_parser()
+			.parse("{{{10+20*3}/{{4-5}*{{6+7}/2}}}}")
+			.unwrap()
+			.0;
 		let ret = minimal_infix_notation(&expr);
-		assert_eq!(ret, "{30 * {1 + 2} - 25} / {10 + 20 + 15}");
+		assert_eq!(ret, "{10 + 20 * 3} / {{4 - 5} * {6 + 7} / 2}");
 	}
 }

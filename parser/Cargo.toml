@@ -9,3 +9,4 @@ syntax = { path = "../syntax", features = ["test_active"] }
 [dependencies]
 combine = "*"
 syntax = { path = "../syntax" }
+regex = "*"
