@@ -10,3 +10,4 @@ syntax = { path = "../syntax", features = ["test_active"] }
 combine = "*"
 syntax = { path = "../syntax" }
 regex = "*"
+once_cell = "*"

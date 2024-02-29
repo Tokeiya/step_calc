@@ -1,12 +1,20 @@
+use regex::Regex;
 use std::fs::File;
+use std::io::Cursor;
 
 mod html_writer;
 
 fn main() {
-	const FORMULA: &str = "{1+2*30}-{{42+4-5}*{{6+7}/2}}*{30+40*{20+4-1}}";
-	let mut file = File::create("../test_artifacts/output.txt").unwrap();
+	const INPUT: &str = r"10 20    30 40  + -        *";
 
-	_ = regex::Regex::new("");
+	let mut cursor = Cursor::<Vec<char>>::new(INPUT.chars().collect());
 
-	html_writer::write_step_infix_html(FORMULA, &mut file).unwrap();
+	let reg = Regex::new(r"\s+").unwrap();
+	let array: Vec<_> = reg.split(INPUT).collect();
+
+	println!("{}", array.len());
+
+	for elem in array.iter() {
+		println!("{}", elem)
+	}
 }
