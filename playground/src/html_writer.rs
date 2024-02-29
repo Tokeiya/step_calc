@@ -267,4 +267,19 @@ mod tests {
 		let act = extract_svg_element(EXPECTED_FULL_SVG.as_str()).unwrap();
 		assert_text(&act, expected)
 	}
+
+	#[test]
+	fn step() {
+		const FORMULA: &str = "{1+2*30}-{{42+4-5}*{{6+7}/2}}*{30+40*{20+4-1}}";
+		let mut cursor = create_cursor();
+
+		write_step_infix_html(FORMULA, &mut cursor).unwrap();
+
+		let act = String::from_utf8(cursor.into_inner()).unwrap();
+		let mut file = File::open("./test_artifacts/step_output.txt").unwrap();
+		let mut expected = String::default();
+		file.read_to_string(&mut expected).unwrap();
+
+		assert_text(&act, &expected);
+	}
 }
