@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::{HashSet, VecDeque};
 use std::iter::Peekable;
 use std::str::CharIndices;
 
@@ -83,14 +83,14 @@ fn single_tokenize(scr: &str) -> (Option<Token>, &str) {
 	};
 }
 
-pub fn tokenize(scr: &str) -> (Vec<Token>, &str) {
+pub fn tokenize(scr: &str) -> (VecDeque<Token>, &str) {
 	let mut remainder = scr;
-	let mut ret = Vec::<Token>::default();
+	let mut ret = VecDeque::<Token>::default();
 	loop {
 		let (token, rem) = single_tokenize(remainder);
 
 		if let Some(t) = token {
-			ret.push(t);
+			ret.push_back(t);
 			remainder = rem;
 		} else {
 			break;
