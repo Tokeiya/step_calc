@@ -1,7 +1,8 @@
-use anyhow::Result as AnyResult;
 use std::io::{Cursor, Read, Result as IoResult, Write};
 use std::ops::Index;
 use std::process::{Command, Stdio};
+
+use anyhow::Result as AnyResult;
 
 use parser::infix::formatter::minimal_infix_notation;
 use parser::infix::parser::parse;

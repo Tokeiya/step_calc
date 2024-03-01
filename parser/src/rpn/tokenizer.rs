@@ -1,10 +1,9 @@
-use combine::parser::sequence::skip;
-use once_cell::sync::Lazy;
-use regex::{Error as RegError, Regex};
 use std::collections::HashSet;
-use std::hash::{Hash, RandomState};
 use std::iter::Peekable;
 use std::str::CharIndices;
+
+use once_cell::sync::Lazy;
+
 use syntax::binary_operation::Operation;
 use syntax::number_value::NumberValue;
 
@@ -224,7 +223,7 @@ pub mod tests {
 
 		assert_eq!(rem, "");
 
-		let (vdc, rem) = tokenize("10 20 30 / + hoge");
+		let (_vdc, rem) = tokenize("10 20 30 / + hoge");
 		assert_eq!(vec.len(), 5);
 
 		vec[0].assert_i32(&10);

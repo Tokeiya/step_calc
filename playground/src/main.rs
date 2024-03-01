@@ -1,5 +1,6 @@
-use combine::stream::Range;
 use std::ops::Index;
+
+use combine::stream::Range;
 
 mod html_writer;
 
