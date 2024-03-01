@@ -148,7 +148,7 @@ mod tests {
 			consumed.push_str(&fixture.remainder_to_string());
 			assert_eq!(&consumed, SAMPLE);
 
-			_ = fixture.next().is_none();
+			assert_eq!(fixture.next().is_none(), exp == SAMPLE)
 		}
 
 		for _ in 0..10 {
@@ -167,7 +167,7 @@ mod tests {
 			consumed.push_str(&fixture.remainder_to_string());
 			assert_eq!(&consumed, SAMPLE);
 
-			fixture.previous();
+			assert_eq!(fixture.previous().is_none(), exp == "");
 		}
 	}
 }
