@@ -24,11 +24,15 @@ impl CharCursor {
 	}
 
 	pub fn remainder_to_string(&self) -> String {
-		todo!()
+		if self.vec.len() <= self.pos {
+			String::new()
+		} else {
+			self.vec[self.pos..].iter().collect()
+		}
 	}
 
 	pub fn consumed_to_string(&self) -> String {
-		todo!()
+		self.vec[..self.pos].iter().collect()
 	}
 }
 
@@ -101,25 +105,33 @@ mod tests {
 
 		for i in 0..SAMPLE.len() {
 			let actual = fixture.remainder_to_string();
-			assert_eq!(&actual, &SAMPLE[i..]);
 
-			let mut consumed = fixture.consumed_to_string();
-			consumed.push_str(&actual);
-			assert_eq!(&consumed, SAMPLE)
-		}
-
-		for _ in 0..10 {
-			let actual = fixture.remainder_to_string();
-			assert_eq!(&actual, "");
-		}
-
-		for i in (0..SAMPLE.len()).rev() {
-			let actual = fixture.remainder_to_string();
 			assert_eq!(&actual, &SAMPLE[i..]);
 
 			let mut consumed = fixture.consumed_to_string();
 			consumed.push_str(&actual);
 			assert_eq!(&consumed, SAMPLE);
+
+			assert_eq!(fixture.next().is_none(), actual.len() == 0)
+		}
+
+		for _ in 0..10 {
+			let actual = fixture.remainder_to_string();
+			assert_eq!(&actual, "");
+			assert!(fixture.next().is_none());
+		}
+
+		for i in (0..=SAMPLE.len()).rev() {
+			let actual = fixture.remainder_to_string();
+			let expected = &SAMPLE[i..];
+
+			assert_eq!(&actual, expected);
+
+			let mut consumed = fixture.consumed_to_string();
+			consumed.push_str(&actual);
+			assert_eq!(&consumed, SAMPLE);
+
+			assert_eq!(fixture.previous().is_none(), i == 0);
 		}
 	}
 
@@ -130,24 +142,32 @@ mod tests {
 		for i in 0..SAMPLE.len() {
 			let exp = &SAMPLE[..i];
 			let mut consumed = fixture.consumed_to_string();
+
 			assert_eq!(&consumed, exp);
 
 			consumed.push_str(&fixture.remainder_to_string());
-			assert_eq!(&consumed, SAMPLE)
+			assert_eq!(&consumed, SAMPLE);
+
+			_ = fixture.next().is_none();
 		}
 
 		for _ in 0..10 {
 			let actual = fixture.consumed_to_string();
-			assert_eq!(&actual, SAMPLE)
+			assert_eq!(&actual, SAMPLE);
+
+			assert!(fixture.next().is_none());
 		}
 
-		for i in (0..SAMPLE.len()).rev() {
+		for i in (0..=SAMPLE.len()).rev() {
 			let exp = &SAMPLE[..i];
 			let mut consumed = fixture.consumed_to_string();
+
 			assert_eq!(&consumed, exp);
 
 			consumed.push_str(&fixture.remainder_to_string());
-			assert_eq!(&consumed, SAMPLE)
+			assert_eq!(&consumed, SAMPLE);
+
+			fixture.previous();
 		}
 	}
 }
