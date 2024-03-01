@@ -5,7 +5,8 @@ use combine::stream::Range;
 use parser::rpn::parser::{tokenize, Token};
 use syntax::binary_operation::Operation;
 
-mod html_writer;
+mod infix_html_writer;
+mod rpn_html_writer;
 
 fn print(token: &Token) {
 	match token {

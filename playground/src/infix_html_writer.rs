@@ -112,7 +112,7 @@ fn gen_svg(expr: &Expression) -> AnyResult<String> {
 
 fn write_step(recent: Option<&str>, expr: &Expression, writer: &mut dyn Write) -> AnyResult<()> {
 	let current_expr = minimal_infix_notation(&expr);
-	writer.write(
+	_ = writer.write(
 		br##"<div class="step">
     <h1 class="formula">
 "##,
@@ -132,12 +132,12 @@ fn write_step(recent: Option<&str>, expr: &Expression, writer: &mut dyn Write) -
 			current_expr
 		))?;
 	}
-	writer.write(b"</h1>")?;
+	_ = writer.write(b"</h1>")?;
 
 	let svg = gen_svg(&expr)?;
-	writer.write(svg.as_bytes())?;
+	_ = writer.write(svg.as_bytes())?;
 
-	writer.write(b"</div>")?;
+	_ = writer.write(b"</div>")?;
 
 	Ok(())
 }
@@ -184,7 +184,7 @@ pub fn write_step_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult
 		recent = expr;
 	}
 
-	writer.write(br"</body></html>")?;
+	_ = writer.write(br"</body></html>")?;
 
 	Ok(())
 }
