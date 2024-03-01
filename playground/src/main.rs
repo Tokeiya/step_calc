@@ -1,12 +1,14 @@
 use combine::stream::Range;
-use parser::rpn::char_cursor::CharCursor;
-use regex::Regex;
-use std::fs::File;
-use std::io::Cursor;
+use std::ops::Index;
 
 mod html_writer;
 
 fn main() {
 	const SAMPLE: &str = "abcdefghijklmnopqrstuvwxyz";
-	println!("{}", SAMPLE.len());
+	let mut a = SAMPLE.char_indices().enumerate();
+
+	let a = &SAMPLE[0..20];
+	for elem in a {
+		println!("{:?}", elem)
+	}
 }

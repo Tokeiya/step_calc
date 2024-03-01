@@ -1,2 +1,2 @@
-pub mod char_cursor;
+mod char_cursor;
 pub mod tokenizer;

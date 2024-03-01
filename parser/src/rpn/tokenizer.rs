@@ -8,6 +8,10 @@ pub enum Token {
 	Operator(Operation),
 }
 
+fn single_tokenize(scr: &str) -> (Token, bool, &str) {
+	todo!()
+}
+
 pub fn tokenize(scr: &str) -> (Vec<Token>, &str) {
 	todo!()
 }
