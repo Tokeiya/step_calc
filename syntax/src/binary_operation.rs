@@ -3,7 +3,7 @@ use crate::expression::Expression;
 use crate::number::Number;
 use crate::number_value::NumberResult;
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub enum Operation {
 	Add,
 	Sub,

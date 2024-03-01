@@ -9,6 +9,7 @@ use syntax::number_value::NumberValue;
 
 type CharIterator<'a> = Peekable<CharIndices<'a>>;
 
+#[derive(Debug)]
 pub enum Token {
 	Number(NumberValue),
 	Operator(Operation),
@@ -90,7 +91,7 @@ pub fn tokenize(scr: &str) -> (VecDeque<Token>, &str) {
 		let (token, rem) = single_tokenize(remainder);
 
 		if let Some(t) = token {
-			ret.push_back(t);
+			ret.push_front(t);
 			remainder = rem;
 		} else {
 			break;
@@ -214,24 +215,24 @@ pub mod tests {
 		let (vec, rem) = tokenize("10 20 30 / +");
 		assert_eq!(vec.len(), 5);
 
-		vec[0].assert_i32(&10);
-		vec[1].assert_i32(&20);
+		vec[4].assert_i32(&10);
+		vec[3].assert_i32(&20);
 		vec[2].assert_i32(&30);
 
-		vec[3].assert_operator(&Operation::Div);
-		vec[4].assert_operator(&Operation::Add);
+		vec[1].assert_operator(&Operation::Div);
+		vec[0].assert_operator(&Operation::Add);
 
 		assert_eq!(rem, "");
 
 		let (_vdc, rem) = tokenize("10 20 30 / + hoge");
 		assert_eq!(vec.len(), 5);
 
-		vec[0].assert_i32(&10);
-		vec[1].assert_i32(&20);
+		vec[4].assert_i32(&10);
+		vec[3].assert_i32(&20);
 		vec[2].assert_i32(&30);
 
-		vec[3].assert_operator(&Operation::Div);
-		vec[4].assert_operator(&Operation::Add);
+		vec[1].assert_operator(&Operation::Div);
+		vec[0].assert_operator(&Operation::Add);
 
 		assert_eq!(rem, " hoge");
 	}

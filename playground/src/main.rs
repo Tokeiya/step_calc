@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 use std::ops::Index;
 
 use combine::stream::Range;
-use parser::rpn::tokenizer::{tokenize, Token};
+use parser::rpn::parser::{tokenize, Token};
 use syntax::binary_operation::Operation;
 
 mod html_writer;
@@ -20,9 +20,11 @@ fn print(token: &Token) {
 }
 
 fn main() {
-	let (mut v, s) = tokenize("   10 20 300 + /");
+	let mut vec = Vec::<i32>::default();
 
-	while let Some(t) = v.pop() {
-		print(&t)
-	}
+	vec.push(0);
+	vec.push(1);
+
+	println!("{:?}", vec.pop());
+	println!("{:?}", vec.pop());
 }
