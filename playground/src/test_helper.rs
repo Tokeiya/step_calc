@@ -22,7 +22,12 @@ fn str_to_vec(scr: &str, ignore_whitespace: bool) -> Vec<&str> {
 }
 
 #[cfg(test)]
-fn assert_text(actual: &str, expected: &str, trim: Option<&[TrimOption]>, ignore_whitespace: bool) {
+pub fn assert_text(
+	actual: &str,
+	expected: &str,
+	trim: Option<&[TrimOption]>,
+	ignore_whitespace: bool,
+) {
 	let a = str_to_vec(actual, ignore_whitespace);
 	let e = str_to_vec(expected, ignore_whitespace);
 
