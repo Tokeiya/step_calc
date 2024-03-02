@@ -195,6 +195,8 @@ mod tests {
 
 	use once_cell::sync::Lazy;
 
+	use crate::test_helper::strict_assert_text;
+
 	use super::*;
 
 	static EXPECTED_FULL_SVG: Lazy<String> = Lazy::new(|| {
@@ -219,22 +221,6 @@ mod tests {
 		Cursor::<Vec<u8>>::default()
 	}
 
-	fn assert_text(actual: &str, expected: &str) {
-		let a: Vec<_> = actual.lines().collect();
-		let e: Vec<_> = expected.lines().collect();
-
-		assert_eq!(a.len(), e.len());
-
-		for (idx, exp, act) in e
-			.iter()
-			.enumerate()
-			.zip(e.iter())
-			.map(|(x, y)| (x.0, x.1, y))
-		{
-			assert_eq!(act, exp, "{} {} {}", idx, exp, act);
-		}
-	}
-
 	#[test]
 	fn generate() {
 		let tree = parse(SAMPLE_FORMULA).unwrap().0;
@@ -245,7 +231,7 @@ mod tests {
 		let dot = String::from_utf8(cursor.into_inner()).unwrap();
 		let act = generate_svg(&dot).unwrap();
 
-		assert_text(&act, EXPECTED_FULL_SVG.as_str())
+		strict_assert_text(&act, EXPECTED_FULL_SVG.as_str())
 	}
 
 	#[test]
@@ -254,7 +240,7 @@ mod tests {
 		write_single_infix_html(SAMPLE_FORMULA, &mut cursor).unwrap();
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
 
-		assert_text(&act, EXPECTED_HTML.as_str())
+		strict_assert_text(&act, EXPECTED_HTML.as_str())
 	}
 
 	#[test]
@@ -266,7 +252,7 @@ mod tests {
 		let expected = binding.index(0);
 
 		let act = extract_svg_element(EXPECTED_FULL_SVG.as_str()).unwrap();
-		assert_text(&act, expected)
+		strict_assert_text(&act, expected)
 	}
 
 	#[test]
@@ -281,6 +267,6 @@ mod tests {
 		let mut expected = String::default();
 		file.read_to_string(&mut expected).unwrap();
 
-		assert_text(&act, &expected);
+		strict_assert_text(&act, &expected);
 	}
 }

@@ -1,4 +1,5 @@
 use std::collections::VecDeque;
+
 use syntax::arithmetic_expression::ArithmeticExpression;
 use syntax::binary_operation::{BinaryOperation, Operation};
 use syntax::expression::Expression;
@@ -39,10 +40,11 @@ pub fn step_calc(input: &mut VecDeque<Token>, stack: &mut Vec<Expression>) -> bo
 
 #[cfg(test)]
 mod tests {
-	use crate::rpn::parser::{step_calc, tokenize, Token};
 	use syntax::arithmetic_expression::ArithmeticExpression;
 	use syntax::binary_operation::Operation;
 	use syntax::expression::Expression;
+
+	use crate::rpn::parser::{step_calc, tokenize};
 
 	#[test]
 	fn step_test() {

@@ -1,13 +1,11 @@
-use std::collections::VecDeque;
-use std::ops::Index;
-
-use combine::stream::Range;
-use parser::rpn::parser::{tokenize, Token};
+use parser::rpn::parser::Token;
 use syntax::binary_operation::Operation;
 
 mod infix_html_writer;
 mod rpn_html_writer;
+mod test_helper;
 
+#[allow(dead_code)]
 fn print(token: &Token) {
 	match token {
 		Token::Number(num) => println!("{:?}", num),
@@ -21,11 +19,6 @@ fn print(token: &Token) {
 }
 
 fn main() {
-	let mut vec = Vec::<i32>::default();
-
-	vec.push(0);
-	vec.push(1);
-
-	println!("{:?}", vec.pop());
-	println!("{:?}", vec.pop());
+	let str = "  \t  ";
+	println!("{}", str.trim().is_empty())
 }
