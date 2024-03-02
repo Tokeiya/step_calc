@@ -1,6 +1,4 @@
-use std::cell::{Cell, RefCell};
-use std::io::{Cursor, Read, Write};
-use std::rc::Rc;
+
 use parser::rpn::parser::Token;
 use syntax::binary_operation::Operation;
 
@@ -25,11 +23,5 @@ fn print(token: &Token) {
 }
 
 
-
-
-
 fn main() {
-	let mut cursor=Cursor::<Vec<u8>>::default();
-	
-	
 }

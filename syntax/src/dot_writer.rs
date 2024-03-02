@@ -33,7 +33,7 @@ impl Debug for WriterError {
 			WriterError::IoError(ioe) => format!("IoError:{:?}", ioe),
 			WriterError::IdDispatcherError(x) => format!("IdError:{:?}", x),
 		};
-
+		
 		writeln!(f, "{}", msg)
 	}
 }
@@ -103,10 +103,10 @@ fn write_number<W: Write>(
 ) -> WriterResult {
 	let id = dispatcher.get().map_err(|x| x.map())?;
 	let NumberValue::Integer(num) = number.number();
-
+	
 	writeln!(writer, "\t{} [label=\"{}\",shape=\"box\"]", id, num).map_err(|x| x.map())?;
 	write_direction(writer, dispatcher)?;
-
+	
 	_ = dispatcher.pop().map_err(|x| x.map());
 	Ok(())
 }
@@ -117,11 +117,11 @@ fn write_bracket<W: Write>(
 	bracket: &Bracket,
 ) -> WriterResult {
 	let id = dispatcher.get().map_err(|err| err.map())?;
-
+	
 	writeln!(writer, r#"	{} [label="{{...}}",shape = "house"]"#, id).map_err(|err| err.map())?;
-
+	
 	write_expression(writer, dispatcher, bracket.expression())?;
-
+	
 	write_direction(writer, dispatcher)?;
 	_ = dispatcher.pop().map_err(|err| err.map())?;
 	Ok(())
@@ -133,22 +133,22 @@ fn write_binary_operation<W: Write>(
 	binary_operation: &BinaryOperation,
 ) -> WriterResult {
 	let id = dispatcher.get().map_err(|err| err.map())?;
-
+	
 	let op = match binary_operation.operation() {
 		Operation::Add => "+",
 		Operation::Sub => "-",
 		Operation::Mul => "*",
 		Operation::Div => "/",
 	};
-
+	
 	writeln!(writer, r#"	{} [label="{}",shape = "hexagon"]"#, id, op).map_err(|err| err.map())?;
 	write_direction(writer, dispatcher)?;
-
+	
 	write_expression(writer, dispatcher, binary_operation.left())?;
 	write_expression(writer, dispatcher, binary_operation.right())?;
-
+	
 	dispatcher.pop().map_err(|err| err.map())?;
-
+	
 	Ok(())
 }
 
@@ -159,9 +159,9 @@ pub fn write_dot<W: Write, E: ArithmeticExpression>(
 	write_header(writer)?;
 	let mut dispatcher = IdDispatcher::new();
 	let expr = expression.clone().to_expression();
-
+	
 	write_expression(writer, &mut dispatcher, &expr)?;
-
+	
 	write_footer(writer)?;
 	Ok(())
 }
@@ -169,16 +169,16 @@ pub fn write_dot<W: Write, E: ArithmeticExpression>(
 #[cfg(test)]
 mod tests {
 	use std::io::Cursor;
-
+	
 	use super::*;
-
+	
 	#[test]
 	fn write_header() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
 		super::write_header(&mut cursor).unwrap();
-
+		
 		let actual = String::from_utf8(cursor.into_inner()).unwrap();
-
+		
 		assert_eq!(
 			actual,
 			r#"digraph arithmetic_tree{
@@ -187,43 +187,40 @@ mod tests {
 "#
 		);
 	}
-
+	
 	#[test]
 	fn write_footer() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
 		super::write_footer(&mut cursor).unwrap();
-
+		
 		let actual = String::from_utf8(cursor.into_inner()).unwrap();
 		assert_eq!(actual, "}\n");
 	}
-
+	
 	#[test]
 	fn number() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
 		let num = NumberExpr::from(NumberValue::from(42));
 		let mut dispatcher = IdDispatcher::new();
-
+		
 		_ = write_number(&mut cursor, &mut dispatcher, &num);
 		let actual = String::from_utf8(cursor.into_inner()).unwrap();
-
+		
 		assert_eq!("\t1 [label=\"42\",shape=\"box\"]\n", actual);
-
-		println!("{}", actual);
 	}
-
+	
 	#[test]
 	fn bracket() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
 		let mut dispatcher = IdDispatcher::new();
-
+		
 		let num = NumberExpr::from(NumberValue::from(42));
 		let brackert = Bracket::from(num.to_expression());
-
+		
 		_ = write_bracket(&mut cursor, &mut dispatcher, &brackert).unwrap();
 		let actual = String::from_utf8(cursor.into_inner()).unwrap();
-
-		println!("{actual}");
-
+		
+		
 		assert_eq!(
 			r#"	1 [label="{...}",shape = "house"]
 	2 [label="42",shape="box"]
@@ -232,21 +229,21 @@ mod tests {
 			actual
 		);
 	}
-
+	
 	#[test]
 	fn binary_op() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
 		let mut dispatcher = IdDispatcher::new();
-
+		
 		let left = NumberExpr::from(NumberValue::from(42));
 		let right = NumberExpr::from(NumberValue::from(100));
-
+		
 		let bin = BinaryOperation::new(left, right, Operation::Sub);
-
+		
 		write_binary_operation(&mut cursor, &mut dispatcher, &bin).unwrap();
-
+		
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
-
+		
 		assert_eq!(
 			r#"	1 [label="-",shape = "hexagon"]
 	2 [label="42",shape="box"]
@@ -257,29 +254,29 @@ mod tests {
 			act
 		);
 	}
-
+	
 	#[test]
 	fn dot() {
 		let mut cursor = Cursor::<Vec<u8>>::default();
-
+		
 		let left = NumberExpr::from(NumberValue::from(42));
 		let right = NumberExpr::from(NumberValue::from(100));
-
+		
 		let bin = BinaryOperation::new(left, right, Operation::Add);
-
+		
 		let left = bin;
 		let right = BinaryOperation::new(
 			NumberExpr::from(NumberValue::from(2)),
 			NumberExpr::from(NumberValue::from(3)),
 			Operation::Mul,
 		);
-
+		
 		let bin = BinaryOperation::new(Bracket::from(left.to_expression()), right, Operation::Div);
-
+		
 		write_dot(&mut cursor, &bin).unwrap();
-
+		
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
-
+		
 		assert_eq!(
 			act,
 			r#"digraph arithmetic_tree{
@@ -303,7 +300,5 @@ mod tests {
 }
 "#
 		);
-
-		println!("{act}");
 	}
 }
