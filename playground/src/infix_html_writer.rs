@@ -46,7 +46,7 @@ fn extract_svg_element(scr: &str) -> AnyResult<String> {
 	};
 }
 
-pub fn write_single_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<()> {
+pub fn write_single_infix_html<T:Write>(formula: &str,mut writer:T) -> AnyResult<()> {
 	fn write_header(formula: &str, writer: &mut dyn Write) -> IoResult<()> {
 		_ = writer.write(br"<!DOCTYPE html>")?;
 		_ = writer.write(b"\n")?;
@@ -81,7 +81,7 @@ pub fn write_single_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResu
 		Ok(())
 	}
 
-	write_header(formula, writer)?;
+	write_header(formula, &mut writer)?;
 
 	let tree = parse(formula)?.0;
 	let mut cursor = Cursor::<Vec<u8>>::default();
@@ -95,7 +95,7 @@ pub fn write_single_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResu
 
 	_ = writer.write(svg.as_bytes())?;
 
-	write_footer(writer)?;
+	write_footer(&mut writer)?;
 
 	Ok(())
 }
@@ -142,7 +142,7 @@ fn write_step(recent: Option<&str>, expr: &Expression, writer: &mut dyn Write) -
 	Ok(())
 }
 
-pub fn write_step_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult<()> {
+pub fn write_step_infix_html<T:Write>(formula: &str,mut writer: T) -> AnyResult<()> {
 	writer.write_fmt(format_args!(
 		r##"<!DOCTYPE html>
 <html lang="ja">
@@ -168,7 +168,7 @@ pub fn write_step_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult
 	))?;
 
 	let mut recent = parse(formula)?.0.simplify();
-	write_step(None, &recent, writer)?;
+	write_step(None, &recent, &mut writer)?;
 
 	loop {
 		let (expr, is_proceed) = recent.step_calc();
@@ -179,7 +179,7 @@ pub fn write_step_infix_html(formula: &str, writer: &mut dyn Write) -> AnyResult
 			break;
 		}
 		let recent_expr = minimal_infix_notation(&recent);
-		write_step(Some(&recent_expr), &expr, writer)?;
+		write_step(Some(&recent_expr), &expr, &mut writer)?;
 
 		recent = expr;
 	}
@@ -237,6 +237,7 @@ mod tests {
 	#[test]
 	fn single_infix_html() {
 		let mut cursor = create_cursor();
+		
 		write_single_infix_html(SAMPLE_FORMULA, &mut cursor).unwrap();
 		let act = String::from_utf8(cursor.into_inner()).unwrap();
 
