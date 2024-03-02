@@ -19,6 +19,6 @@ fn print(token: &Token) {
 }
 
 fn main() {
-	let str = "  \t  ";
-	println!("{}", str.trim().is_empty())
+	let a: Vec<_> = "   world".lines().collect();
+	println!("{}", a[0])
 }

@@ -14,6 +14,7 @@ fn str_to_vec(scr: &str, ignore_whitespace: bool) -> Vec<&str> {
 			continue;
 		}
 
+		println!("str_to_vec:{}", line);
 		vec.push(line)
 	}
 
@@ -30,11 +31,13 @@ fn assert_text(actual: &str, expected: &str, trim: Option<&[TrimOption]>, ignore
 	for (idx, exp, act) in e
 		.iter()
 		.enumerate()
-		.zip(e.iter())
+		.zip(a.iter())
 		.map(|(x, y)| (x.0, x.1, y))
 	{
 		let mut a = *act;
 		let mut e = *exp;
+
+		println!("before act:{} exp:{} assert:{}", a, e, a == e);
 
 		if let Some(tarry) = trim {
 			for t in tarry {
@@ -54,6 +57,8 @@ fn assert_text(actual: &str, expected: &str, trim: Option<&[TrimOption]>, ignore
 				}
 			}
 		}
+
+		println!("after  act:{} exp:{} assert:{}", a, e, a == e);
 		assert_eq!(act, exp, "{} exp:{} act:{}", idx, e, a);
 	}
 }
@@ -64,7 +69,7 @@ pub fn strict_assert_text(actual: &str, expected: &str) {
 }
 
 #[cfg(test)]
-pub fn trimed_assert_text(actual: &str, expected: &str) {
+pub fn trimmed_assert_text(actual: &str, expected: &str) {
 	assert_text(actual, expected, Some(&[TrimOption::Both]), false)
 }
 
@@ -102,5 +107,40 @@ d
 		assert_eq!(fixture[2], "c");
 		assert_eq!(fixture[3], "d");
 		assert_eq!(fixture[4], "   e   ");
+	}
+
+	#[test]
+	fn trimmed_assert_text_test() {
+		trimmed_assert_text("  a   \n\t\tb\nc\t  c  ", "a\nb\nc")
+	}
+
+	#[test]
+	#[should_panic]
+	fn trimmed_assert_fail_test() {
+		trimmed_assert_text("  a   \n\t\tb\nc\t\n  c  ", "a\nb\nc")
+	}
+
+	#[test]
+	fn strict_assert_text_test() {
+		const SAMPLE: &str = "hello\n\n\t  world   ";
+		strict_assert_text(SAMPLE, SAMPLE);
+	}
+
+	#[test]
+	#[should_panic]
+	fn strict_assert_fail_test() {
+		eprintln!("{}", "world   " == " world   ");
+		strict_assert_text("world   ", " world   ")
+	}
+
+	#[test]
+	fn ignore_whitespace_line_test() {
+		assert_text("   \n\t\t\nhello", "hello", None, true);
+	}
+
+	#[test]
+	#[should_panic]
+	fn ignore_whitespace_line_fail_test() {
+		assert_text("   \n\t\t\n  hello", "hello", None, true);
 	}
 }
