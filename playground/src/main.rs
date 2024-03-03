@@ -1,25 +1,31 @@
-use std::env;
+use std::fs::File;
+use parser::rpn::parser::Token;
+use syntax::binary_operation::Operation;
+use rpn_html_writer::write_html;
 
-use syntax::arithmetic_expression::ArithmeticExpression;
+mod infix_html_writer;
+mod rpn_html_writer;
+mod test_helper;
+
+#[cfg(test)]
+mod test_writer;
+
+#[allow(dead_code)]
+fn print(token: &Token) {
+	match token {
+		Token::Number(num) => println!("{:?}", num),
+		Token::Operator(op) => match op {
+			Operation::Add => println!("+"),
+			Operation::Sub => println!("-"),
+			Operation::Mul => println!("*"),
+			Operation::Div => println!("/"),
+		},
+	}
+}
 
 fn main() {
-	println!("{}", env::current_dir().unwrap().display());
+	let mut file=File::create("rpn_first_light.html").unwrap();
 	
-	let expr = parser::infix::parser::parse("20+40+30*20-{400/4}").unwrap().0;
+	write_html("16 8 4 2 - * +",&file).unwrap()
 	
-	println!(
-		"{}",
-		parser::infix::formatter::strict_infix_expression(&expr)
-	);
-	
-	let mut tmp = expr.step_calc();
-	
-	while tmp.1 {
-		println!(
-			"{}",
-			parser::infix::formatter::strict_infix_expression(&tmp.0)
-		);
-		
-		tmp = tmp.0.step_calc();
-	}
 }

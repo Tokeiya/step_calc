@@ -68,7 +68,7 @@ impl ArithmeticExpression for Expression {
 	}
 }
 
-#[cfg(test)]
+#[cfg(any(feature = "test_active", test))]
 pub mod helper {
 	use crate::binary_operation::BinaryOperation;
 	use crate::bracket::Bracket;

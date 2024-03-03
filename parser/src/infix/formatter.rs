@@ -39,7 +39,9 @@ fn require(expr: &BinaryOperation, parent: &Option<&Operation>) -> bool {
 	match parent {
 		None => false,
 		Some(p) => {
-			if is_additive(p) {
+			if let Operation::Div = p {
+				true
+			} else if is_additive(p) {
 				false
 			} else {
 				is_additive(expr.operation())
@@ -167,20 +169,20 @@ mod tests {
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(!require(&bin, &Some(&Operation::Mul)));
-		assert!(!require(&bin, &Some(&Operation::Div)));
+		assert!(require(&bin, &Some(&Operation::Div)));
 		
 		let bin = make_fixture(Operation::Div);
 		assert!(!require(&bin, &Some(&Operation::Add)));
 		assert!(!require(&bin, &Some(&Operation::Sub)));
 		assert!(!require(&bin, &None));
 		assert!(!require(&bin, &Some(&Operation::Mul)));
-		assert!(!require(&bin, &Some(&Operation::Div)));
+		assert!(require(&bin, &Some(&Operation::Div)));
 	}
 	
 	#[test]
 	fn minimal() {
-		let expr = get_parser().parse("{{30*{1+2}-25}/{10+20+15}}").unwrap().0;
+		let expr = get_parser().parse("{{{10+20*3}/{{4-5}*{{6+7}/2}}}}").unwrap().0;
 		let ret = minimal_infix_notation(&expr);
-		assert_eq!(ret, "{30 * {1 + 2} - 25} / {10 + 20 + 15}");
+		assert_eq!(ret, "{10 + 20 * 3} / {{4 - 5} * {6 + 7} / 2}");
 	}
 }
