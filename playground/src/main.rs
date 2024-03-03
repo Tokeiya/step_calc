@@ -3,6 +3,7 @@ use parser::rpn::parser::Token;
 use syntax::binary_operation::Operation;
 use rpn_html_writer::write_html;
 
+#[allow(dead_code)]
 mod infix_html_writer;
 mod rpn_html_writer;
 mod test_helper;
@@ -24,7 +25,7 @@ fn print(token: &Token) {
 }
 
 fn main() {
-	let mut file=File::create("rpn_first_light.html").unwrap();
+	let file=File::create("rpn_first_light.html").unwrap();
 	
 	write_html("16 8 4 2 - * +",&file).unwrap()
 	
