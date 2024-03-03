@@ -33,6 +33,14 @@ fn write_header(input: &dyn Iterator<Item=Token>, writer: &mut dyn Write) -> Any
 	todo!()
 }
 
+fn write_state(input: &VecDeque<Token>, writer: &mut dyn Write) -> AnyResult<()> {
+	todo!()
+}
+
+fn write_footer(writer: &mut dyn Write) -> AnyResult<()> {
+	todo!()
+}
+
 #[cfg(test)]
 mod tests {
 	use parser::rpn as Rpn;
