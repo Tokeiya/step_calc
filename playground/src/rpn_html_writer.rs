@@ -141,7 +141,7 @@ fn write_state(
 
     let mut iter = stack.iter().rev();
 
-    if let Some(expr) = iter.next() {
+    for expr in iter {
         match expr {
             Expression::Number(_) => {
                 _ = writer.write(b"<tr>\n<td>\n")?;
@@ -155,12 +155,6 @@ fn write_state(
                 _ = writer.write(b"\n</td>\n</tr>\n")?;
             }
         }
-    }
-
-    for elem in iter {
-        _ = writer.write(b"<tr>\n<td>\n")?;
-        write_expression(elem, writer, false)?;
-        _ = writer.write(b"\n</td>\n</tr>\n")?;
     }
 
     _ = writer.write(
