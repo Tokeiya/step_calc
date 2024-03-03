@@ -6,6 +6,7 @@ pub enum TrimOption {
 	Both,
 }
 
+#[cfg(test)]
 fn str_to_vec(scr: &str, ignore_whitespace: bool) -> Vec<&str> {
 	let mut vec = Vec::<&str>::default();
 
