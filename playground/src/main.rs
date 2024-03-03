@@ -1,12 +1,9 @@
-
 use parser::rpn::parser::Token;
-use std::io::Cursor;
 use syntax::binary_operation::Operation;
 
 mod infix_html_writer;
 mod rpn_html_writer;
 mod test_helper;
-mod test_writer;
 
 #[cfg(test)]
 mod test_writer;
@@ -24,6 +21,4 @@ fn print(token: &Token) {
 	}
 }
 
-
-fn main() {
-}
+fn main() {}
