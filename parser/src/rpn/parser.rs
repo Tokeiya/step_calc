@@ -30,7 +30,10 @@ pub fn step_calc(input: &mut VecDeque<Token>, stack: &mut Vec<Expression>) -> bo
 				input.pop_back();
 				true
 			}
-			Token::Operator(op) => build_binary(op, stack),
+			Token::Operator(op) => {
+				build_binary(op, stack);
+			input.pop_back();
+			true},
 		}
 	} else {
 		false
