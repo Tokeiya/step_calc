@@ -15,25 +15,5 @@ mod option_parser;
 mod test_writer;
 
 fn main() -> AnyResult<()> {
-
-    let args: Vec<String> = env::args().collect();
-
-    println!("{:?}", &args);
-
-    let opt = parse_command_options(args)?;
-
-    println!("{:?}", &opt);
-
-    if opt.output_path().is_none() {
-        println!("Output path is not specified.");
-        return Err(AnyError::msg("Output path is not specified."));
-    }
-
-    let file = File::create(opt.output_path().unwrap())?;
-
-    let a = &opt.rpn_expression().unwrap().replace('"', "");
-
-    rpn_html_writer::write_html(a, file)?;
-
-    Ok(())
+    rpn_html_writer::procedure()
 }
