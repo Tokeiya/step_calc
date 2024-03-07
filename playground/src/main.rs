@@ -11,9 +11,12 @@ mod option_parser;
 mod test_writer;
 
 fn main() {
-	foo(format_args!("{}", "hoge"));
+	foo(format_args!("hello {:?}","rust"))
+	
 }
 
-fn foo(arg: Arguments<'_>) {
-	println!("{}:{}", "env", arg)
+
+fn foo(args:Arguments){
+	let a=format_args!("{}{}",args,args);
+	println!("{} {}",a,a);
 }

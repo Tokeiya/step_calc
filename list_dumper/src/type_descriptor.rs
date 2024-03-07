@@ -2,7 +2,7 @@ use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
 pub use super::column_info::{Align, ColumnInfo};
 
-pub enum ExprssionError{};
+pub enum ExprssionError{}
 
 impl Debug for ExprssionError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
