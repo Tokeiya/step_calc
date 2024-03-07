@@ -9,7 +9,7 @@ mod test_helper;
 mod test_writer;
 
 fn main() {
-	foo(format_args!("{}", "hoge"));
+	let mut str = String::default();
 }
 
 fn foo(arg: Arguments<'_>) {

@@ -1,9 +1,61 @@
 use std::fmt::Arguments;
 
+#[cfg(test)]
+use dashmap::DashSet;
+#[cfg(test)]
+use once_cell::sync::Lazy;
+
 use super::color::{ColorContext, ConsoleColor};
 
-const PREFIX: &str = r"\x1B[";
-const POSTFIX: &str = "m";
+pub const PREFIX: &str = r"\x1B[";
+pub const POSTFIX: &str = "m";
+pub const RESET: &str = r"\x1B[0m";
+#[cfg(test)]
+static ACTUAL: Lazy<DashSet<String>> = Lazy::new(|| DashSet::default());
+
+#[cfg(test)]
+fn insert(actual: String, is_ln: bool) {
+	if is_ln {
+		std::println!("{}", &actual)
+	} else {
+		std::print!("{}", &actual)
+	}
+
+	if !ACTUAL.insert(actual) {
+		panic!("Already inserted!")
+	}
+}
+
+macro_rules! println {
+    () => {
+	    unreachable!()
+    };
+	($($arg:tt)*)=>{
+		#[cfg(not(test))]{
+			println!($($arg)*)
+		}
+
+		#[cfg(test)]{
+			insert(format!($($arg)*),true)
+		}
+
+	};
+}
+
+macro_rules! print {
+    () => {
+	    unreachable!()
+    };
+	($($arg:tt)*)=>{
+		#[cfg(not(test))]{
+			print!($($arg)*)
+		}
+
+		#[cfg(test)]{
+			insert(format!($($arg)*),false)
+		}
+	}
+}
 
 pub fn build_escape(color: Option<&ConsoleColor>, context: &ColorContext) -> String {
 	match color {
@@ -15,35 +67,36 @@ pub fn build_escape(color: Option<&ConsoleColor>, context: &ColorContext) -> Str
 	}
 }
 
-pub fn reset() -> &'static str {
-	r"\x1B[0m"
-}
-
-pub fn str_build_string(
+pub fn build_string_str(
 	foreground: Option<&ConsoleColor>,
 	background: Option<&ConsoleColor>,
 	content: &str,
 ) -> String {
-	todo!()
+	let mut str=String::from(content);
+	add_color(foreground,background,&mut str);
+	return str;
 }
 
-pub fn arg_build_string(
+pub fn build_string_args(
 	foreground: Option<&ConsoleColor>,
 	background: Option<&ConsoleColor>,
-	arg: Arguments,
+	arg: std::fmt::Arguments<'_>,
 ) -> String {
-	todo!()
+	let  mut str=format!("{}",arg);
+	add_color(foreground,background,&mut str);
+	str
 }
 
 pub fn add_color(
 	foreground: Option<&ConsoleColor>,
 	background: Option<&ConsoleColor>,
-	mut text: String,
+	text: &mut String,
 ) {
-	todo!()
+	text.pu
+	
 }
 
-pub fn str_println(
+pub fn println_str(
 	foreground: Option<&ConsoleColor>,
 	background: Option<&ConsoleColor>,
 	content: &str,
@@ -51,7 +104,7 @@ pub fn str_println(
 	todo!()
 }
 
-pub fn args_println(
+pub fn println_args(
 	foreground: Option<&ConsoleColor>,
 	background: Option<&ConsoleColor>,
 	args: Arguments<'_>,
@@ -59,7 +112,7 @@ pub fn args_println(
 	todo!()
 }
 
-pub fn str_print(
+pub fn print_str(
 	foreground: Option<&ConsoleColor>,
 	background: Option<&ConsoleColor>,
 	content: &str,
@@ -67,7 +120,7 @@ pub fn str_print(
 	todo!()
 }
 
-pub fn args_print(
+pub fn print_args(
 	foreground: Option<&ConsoleColor>,
 	background: Option<&ConsoleColor>,
 	args: Arguments<'_>,
@@ -77,10 +130,13 @@ pub fn args_print(
 
 #[cfg(test)]
 mod tests {
+	use std::sync::atomic::{AtomicUsize, Ordering};
+	use std::sync::atomic::Ordering::Relaxed;
+	
 	use once_cell::sync::Lazy;
-
+	
 	use super::*;
-
+	
 	static COLORS: Lazy<[ConsoleColor; 16]> = Lazy::new(|| {
 		[
 			ConsoleColor::Black,
@@ -102,222 +158,180 @@ mod tests {
 		]
 	});
 
-	#[test]
-	fn build_escape_test() {
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Black), &ColorContext::Foreground),
-			r"\x1B[30m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Red), &ColorContext::Foreground),
-			r"\x1B[31m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Green), &ColorContext::Foreground),
-			r"\x1B[32m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Yellow), &ColorContext::Foreground),
-			r"\x1B[33m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Blue), &ColorContext::Foreground),
-			r"\x1B[34m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Magenta), &ColorContext::Foreground),
-			r"\x1B[35m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Cyan), &ColorContext::Foreground),
-			r"\x1B[36m"
-		);
+	static ID_SEED: Lazy<AtomicUsize> = Lazy::new(|| AtomicUsize::default());
 
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::White), &ColorContext::Foreground),
-			r"\x1B[37m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Gray), &ColorContext::Foreground),
-			r"\x1B[90m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightRed), &ColorContext::Foreground),
-			r"\x1B[91m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightGreen), &ColorContext::Foreground),
-			r"\x1B[92m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightYellow), &ColorContext::Foreground),
-			r"\x1B[93m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightBlue), &ColorContext::Foreground),
-			r"\x1B[94m"
-		);
-		assert_eq!(
-			super::build_escape(
-				Some(&ConsoleColor::BrightMagenta),
-				&ColorContext::Foreground
-			),
-			r"\x1B[95m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightCyan), &ColorContext::Foreground),
-			r"\x1B[96m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightWhite), &ColorContext::Foreground),
-			r"\x1B[97m"
-		);
-
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Black), &ColorContext::Background),
-			r"\x1B[40m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Red), &ColorContext::Background),
-			r"\x1B[41m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Green), &ColorContext::Background),
-			r"\x1B[42m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Yellow), &ColorContext::Background),
-			r"\x1B[43m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Blue), &ColorContext::Background),
-			r"\x1B[44m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Magenta), &ColorContext::Background),
-			r"\x1B[45m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Cyan), &ColorContext::Background),
-			r"\x1B[46m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::White), &ColorContext::Background),
-			r"\x1B[47m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::Gray), &ColorContext::Background),
-			r"\x1B[100m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightRed), &ColorContext::Background),
-			r"\x1B[101m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightGreen), &ColorContext::Background),
-			r"\x1B[102m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightYellow), &ColorContext::Background),
-			r"\x1B[103m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightBlue), &ColorContext::Background),
-			r"\x1B[104m"
-		);
-		assert_eq!(
-			super::build_escape(
-				Some(&ConsoleColor::BrightMagenta),
-				&ColorContext::Background
-			),
-			r"\x1B[105m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightCyan), &ColorContext::Background),
-			r"\x1B[106m"
-		);
-		assert_eq!(
-			super::build_escape(Some(&ConsoleColor::BrightWhite), &ColorContext::Background),
-			r"\x1B[107m"
-		);
-	}
-
-	fn build_expected(
+	fn build_expected_str(
 		foreground: Option<&ConsoleColor>,
 		background: Option<&ConsoleColor>,
+		id: usize,
 		text: &str,
 	) -> String {
 		format!(
-			r"{}{}{}\x1B[0m",
+			r"{}{}{}{}\x1B[0m",
 			build_escape(foreground, &ColorContext::Foreground),
 			build_escape(background, &ColorContext::Background),
+			id,
 			text
 		)
 	}
 
-	#[test]
-	fn str_build_string_test() {
-		const CONTENT: &str = "Hello, World!";
+	fn build_expected_args(
+		foreground: Option<&ConsoleColor>,
+		background: Option<&ConsoleColor>,
+		id: usize,
+		args: Arguments,
+	) -> String {
+		format!(
+			r"{}{}{}{}\x1B[0m",
+			build_escape(foreground, &ColorContext::Foreground),
+			build_escape(background, &ColorContext::Background),
+			id,
+			args
+		)
+	}
 
-		for foreground in COLORS.iter().map(Some) {
-			for background in COLORS.iter().map(Some) {
-				assert_eq!(
-					str_build_string(foreground, background, CONTENT),
-					format!(
-						r"{}{}Hello, World!\x1B[0m",
-						build_escape(foreground, &ColorContext::Foreground),
-						build_escape(background, &ColorContext::Background)
-					)
-				);
-			}
-		}
+	fn concat_id(id: usize, txt: &str) -> String {
+		format!("{}{}", id, txt)
+	}
 
-		for color in COLORS.iter().map(Some) {
-			assert_eq!(
-				str_build_string(color, None, CONTENT),
-				format!(
-					r"{}Hello, World!\x1B[0m",
-					build_escape(color, &ColorContext::Foreground)
-				)
-			);
-
-			assert_eq!(
-				str_build_string(None, color, CONTENT),
-				format!(
-					r"{}Hello, World!\x1B[0m",
-					build_escape(color, &ColorContext::Background)
-				)
-			);
-		}
-
-		assert_eq!(str_build_string(None, None, CONTENT), "Hello, World");
+	fn assert_output(expected: &str) {
+		assert!(ACTUAL.remove(expected).is_some())
 	}
 
 	#[test]
-	fn arg_build_string_test() {
-		for fg in COLORS.iter().map(Some) {
-			for bg in COLORS.iter().map(Some) {
+	fn build_escape_test() {
+		for elem in COLORS.iter().map(Some) {
+			assert_eq!(
+				build_escape(elem, &ColorContext::Foreground),
+				format!(r"\x1B[{}m", elem.unwrap().foreground())
+			);
+			assert_eq!(
+				build_escape(elem, &ColorContext::Background),
+				format!(r"\x1B[{}m", elem.unwrap().background())
+			);
+		}
+
+		assert_eq!(build_escape(None, &ColorContext::Foreground), "");
+		assert_eq!(build_escape(None, &ColorContext::Background), "");
+	}
+
+	#[test]
+	fn build_string_str_test() {
+		for foreground in COLORS.iter().map(Some) {
+			for background in COLORS.iter().map(Some) {
+				let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
+				let act =
+					build_string_str(foreground, background, &format!("{}{}", id, "hello world"));
 				assert_eq!(
-					arg_build_string(fg, bg, format_args!("hello world")),
-					build_expected(fg, bg, "hello world")
-				)
+					act,
+					build_expected_str(foreground, background, id, "hello world")
+				);
 			}
+
+			let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
+			let act = build_string_str(None, foreground, &format!("{}{}", id, "Foreground NONE"));
+			assert_eq!(
+				act,
+				build_expected_str(None, foreground, id, "Foreground NONE")
+			);
+
+			let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
+			let act = build_string_str(foreground, None, &format!("{}{}", id, "Background NONE"));
+			assert_eq!(
+				act,
+				build_expected_str(foreground, None, id, "Background NONE")
+			);
 		}
 
-		for col in COLORS.iter().map(Some) {
+		let act = build_string_str(None, None, "42NONE");
+		assert_eq!(act, build_expected_str(None, None, 42, "NONE"));
+	}
+
+	#[test]
+	fn build_string_args_test() {
+		for foreground in COLORS.iter().map(Some) {
+			for background in COLORS.iter().map(Some) {
+				let id = ID_SEED.fetch_add(1, Relaxed);
+				assert_eq!(
+					build_string_args(foreground, background, format_args!("{}{}", id, "ARGS")),
+					build_expected_str(foreground, background, id, "ARGS")
+				);
+			}
+
+			let id = ID_SEED.fetch_add(1, Relaxed);
 			assert_eq!(
-				arg_build_string(col, None, format_args!("hello world")),
-				build_expected(col, None, "hello world")
+				build_string_args(foreground, None, format_args!("{}{}", id, "BackgroundNone")),
+				build_expected_str(foreground, None, id, "BackgroundNone")
 			);
+
+			let id = ID_SEED.fetch_add(1, Relaxed);
 			assert_eq!(
-				arg_build_string(None, col, format_args!("hello world")),
-				build_expected(None, col, "hello world")
+				build_string_args(None, foreground, format_args!("{}{}", id, "ForegroundNone")),
+				build_expected_str(None, foreground, id, "ForegroundNone")
 			);
 		}
+	}
 
-		assert_eq!(
-			arg_build_string(None, None, format_args!("hello world")),
-			"hello world"
-		);
+	#[test]
+	fn add_color_test() {
+		for fore in COLORS.iter().map(Some) {
+			for back in COLORS.iter().map(Some) {
+				let mut str = String::from("42add");
+				add_color(fore, back, &mut str);
+				assert_eq!(&str, &build_expected_str(fore, back, 42, "add"));
+			}
+
+			let mut str = String::from("42BackNone");
+
+			add_color(fore, None, &mut str);
+			assert_eq!(&str, &build_expected_str(fore, None, 42, "BackNone"));
+
+			str.clear();
+			str.push_str("42ForeNone");
+			add_color(None, fore, &mut str);
+			assert_eq!(&str, &build_expected_str(None, fore, 42, "ForeNone"));
+		}
+
+		let mut str = String::from("42BothNone");
+		add_color(None, None, &mut str);
+		assert_eq!(&str, &build_expected_str(None, None, 42, "BothNone"));
+	}
+
+	#[test]
+	fn println_test() {
+		for fore in COLORS.iter().map(Some) {
+			for back in COLORS.iter().map(Some) {
+				let id = ID_SEED.fetch_add(1, Relaxed);
+				println_str(fore, back, &format!("{}{}", id, "BOTH"));
+				assert_output(&build_expected_str(fore, back, id, "BOTH"));
+			}
+
+			let id = ID_SEED.fetch_add(1, Relaxed);
+			println_str(fore, None, &format!("{}{}", id, "BackNone"));
+			assert_output(&build_expected_str(fore, None, id, "BackNone"));
+
+			let id = ID_SEED.fetch_add(1, Relaxed);
+			println_str(None, fore, &format!("{}{}", id, "ForeNone"));
+			assert_output(&build_expected_str(None, fore, id, "ForeNone"));
+		}
+	}
+
+	#[test]
+	fn println_args_test() {
+		for fore in COLORS.iter().map(Some) {
+			for back in COLORS.iter().map(Some) {
+				let id = ID_SEED.fetch_add(1, Relaxed);
+				println_args(fore, back, format_args!("{}{}", id, "ARG_BOTH"));
+				assert_output(&build_expected_str(fore, back, id, "ARG_BOTH"));
+			}
+
+			let id = ID_SEED.fetch_add(1, Relaxed);
+			println_args(fore, None, format_args!("{}{}", id, "ARG_BACK_NONE"));
+			assert_output(&build_expected_str(fore, None, id, "ARG_BACK_NONE"));
+
+			let id = ID_SEED.fetch_add(1, Relaxed);
+			println_args(None, fore, format_args!("{}{}", id, "ARG_FORE_NONE"));
+			assert_output(&build_expected_str(None, fore, id, "ARG_FORE_NONE"));
+		}
 	}
 }
