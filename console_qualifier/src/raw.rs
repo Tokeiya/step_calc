@@ -5,127 +5,125 @@ use dashmap::DashSet;
 #[cfg(test)]
 use once_cell::sync::Lazy;
 
-use super::color::{ColorContext, ConsoleColor};
+use super::color::ConsoleColor;
 
 pub const PREFIX: &str = r"\x1B[";
 pub const POSTFIX: &str = "m";
-pub const RESET: &str = r"\x1B[0m";
-#[cfg(test)]
-static ACTUAL: Lazy<DashSet<String>> = Lazy::new(|| DashSet::default());
+pub const RESET: &str = "\x1B[0m";
 
 #[cfg(test)]
-fn insert(actual: String, is_ln: bool) {
-	if is_ln {
-		std::println!("{}", &actual)
-	} else {
-		std::print!("{}", &actual)
-	}
+static ACTUAL: Lazy<DashSet<String>> = Lazy::new(DashSet::default);
 
-	if !ACTUAL.insert(actual) {
-		panic!("Already inserted!")
-	}
-}
-
+#[cfg(test)]
 macro_rules! println {
     () => {
-	    unreachable!()
+        unreachable!();
     };
-	($($arg:tt)*)=>{
-		#[cfg(not(test))]{
-			println!($($arg)*)
-		}
+    ($($arg:tt)*) => ({
+        let txt = format!($($arg)*);
+        std::println!("{}", &txt);
 
-		#[cfg(test)]{
-			insert(format!($($arg)*),true)
-		}
-
-	};
+        if !ACTUAL.insert(txt) {
+            panic!("Already inserted");
+        }
+    });
 }
 
+#[cfg(test)]
 macro_rules! print {
     () => {
-	    unreachable!()
+        unreachable!();
     };
-	($($arg:tt)*)=>{
-		#[cfg(not(test))]{
-			print!($($arg)*)
-		}
+    ($($arg:tt)*) => ({
+        let txt = format!($($arg)*);
+        std::print!("{}", &txt);
 
-		#[cfg(test)]{
-			insert(format!($($arg)*),false)
-		}
-	}
+        if !ACTUAL.insert(txt) {
+            panic!("Already inserted");
+        }
+    });
 }
 
-pub fn build_escape(color: Option<&ConsoleColor>, context: &ColorContext) -> String {
-	match color {
-		None => String::default(),
-		Some(col) => match context {
-			ColorContext::Foreground => format!(r"\x1B[{}m", col.foreground()),
-			ColorContext::Background => format!(r"\x1B[{}m", col.background()),
-		},
-	}
-}
-
-pub fn build_string_str(
-	foreground: Option<&ConsoleColor>,
-	background: Option<&ConsoleColor>,
-	content: &str,
+pub fn build_escape(
+	foreground: &Option<&ConsoleColor>,
+	background: &Option<&ConsoleColor>,
 ) -> String {
-	let mut str=String::from(content);
-	add_color(foreground,background,&mut str);
-	return str;
-}
+	let mut str = String::default();
 
-pub fn build_string_args(
-	foreground: Option<&ConsoleColor>,
-	background: Option<&ConsoleColor>,
-	arg: std::fmt::Arguments<'_>,
-) -> String {
-	let  mut str=format!("{}",arg);
-	add_color(foreground,background,&mut str);
+	if let Some(fore) = foreground {
+		str.push_str(&format!("\x1B[{}m", fore.foreground()));
+	}
+
+	if let Some(back) = background {
+		str.push_str(&format!("\x1B[{}m", back.background()));
+	}
+
 	str
 }
 
-pub fn add_color(
-	foreground: Option<&ConsoleColor>,
-	background: Option<&ConsoleColor>,
-	text: &mut String,
-) {
-	text.pu
-	
+pub fn build_string_str(
+	foreground: &Option<&ConsoleColor>,
+	background: &Option<&ConsoleColor>,
+	content: &str,
+) -> String {
+	let mut str = build_escape(foreground, background);
+	str.push_str(content);
+	str.push_str(RESET);
+
+	str
+}
+
+pub fn build_string_args(
+	foreground: &Option<&ConsoleColor>,
+	background: &Option<&ConsoleColor>,
+	arg: std::fmt::Arguments<'_>,
+) -> String {
+	let mut str = build_escape(foreground, background);
+	str.push_str(&format!("{}", arg));
+	str.push_str(RESET);
+
+	str
 }
 
 pub fn println_str(
-	foreground: Option<&ConsoleColor>,
-	background: Option<&ConsoleColor>,
+	foreground: &Option<&ConsoleColor>,
+	background: &Option<&ConsoleColor>,
 	content: &str,
 ) {
-	todo!()
+	let mut str = build_escape(foreground, background);
+	str.push_str(content);
+	str.push_str(RESET);
+
+	println!("{}", str)
 }
 
 pub fn println_args(
-	foreground: Option<&ConsoleColor>,
-	background: Option<&ConsoleColor>,
+	foreground: &Option<&ConsoleColor>,
+	background: &Option<&ConsoleColor>,
 	args: Arguments<'_>,
 ) {
-	todo!()
+	println!("{}{}{}", build_escape(foreground, background), args, RESET)
 }
 
 pub fn print_str(
-	foreground: Option<&ConsoleColor>,
-	background: Option<&ConsoleColor>,
+	foreground: &Option<&ConsoleColor>,
+	background: &Option<&ConsoleColor>,
 	content: &str,
 ) {
-	todo!()
+	print!(
+		"{}{}{}",
+		build_escape(foreground, background),
+		content,
+		RESET
+	)
 }
 
 pub fn print_args(
-	foreground: Option<&ConsoleColor>,
-	background: Option<&ConsoleColor>,
+	foreground: &Option<&ConsoleColor>,
+	background: &Option<&ConsoleColor>,
 	args: Arguments<'_>,
 ) {
-	todo!()
+	print!("{}{}{}", build_escape(foreground, background), args, RESET)
 }
 
 #[cfg(test)]
@@ -158,6 +156,12 @@ mod tests {
 		]
 	});
 
+	fn all_combination() -> impl Iterator<Item = (&'static ConsoleColor, &'static ConsoleColor)> {
+		COLORS
+			.iter()
+			.flat_map(|x| COLORS.iter().map(move |y| (x, y)))
+	}
+
 	static ID_SEED: Lazy<AtomicUsize> = Lazy::new(|| AtomicUsize::default());
 
 	fn build_expected_str(
@@ -167,26 +171,10 @@ mod tests {
 		text: &str,
 	) -> String {
 		format!(
-			r"{}{}{}{}\x1B[0m",
-			build_escape(foreground, &ColorContext::Foreground),
-			build_escape(background, &ColorContext::Background),
+			"{}{}{}\x1B[0m",
+			build_escape(&foreground, &background),
 			id,
 			text
-		)
-	}
-
-	fn build_expected_args(
-		foreground: Option<&ConsoleColor>,
-		background: Option<&ConsoleColor>,
-		id: usize,
-		args: Arguments,
-	) -> String {
-		format!(
-			r"{}{}{}{}\x1B[0m",
-			build_escape(foreground, &ColorContext::Foreground),
-			build_escape(background, &ColorContext::Background),
-			id,
-			args
 		)
 	}
 
@@ -199,20 +187,20 @@ mod tests {
 	}
 
 	#[test]
-	fn build_escape_test() {
-		for elem in COLORS.iter().map(Some) {
-			assert_eq!(
-				build_escape(elem, &ColorContext::Foreground),
-				format!(r"\x1B[{}m", elem.unwrap().foreground())
-			);
-			assert_eq!(
-				build_escape(elem, &ColorContext::Background),
-				format!(r"\x1B[{}m", elem.unwrap().background())
-			);
-		}
+	fn consistency_test() {
+		println!("{}", "foo");
+		assert_output("foo");
 
-		assert_eq!(build_escape(None, &ColorContext::Foreground), "");
-		assert_eq!(build_escape(None, &ColorContext::Background), "");
+		print!("{}", "bar");
+		assert_output("bar");
+	}
+
+	#[test]
+	fn build_escape_test() {
+		for (fore, back) in all_combination() {
+			let expected = format!("\x1B[{}m\x1B[{}m", fore.foreground(), back.background());
+			assert_eq!(build_escape(&Some(fore), &Some(back)), expected);
+		}
 	}
 
 	#[test]
@@ -220,8 +208,12 @@ mod tests {
 		for foreground in COLORS.iter().map(Some) {
 			for background in COLORS.iter().map(Some) {
 				let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
-				let act =
-					build_string_str(foreground, background, &format!("{}{}", id, "hello world"));
+				let act = build_string_str(
+					&foreground,
+					&background,
+					&format!("{}{}", id, "hello world"),
+				);
+
 				assert_eq!(
 					act,
 					build_expected_str(foreground, background, id, "hello world")
@@ -229,21 +221,21 @@ mod tests {
 			}
 
 			let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
-			let act = build_string_str(None, foreground, &format!("{}{}", id, "Foreground NONE"));
+			let act = build_string_str(&None, &foreground, &format!("{}{}", id, "Foreground NONE"));
 			assert_eq!(
 				act,
 				build_expected_str(None, foreground, id, "Foreground NONE")
 			);
 
 			let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
-			let act = build_string_str(foreground, None, &format!("{}{}", id, "Background NONE"));
+			let act = build_string_str(&foreground, &None, &format!("{}{}", id, "Background NONE"));
 			assert_eq!(
 				act,
 				build_expected_str(foreground, None, id, "Background NONE")
 			);
 		}
 
-		let act = build_string_str(None, None, "42NONE");
+		let act = build_string_str(&None, &None, "42NONE");
 		assert_eq!(act, build_expected_str(None, None, 42, "NONE"));
 	}
 
@@ -253,48 +245,31 @@ mod tests {
 			for background in COLORS.iter().map(Some) {
 				let id = ID_SEED.fetch_add(1, Relaxed);
 				assert_eq!(
-					build_string_args(foreground, background, format_args!("{}{}", id, "ARGS")),
+					build_string_args(&foreground, &background, format_args!("{}{}", id, "ARGS")),
 					build_expected_str(foreground, background, id, "ARGS")
 				);
 			}
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
 			assert_eq!(
-				build_string_args(foreground, None, format_args!("{}{}", id, "BackgroundNone")),
+				build_string_args(
+					&foreground,
+					&None,
+					format_args!("{}{}", id, "BackgroundNone")
+				),
 				build_expected_str(foreground, None, id, "BackgroundNone")
 			);
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
 			assert_eq!(
-				build_string_args(None, foreground, format_args!("{}{}", id, "ForegroundNone")),
+				build_string_args(
+					&None,
+					&foreground,
+					format_args!("{}{}", id, "ForegroundNone")
+				),
 				build_expected_str(None, foreground, id, "ForegroundNone")
 			);
 		}
-	}
-
-	#[test]
-	fn add_color_test() {
-		for fore in COLORS.iter().map(Some) {
-			for back in COLORS.iter().map(Some) {
-				let mut str = String::from("42add");
-				add_color(fore, back, &mut str);
-				assert_eq!(&str, &build_expected_str(fore, back, 42, "add"));
-			}
-
-			let mut str = String::from("42BackNone");
-
-			add_color(fore, None, &mut str);
-			assert_eq!(&str, &build_expected_str(fore, None, 42, "BackNone"));
-
-			str.clear();
-			str.push_str("42ForeNone");
-			add_color(None, fore, &mut str);
-			assert_eq!(&str, &build_expected_str(None, fore, 42, "ForeNone"));
-		}
-
-		let mut str = String::from("42BothNone");
-		add_color(None, None, &mut str);
-		assert_eq!(&str, &build_expected_str(None, None, 42, "BothNone"));
 	}
 
 	#[test]
@@ -302,16 +277,16 @@ mod tests {
 		for fore in COLORS.iter().map(Some) {
 			for back in COLORS.iter().map(Some) {
 				let id = ID_SEED.fetch_add(1, Relaxed);
-				println_str(fore, back, &format!("{}{}", id, "BOTH"));
+				println_str(&fore, &back, &format!("{}{}", id, "BOTH"));
 				assert_output(&build_expected_str(fore, back, id, "BOTH"));
 			}
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_str(fore, None, &format!("{}{}", id, "BackNone"));
+			println_str(&fore, &None, &format!("{}{}", id, "BackNone"));
 			assert_output(&build_expected_str(fore, None, id, "BackNone"));
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_str(None, fore, &format!("{}{}", id, "ForeNone"));
+			println_str(&None, &fore, &format!("{}{}", id, "ForeNone"));
 			assert_output(&build_expected_str(None, fore, id, "ForeNone"));
 		}
 	}
@@ -321,16 +296,16 @@ mod tests {
 		for fore in COLORS.iter().map(Some) {
 			for back in COLORS.iter().map(Some) {
 				let id = ID_SEED.fetch_add(1, Relaxed);
-				println_args(fore, back, format_args!("{}{}", id, "ARG_BOTH"));
+				println_args(&fore, &back, format_args!("{}{}", id, "ARG_BOTH"));
 				assert_output(&build_expected_str(fore, back, id, "ARG_BOTH"));
 			}
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_args(fore, None, format_args!("{}{}", id, "ARG_BACK_NONE"));
+			println_args(&fore, &None, format_args!("{}{}", id, "ARG_BACK_NONE"));
 			assert_output(&build_expected_str(fore, None, id, "ARG_BACK_NONE"));
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_args(None, fore, format_args!("{}{}", id, "ARG_FORE_NONE"));
+			println_args(&None, &fore, format_args!("{}{}", id, "ARG_FORE_NONE"));
 			assert_output(&build_expected_str(None, fore, id, "ARG_FORE_NONE"));
 		}
 	}
