@@ -1,34 +1,16 @@
-use std::error::Error;
-use std::fmt::{Debug, Display, Formatter};
+use super::alignment::Alignment;
 
-pub use super::column_info::{Align, ColumnInfo};
-
-pub enum ExprssionError {}
-
-impl Debug for ExprssionError {
-	fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-		todo!()
-	}
+pub trait InnerDescriptor {
+	const SIZE: usize;
+	fn describe(&self) -> Vec<(Option<String>, Alignment)>;
 }
 
-impl Display for ExprssionError {
-	fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-		todo!()
-	}
+pub trait OuterDescriptor {
+	const SIZE: usize;
+	fn describe(value: &Self) -> Vec<(Option<String>, Alignment)>;
 }
 
-impl Error for ExprssionError {}
-
-pub trait TypeDescriptor<const N: usize> {
-	fn columns() -> &'static [ColumnInfo; N] {
-		todo!()
-	}
-
-	fn fill(&self, buffer: &mut [String; N]) -> Result<(), ExprssionError> {
-		todo!()
-	}
-
-	fn record(&self) -> Result<Vec<String>, ExprssionError> {
-		todo!()
-	}
+pub trait Hoge {
+	const S: usize;
+	fn foo() -> [u8; Self::S];
 }

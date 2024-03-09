@@ -13,4 +13,5 @@ dashmap = "*"
 syntax = { path = "../syntax" }
 parser = { path = "../parser" }
 console_qualifier = { path = "../console_qualifier" }
+list_dumper = { path = "../list_dumper" }
 anyhow = "*"
