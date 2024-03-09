@@ -67,11 +67,39 @@ impl ConsoleColor {
 	}
 
 	pub fn set_foreground(&self, args: Arguments<'_>) -> String {
-		format!("{}{}m", 0x1B, self.foreground())
+		todo!()
+	}
+
+	pub fn set_background(&self, args: Arguments<'_>) -> String {
+		todo!()
 	}
 
 	pub fn add_foreground(&self, str: &mut String) {
-		str.push_str(&format!("{}{}m", 0x1B, self.foreground()));
+		todo!()
+	}
+
+	pub fn add_background(&self, str: &mut String) {
+		todo!()
+	}
+
+	pub fn str_println(foreground: &ConsoleColor, background: &ConsoleColor, content: &str) {
+		todo!()
+	}
+
+	pub fn argus_println(
+		foreground: &ConsoleColor,
+		background: &ConsoleColor,
+		args: Arguments<'_>,
+	) {
+		todo!()
+	}
+
+	pub fn str_print(foreground: &ConsoleColor, background: &ConsoleColor, content: &str) {
+		todo!()
+	}
+
+	pub fn args_print(foreground: &ConsoleColor, background: &ConsoleColor, args: Arguments<'_>) {
+		todo!()
 	}
 
 	pub fn reset_style() {

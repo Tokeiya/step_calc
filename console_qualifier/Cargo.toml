@@ -1,0 +1,12 @@
+[package]
+name = "console_qualifier"
+version = "0.1.0"
+edition = "2021"
+
+[dev-dependencies]
+once_cell = "*"
+regex = "*"
+dashmap = "*"
+
+
+[dependencies]
