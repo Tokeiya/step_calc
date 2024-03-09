@@ -15,6 +15,9 @@ pub const RESET: &str = "\x1B[0m";
 static ACTUAL: Lazy<DashSet<String>> = Lazy::new(DashSet::default);
 
 #[cfg(test)]
+static IDENTITY: &str = "<<contain>>";
+
+#[cfg(test)]
 macro_rules! println {
     () => {
         unreachable!();
@@ -23,8 +26,10 @@ macro_rules! println {
         let txt = format!($($arg)*);
         std::println!("{}", &txt);
 
-        if !ACTUAL.insert(txt) {
-            panic!("Already inserted");
+        if txt.contains(IDENTITY){
+	        if !ACTUAL.insert(txt) {
+	            panic!("Already inserted");
+	        }
         }
     });
 }
@@ -171,7 +176,7 @@ mod tests {
 		text: &str,
 	) -> String {
 		format!(
-			"{}{}{}\x1B[0m",
+			"{}<<contain>>{}{}\x1B[0m",
 			build_escape(&foreground, &background),
 			id,
 			text
@@ -188,11 +193,11 @@ mod tests {
 
 	#[test]
 	fn consistency_test() {
-		println!("{}", "foo");
-		assert_output("foo");
+		println!("{}", "<<contain>>foo");
+		assert_output("<<contain>>foo");
 
-		print!("{}", "bar");
-		assert_output("bar");
+		print!("{}", "<<contain>>bar");
+		assert_output("<<contain>>bar");
 	}
 
 	#[test]
@@ -211,7 +216,7 @@ mod tests {
 				let act = build_string_str(
 					&foreground,
 					&background,
-					&format!("{}{}", id, "hello world"),
+					&format!("<<contain>>{}{}", id, "hello world"),
 				);
 
 				assert_eq!(
@@ -221,21 +226,29 @@ mod tests {
 			}
 
 			let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
-			let act = build_string_str(&None, &foreground, &format!("{}{}", id, "Foreground NONE"));
+			let act = build_string_str(
+				&None,
+				&foreground,
+				&format!("<<contain>>{}{}", id, "Foreground NONE"),
+			);
 			assert_eq!(
 				act,
 				build_expected_str(None, foreground, id, "Foreground NONE")
 			);
 
 			let id = ID_SEED.fetch_add(1, Ordering::Relaxed);
-			let act = build_string_str(&foreground, &None, &format!("{}{}", id, "Background NONE"));
+			let act = build_string_str(
+				&foreground,
+				&None,
+				&format!("<<contain>>{}{}", id, "Background NONE"),
+			);
 			assert_eq!(
 				act,
 				build_expected_str(foreground, None, id, "Background NONE")
 			);
 		}
 
-		let act = build_string_str(&None, &None, "42NONE");
+		let act = build_string_str(&None, &None, "<<contain>>42NONE");
 		assert_eq!(act, build_expected_str(None, None, 42, "NONE"));
 	}
 
@@ -245,7 +258,11 @@ mod tests {
 			for background in COLORS.iter().map(Some) {
 				let id = ID_SEED.fetch_add(1, Relaxed);
 				assert_eq!(
-					build_string_args(&foreground, &background, format_args!("{}{}", id, "ARGS")),
+					build_string_args(
+						&foreground,
+						&background,
+						format_args!("<<contain>>{}{}", id, "ARGS")
+					),
 					build_expected_str(foreground, background, id, "ARGS")
 				);
 			}
@@ -255,7 +272,7 @@ mod tests {
 				build_string_args(
 					&foreground,
 					&None,
-					format_args!("{}{}", id, "BackgroundNone")
+					format_args!("<<contain>>{}{}", id, "BackgroundNone")
 				),
 				build_expected_str(foreground, None, id, "BackgroundNone")
 			);
@@ -265,7 +282,7 @@ mod tests {
 				build_string_args(
 					&None,
 					&foreground,
-					format_args!("{}{}", id, "ForegroundNone")
+					format_args!("<<contain>>{}{}", id, "ForegroundNone")
 				),
 				build_expected_str(None, foreground, id, "ForegroundNone")
 			);
@@ -277,16 +294,16 @@ mod tests {
 		for fore in COLORS.iter().map(Some) {
 			for back in COLORS.iter().map(Some) {
 				let id = ID_SEED.fetch_add(1, Relaxed);
-				println_str(&fore, &back, &format!("{}{}", id, "BOTH"));
+				println_str(&fore, &back, &format!("<<contain>>{}{}", id, "BOTH"));
 				assert_output(&build_expected_str(fore, back, id, "BOTH"));
 			}
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_str(&fore, &None, &format!("{}{}", id, "BackNone"));
+			println_str(&fore, &None, &format!("<<contain>>{}{}", id, "BackNone"));
 			assert_output(&build_expected_str(fore, None, id, "BackNone"));
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_str(&None, &fore, &format!("{}{}", id, "ForeNone"));
+			println_str(&None, &fore, &format!("<<contain>>{}{}", id, "ForeNone"));
 			assert_output(&build_expected_str(None, fore, id, "ForeNone"));
 		}
 	}
@@ -296,16 +313,28 @@ mod tests {
 		for fore in COLORS.iter().map(Some) {
 			for back in COLORS.iter().map(Some) {
 				let id = ID_SEED.fetch_add(1, Relaxed);
-				println_args(&fore, &back, format_args!("{}{}", id, "ARG_BOTH"));
+				println_args(
+					&fore,
+					&back,
+					format_args!("<<contain>>{}{}", id, "ARG_BOTH"),
+				);
 				assert_output(&build_expected_str(fore, back, id, "ARG_BOTH"));
 			}
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_args(&fore, &None, format_args!("{}{}", id, "ARG_BACK_NONE"));
+			println_args(
+				&fore,
+				&None,
+				format_args!("<<contain>>{}{}", id, "ARG_BACK_NONE"),
+			);
 			assert_output(&build_expected_str(fore, None, id, "ARG_BACK_NONE"));
 
 			let id = ID_SEED.fetch_add(1, Relaxed);
-			println_args(&None, &fore, format_args!("{}{}", id, "ARG_FORE_NONE"));
+			println_args(
+				&None,
+				&fore,
+				format_args!("<<contain>>{}{}", id, "ARG_FORE_NONE"),
+			);
 			assert_output(&build_expected_str(None, fore, id, "ARG_FORE_NONE"));
 		}
 	}
