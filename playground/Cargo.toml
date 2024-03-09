@@ -11,9 +11,6 @@ dashmap = "*"
 
 [dependencies]
 syntax = { path = "../syntax" }
-combine = "*"
 parser = { path = "../parser" }
-regex = "*"
+console_qualifier = { path = "../console_qualifier" }
 
-xml-rs = "*"
-anyhow = "*"

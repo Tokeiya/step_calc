@@ -7,8 +7,6 @@ use once_cell::sync::Lazy;
 
 use super::color::ConsoleColor;
 
-pub const PREFIX: &str = r"\x1B[";
-pub const POSTFIX: &str = "m";
 pub const RESET: &str = "\x1B[0m";
 
 #[cfg(test)]
@@ -50,6 +48,16 @@ macro_rules! print {
             panic!("Already inserted");
         }
     });
+}
+
+#[cfg(test)]
+fn assert_ln_output(expected: &str) {
+	assert!(PRINT_LN_ACTUAL.remove(expected).is_some())
+}
+
+#[cfg(test)]
+fn assert_output(expected: &str) {
+	assert!(PRINT_ACTUAL.remove(expected).is_some(), "MISS:{}", expected);
 }
 
 pub fn build_escape(
@@ -188,14 +196,6 @@ mod tests {
 
 	fn concat_id(id: usize, txt: &str) -> String {
 		format!("{}{}", id, txt)
-	}
-
-	fn assert_ln_output(expected: &str) {
-		assert!(PRINT_LN_ACTUAL.remove(expected).is_some())
-	}
-
-	fn assert_output(expected: &str) {
-		assert!(PRINT_ACTUAL.remove(expected).is_some(), "MISS:{}", expected);
 	}
 
 	#[test]
