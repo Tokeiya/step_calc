@@ -14,15 +14,15 @@ impl ArithmeticExpression for Number {
 	fn calc(&self) -> NumberResult {
 		Ok(self.0.clone())
 	}
-	
+
 	fn to_expression(self) -> Expression {
 		Expression::from(self)
 	}
-	
+
 	fn simplify(&self) -> Expression {
 		self.clone().to_expression()
 	}
-	
+
 	fn step_calc(&self) -> (Expression, bool) {
 		(self.clone().to_expression(), false)
 	}
@@ -49,48 +49,48 @@ mod tests {
 	fn create_fixture(value: i32) -> Number {
 		Number::from(NumberValue::from(value))
 	}
-	
+
 	#[test]
 	fn step_calc() {
 		let fixture = create_fixture(42);
 		let actual = fixture.step_calc();
-		
+
 		assert!(!actual.1);
 		actual.0.extract_as_number().number().eq_i32(&42);
 	}
-	
+
 	#[test]
 	fn simplify() {
 		let fixture = create_fixture(42);
 		let act = fixture.simplify();
-		
+
 		act.extract_as_number().number().eq_i32(&42);
 	}
-	
+
 	#[test]
 	fn to_expression() {
 		let fixture = create_fixture(42);
 		let expr = fixture.to_expression();
-		
+
 		expr.extract_as_number().0.eq_i32(&42);
 	}
-	
+
 	#[test]
 	fn from_number_test() {
 		for exp in -100i32..=100i32 {
 			let num = NumberValue::from(exp);
 			let fixture = Number::from(num);
-			
+
 			fixture.0.eq_i32(&exp)
 		}
 	}
-	
+
 	#[test]
 	fn number_test() {
 		let fixture = create_fixture(42);
 		fixture.number().eq_i32(&42)
 	}
-	
+
 	#[test]
 	fn calc_test() {
 		for exp in -100..=100 {
@@ -98,17 +98,17 @@ mod tests {
 			fixture.calc().unwrap().eq_i32(&exp)
 		}
 	}
-	
+
 	#[test]
 	fn clone_test() {
 		let mut fixture = create_fixture(42);
-		
+
 		let clone = fixture.clone();
 		clone.0.eq_i32(&42);
-		
+
 		fixture = create_fixture(100);
 		fixture.0.eq_i32(&100);
-		
+
 		clone.0.eq_i32(&42)
 	}
 }

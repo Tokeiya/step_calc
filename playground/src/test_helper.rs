@@ -78,7 +78,7 @@ pub fn trimmed_assert_text(actual: &str, expected: &str) {
 #[cfg(test)]
 mod tests {
 	use super::*;
-
+	
 	#[test]
 	fn str_to_ve_test() {
 		const SAMPLE: &str = r##"a

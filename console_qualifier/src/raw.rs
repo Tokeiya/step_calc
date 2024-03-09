@@ -268,7 +268,7 @@ mod tests {
 					build_string_args(
 						&foreground,
 						&background,
-						format_args!("<<contain>>{}{}", id, "ARGS")
+						format_args!("<<contain>>{}{}", id, "ARGS"),
 					),
 					build_expected_str(&foreground, &background, id, "ARGS")
 				);
@@ -279,7 +279,7 @@ mod tests {
 				build_string_args(
 					&foreground,
 					&None,
-					format_args!("<<contain>>{}{}", id, "BackgroundNone")
+					format_args!("<<contain>>{}{}", id, "BackgroundNone"),
 				),
 				build_expected_str(&foreground, &None, id, "BackgroundNone")
 			);
@@ -289,7 +289,7 @@ mod tests {
 				build_string_args(
 					&None,
 					&foreground,
-					format_args!("<<contain>>{}{}", id, "ForegroundNone")
+					format_args!("<<contain>>{}{}", id, "ForegroundNone"),
 				),
 				build_expected_str(&None, &foreground, id, "ForegroundNone")
 			);

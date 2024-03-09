@@ -12,7 +12,7 @@ fn build_binary(operator: &Operation, stack: &mut Vec<Expression>) -> bool {
 	if stack.len() >= 2 {
 		let right = stack.pop().unwrap();
 		let left = stack.pop().unwrap();
-		
+
 		let bin = BinaryOperation::new(left, right, operator.clone());
 		stack.push(bin.to_expression());
 		true
@@ -32,8 +32,9 @@ pub fn step_calc(input: &mut VecDeque<Token>, stack: &mut Vec<Expression>) -> bo
 			}
 			Token::Operator(op) => {
 				build_binary(op, stack);
-			input.pop_back();
-			true},
+				input.pop_back();
+				true
+			}
 		}
 	} else {
 		false
@@ -52,26 +53,28 @@ mod tests {
 	fn step_test() {
 		let mut input = tokenize("10 20 -").0;
 		let mut stack = Vec::<Expression>::default();
-		
+
 		assert!(step_calc(&mut input, &mut stack));
-		Expression::extract_as_number(&stack[0]).number().eq_i32(&10);
+		Expression::extract_as_number(&stack[0])
+			.number()
+			.eq_i32(&10);
 		assert_eq!(stack.len(), 1);
-		
+
 		assert!(step_calc(&mut input, &mut stack));
 		let a = stack[0].extract_as_number();
-		
+
 		stack[1].extract_as_number().number().eq_i32(&20);
 		assert_eq!(stack.len(), 2);
-		
+
 		assert!(step_calc(&mut input, &mut stack));
 		assert_eq!(stack.len(), 1);
-		
+
 		let tmp = stack[0].extract_as_binary_operation();
 		tmp.left().extract_as_number().number().eq_i32(&10);
 		tmp.right().extract_as_number().number().eq_i32(&20);
-		
+
 		matches!(tmp.operation(), Operation::Sub);
-		
+
 		let result = tmp.calc().unwrap();
 		result.eq_i32(&-10);
 	}

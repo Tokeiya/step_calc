@@ -30,14 +30,14 @@ fn skip_whitespace(iterator: &mut CharIterator) {
 
 fn get_number(iterator: &mut CharIterator) -> Token {
 	let mut buff = String::new();
-	
+
 	while let Some((_, c)) = iterator.peek() {
 		if NUM.contains(&c) {
 			buff.push(*c);
 		} else {
 			break;
 		}
-		
+
 		iterator.next();
 	}
 	Token::Number(NumberValue::from(buff.parse::<i32>().unwrap()))
@@ -69,10 +69,10 @@ fn try_get_token(iterator: &mut CharIterator) -> Option<Token> {
 
 fn single_tokenize(scr: &str) -> (Option<Token>, &str) {
 	let mut ite = scr.char_indices().peekable();
-	
+
 	skip_whitespace(&mut ite);
 	let token = try_get_token(&mut ite);
-	
+
 	return if token.is_some() {
 		if let Some((idx, _)) = ite.peek() {
 			(token, &scr[*idx..])
@@ -89,7 +89,7 @@ pub fn tokenize(scr: &str) -> (VecDeque<Token>, &str) {
 	let mut ret = VecDeque::<Token>::default();
 	loop {
 		let (token, rem) = single_tokenize(remainder);
-		
+
 		if let Some(t) = token {
 			ret.push_front(t);
 			remainder = rem;
@@ -97,7 +97,7 @@ pub fn tokenize(scr: &str) -> (VecDeque<Token>, &str) {
 			break;
 		}
 	}
-	
+
 	(ret, remainder)
 }
 
@@ -115,7 +115,7 @@ pub mod helper {
 			Operation::Div => 4,
 		}
 	}
-	
+
 	impl Token {
 		pub fn assert_i32(&self, expectd: &i32) {
 			if let Token::Number(i) = self {
@@ -124,7 +124,7 @@ pub mod helper {
 				unreachable!()
 			}
 		}
-		
+
 		pub fn assert_operator(&self, expected: &Operation) {
 			if let Token::Operator(op) = self {
 				assert_eq!(get_order(op), get_order(expected))
@@ -142,98 +142,98 @@ pub mod tests {
 	#[test]
 	fn skip_whitespace_test() {
 		let mut iterator = "    2     ".char_indices().peekable();
-		
+
 		for _ in 0..10 {
 			skip_whitespace(&mut iterator);
 			assert_eq!(iterator.peek().unwrap().1, '2');
 		}
 	}
-	
+
 	#[test]
 	fn get_number_test() {
 		let mut iterator = "20   ".char_indices().peekable();
 		let act = get_number(&mut iterator);
-		
+
 		act.assert_i32(&20);
 		let (idx, c) = iterator.peek().unwrap();
 		assert_eq!(idx, &2);
 		assert_eq!(c, &' ');
 	}
-	
+
 	#[test]
 	fn get_operator_test() {
 		let mut iterator = "+-*/".char_indices().peekable();
-		
+
 		let act = get_operator(&mut iterator);
 		act.assert_operator(&Operation::Add);
-		
+
 		let act = get_operator(&mut iterator);
 		act.assert_operator(&Operation::Sub);
-		
+
 		let act = get_operator(&mut iterator);
 		act.assert_operator(&Operation::Mul);
-		
+
 		let act = get_operator(&mut iterator);
 		act.assert_operator(&Operation::Div);
-		
+
 		assert!(iterator.peek().is_none())
 	}
-	
+
 	#[test]
 	fn single_tokenize_test() {
 		let (token, remainder) = single_tokenize("      \t    10\t20       +       ");
 		token.unwrap().assert_i32(&10);
 		assert_eq!(remainder, "\t20       +       ");
-		
+
 		let (token, remainder) = single_tokenize(remainder);
 		token.unwrap().assert_i32(&20);
 		assert_eq!(remainder, "       +       ");
-		
+
 		let (token, remainder) = single_tokenize(remainder);
 		token.unwrap().assert_operator(&Operation::Add);
 		assert_eq!(remainder, "       ");
-		
+
 		for _ in 0..10 {
 			let (token, remainder) = single_tokenize(remainder);
 			assert!(token.is_none());
 			assert_eq!(remainder, "       ");
 		}
-		
+
 		let (token, remainder) = single_tokenize(" hoge ");
 		assert!(token.is_none());
 		assert_eq!(" hoge ", remainder);
-		
+
 		for _ in 0..10 {
 			let (token, remainder) = single_tokenize(remainder);
 			assert!(token.is_none());
 			assert_eq!(" hoge ", remainder);
 		}
 	}
-	
+
 	#[test]
 	fn tokenize_test() {
 		let (vec, rem) = tokenize("10 20 30 / +");
 		assert_eq!(vec.len(), 5);
-		
+
 		vec[4].assert_i32(&10);
 		vec[3].assert_i32(&20);
 		vec[2].assert_i32(&30);
-		
+
 		vec[1].assert_operator(&Operation::Div);
 		vec[0].assert_operator(&Operation::Add);
-		
+
 		assert_eq!(rem, "");
-		
+
 		let (_vdc, rem) = tokenize("10 20 30 / + hoge");
 		assert_eq!(vec.len(), 5);
-		
+
 		vec[4].assert_i32(&10);
 		vec[3].assert_i32(&20);
 		vec[2].assert_i32(&30);
-		
+
 		vec[1].assert_operator(&Operation::Div);
 		vec[0].assert_operator(&Operation::Add);
-		
+
 		assert_eq!(rem, " hoge");
 	}
 }
