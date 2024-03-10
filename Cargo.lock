@@ -148,6 +148,7 @@ dependencies = [
  "list_dumper",
  "once_cell",
  "parser",
+ "regex",
  "syntax",
 ]
 
