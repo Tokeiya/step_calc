@@ -132,6 +132,7 @@ dependencies = [
  "dashmap",
  "once_cell",
  "parser",
+ "regex",
  "syntax",
 ]
 

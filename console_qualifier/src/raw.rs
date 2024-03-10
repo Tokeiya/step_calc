@@ -2,8 +2,8 @@ use std::fmt::Arguments;
 
 #[cfg(test)]
 use dashmap::DashSet;
-#[cfg(test)]
 use once_cell::sync::Lazy;
+use regex::Regex;
 
 use super::color::ConsoleColor;
 
@@ -142,6 +142,24 @@ pub fn print_args(
 	print!("{}{}{}", build_escape(foreground, background), args, RESET)
 }
 
+pub fn remove_color_definition(scr: &str) -> String {
+	static reg: Lazy<Regex> = Lazy::new(|| Regex::new(r"\x1B\[.+?m").unwrap());
+	let array: Vec<_> = reg.find_iter(scr).collect();
+
+	if array.is_empty() {
+		scr.to_string()
+	} else {
+		let mut ret = String::default();
+		let mut s = 0usize;
+
+		for elem in array.iter() {
+			ret.push_str(&scr[s..elem.start()]);
+			s = elem.end();
+		}
+		ret
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	use std::sync::atomic::{AtomicUsize, Ordering};
@@ -196,6 +214,16 @@ mod tests {
 
 	fn concat_id(id: usize, txt: &str) -> String {
 		format!("{}{}", id, txt)
+	}
+
+	#[test]
+	fn remove_color_definition_test() {
+		let input: &str = "\x1B[96m\x1B[101mhello\n \x1B[92m\x1B[103mworld\x1B[0m";
+		assert_eq!(remove_color_definition(input), "hello\n world");
+
+		assert_eq!(remove_color_definition(""), "");
+		assert_eq!(remove_color_definition("\x1B[96m\x1B[101m"), "");
+		assert_eq!(remove_color_definition("hello\t world"), "hello\t world");
 	}
 
 	#[test]

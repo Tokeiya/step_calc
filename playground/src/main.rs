@@ -1,14 +1,28 @@
-use console_qualifier::*;
+use once_cell::sync::Lazy;
+use regex::Regex;
 
-fn main() {
-	println_str(&Some(&ConsoleColor::BrightBlue), &None, "hello");
+fn remove_color_definition(scr: &str) -> String {
+	static reg: Lazy<Regex> = Lazy::new(|| Regex::new(r"\x1B\[.+?m").unwrap());
+	let array: Vec<_> = reg.find_iter(scr).collect();
+	let mut ret = String::default();
+
+	let mut s = 0usize;
+
+	if array.is_empty() {
+		scr.to_string()
+	} else {
+		for elem in array.iter() {
+			ret.push_str(&scr[s..elem.start()]);
+			s = elem.end();
+		}
+
+		ret
+	}
 }
 
-#[cfg(test)]
-mod tests {
-	#[test]
-	fn test_conditional_return() {
-		let mut a = once_cell::sync::OnceCell::<i32>::new();
-		let b = a.set(20);
-	}
+fn main() {
+	const txt: &str = "hello\t world";
+	let a = remove_color_definition(txt);
+
+	println!("{}", &a);
 }
