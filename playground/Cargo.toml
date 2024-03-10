@@ -5,7 +5,6 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dev-dependencies]
-once_cell = "*"
 dashmap = "*"
 
 
@@ -13,4 +12,5 @@ dashmap = "*"
 syntax = { path = "../syntax" }
 parser = { path = "../parser" }
 console_qualifier = { path = "../console_qualifier" }
-
+regex = "*"
+once_cell = "*"
