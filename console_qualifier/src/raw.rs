@@ -143,8 +143,8 @@ pub fn print_args(
 }
 
 pub fn remove_color_definition(scr: &str) -> String {
-	static reg: Lazy<Regex> = Lazy::new(|| Regex::new(r"\x1B\[.+?m").unwrap());
-	let array: Vec<_> = reg.find_iter(scr).collect();
+	static REG: Lazy<Regex> = Lazy::new(|| Regex::new(r"\x1B\[.+?m").unwrap());
+	let array: Vec<_> = REG.find_iter(scr).collect();
 
 	if array.is_empty() {
 		scr.to_string()
@@ -164,8 +164,6 @@ pub fn remove_color_definition(scr: &str) -> String {
 mod tests {
 	use std::sync::atomic::{AtomicUsize, Ordering};
 	use std::sync::atomic::Ordering::Relaxed;
-	
-	use once_cell::sync::Lazy;
 	
 	use super::*;
 	
@@ -210,10 +208,6 @@ mod tests {
 			id,
 			text
 		)
-	}
-
-	fn concat_id(id: usize, txt: &str) -> String {
-		format!("{}{}", id, txt)
 	}
 
 	#[test]
