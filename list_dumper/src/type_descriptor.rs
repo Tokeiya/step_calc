@@ -6,18 +6,18 @@ pub type DescribeResult<T, U, const N: usize> = Result<Box<[DescribeElement<U>; 
 
 pub trait InnerDescriptor {
 	const SIZE: usize;
-	type GetError: StdError;
-	type ElementError: StdError;
+	type GetError;
+	type ElementError;
 
 	fn header() -> &'static [&'static str; Self::SIZE];
 	fn describe(&self) -> DescribeResult<Self::GetError, Self::ElementError, { Self::SIZE }>;
 
 	fn get_error_describe(err: &Self::GetError) -> String {
-		format!("{}", err)
+		String::from("DESC")
 	}
 
 	fn element_err_describe(err: &Self::ElementError) -> String {
-		format!("{}", err)
+		String::from("ELEM")
 	}
 }
 

@@ -32,8 +32,6 @@ impl<const N: usize> ConsolePrompter<N> {
 	pub fn write_header<T,U,V>()
 	where
 	  T:InnerDescriptor<SIZE = { N }, GetError = U, ElementError = V>,
-	  U:StdError,
-	  V:StdError,
 	  [();T::SIZE]:
 	{
 		for elem in T::header().iter() {
@@ -45,8 +43,6 @@ impl<const N: usize> ConsolePrompter<N> {
 	fn write_column<T,U,V>(data:Box<[DescribeElement<V>;{T::SIZE}]>)
 	where
 	  T:InnerDescriptor<SIZE = { N }, GetError = U, ElementError = V>,
-	  U:StdError,
-	  V:StdError,
 	  [();T::SIZE]:
 	{
 		for datum in data.iter() {
@@ -64,8 +60,6 @@ impl<const N: usize> ConsolePrompter<N> {
 	fn write_columns<T, U, V>(data:& T)
 		where
 		  T:InnerDescriptor<SIZE = { N }, GetError = U, ElementError = V>,
-		  U:StdError,
-		  V:StdError,
 		  [();T::SIZE]:
 	{
 		match data.describe() {
@@ -81,8 +75,6 @@ impl<const N: usize> ConsolePrompter<N> {
 	pub fn write_inner<T, U, V>(&self,scr: impl Iterator<Item = T>)
 	where
 	T:InnerDescriptor<SIZE = { N }, GetError = U, ElementError = V>,
-	U:StdError,
-	V:StdError,
 	[();T::SIZE]:
 	{
 		Self::write_header();
@@ -95,30 +87,11 @@ impl<const N: usize> ConsolePrompter<N> {
 
 #[cfg(test)]
 mod tests {
-	use std::error::Error;
-	use std::fmt::{Debug, Display, Formatter};
+	use std::fmt::{Debug, Display};
 	use once_cell::sync::Lazy;
 	use crate::type_descriptor::{DescribeResult, InnerDescriptor};
-	use anyhow::Error as AnyError;
 	use super::*;
 	
-	pub struct DummyError;
-	
-	impl Debug for DummyError {
-		fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-			write!(f,"Dummy Debug")
-		}
-	}
-	
-	impl Display for DummyError {
-		fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-			write!(f,"Dummy Display")
-		}
-	}
-	
-	impl Error for DummyError{
-		
-	}
 	
 	
 	
@@ -130,8 +103,8 @@ mod tests {
 	
 	impl InnerDescriptor for &Point{
 		const SIZE: usize = POINT_SIZE;
-		type GetError = DummyError;
-		type ElementError = DummyError;
+		type GetError = ();
+		type ElementError = ();
 		
 		fn header() -> &'static [&'static str; Self::SIZE] {
 			static HEADER:Lazy<[&'static str;POINT_SIZE]> = Lazy::new(||{
