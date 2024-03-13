@@ -3,6 +3,10 @@ name = "list_dumper"
 version = "0.1.0"
 edition = "2021"
 
+[dev-dependencies]
+once_cell = "*"
+anyhow = "*"
+
 [dependencies]
 console_qualifier = { path = "../console_qualifier" }
 thiserror = "*"
