@@ -4,5 +4,4 @@
 extern crate core;
 
 mod alignment;
-mod console_dumper;
 mod type_descriptor;
