@@ -74,6 +74,8 @@ pub trait TypeDescriptor<'a> {
 
 #[cfg(test)]
 mod tests {
+	use mockall::mock;
+	
 	use crate::type_descriptor::{Data, Datum, DescribeError, TypeDescriptor};
 	
 	struct Point {
@@ -116,6 +118,30 @@ mod tests {
 			Ok(Some((a, s)))
 		}
 	}
+
+	mock! {
+	MyConv{}
+
+	impl TypeDescriptor<'static> for MyConv {
+		const SIZE: usize = 0;
+		type Target = Point;
+		type Output = f64;
+		type DataError = String;
+		type DatumError = String;
+		type PresentationError = String;
+
+		fn explain(
+			source: &'static <MockMyConv as TypeDescriptor<'static>>::Target,
+		) -> Data<{ <MockMyConv as TypeDescriptor<'static>>::SIZE }, <MockMyConv as TypeDescriptor<'static>>::Output, <MockMyConv as TypeDescriptor<'static>>::DataError, <MockMyConv as TypeDescriptor<'static>>::DatumError>;
+
+		fn present(
+			datum: Datum< <MockMyConv as TypeDescriptor<'static>>::Output, <MockMyConv as TypeDescriptor<'static>>::DatumError>,
+		) -> Result<
+			Option<(<MockMyConv as TypeDescriptor<'static>>::Output, String)>,
+			DescribeError<<MockMyConv as TypeDescriptor<'static>>::DatumError, <MockMyConv as TypeDescriptor<'static>>::PresentationError>,
+		>;
+	}
+		}
 
 	#[test]
 	fn describe_test() {
