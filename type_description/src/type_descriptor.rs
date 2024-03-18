@@ -5,8 +5,6 @@ pub enum DescribeError<DatumErr, PresentationErr> {
 	DatumError(DatumErr),
 	PresentationError(PresentationErr),
 }
-pub type PresentationDatum<T, DatumErr, PresentationErr> =
-	Datum<(T, String), DescribeError<DatumErr, PresentationErr>>;
 
 pub type PresentationData<const N: usize, T, DataError, DatumError, PresentationError> = Result<
 	Box<[Result<Option<(T, String)>, DescribeError<DatumError, PresentationError>>; N]>,
@@ -120,28 +118,39 @@ mod tests {
 	}
 
 	mock! {
-	MyConv{}
+		MyConv{}
 
-	impl TypeDescriptor<'static> for MyConv {
-		const SIZE: usize = 0;
-		type Target = Point;
-		type Output = f64;
-		type DataError = String;
-		type DatumError = String;
-		type PresentationError = String;
+		impl TypeDescriptor<'static> for MyConv {
+			const SIZE: usize = 2;
+			type Target = Point;
+			type Output = f64;
+			type DataError = String;
+			type DatumError = String;
+			type PresentationError = String;
 
-		fn explain(
-			source: &'static <MockMyConv as TypeDescriptor<'static>>::Target,
-		) -> Data<{ <MockMyConv as TypeDescriptor<'static>>::SIZE }, <MockMyConv as TypeDescriptor<'static>>::Output, <MockMyConv as TypeDescriptor<'static>>::DataError, <MockMyConv as TypeDescriptor<'static>>::DatumError>;
+			fn explain(
+				source: &'static <MockMyConv as TypeDescriptor<'static>>::Target,
+			) -> Data<{ <MockMyConv as TypeDescriptor<'static>>::SIZE },
+				<MockMyConv as TypeDescriptor<'static>>::Output,
+				<MockMyConv as TypeDescriptor<'static>>::DataError,
+				<MockMyConv as TypeDescriptor<'static>>::DatumError>;
 
-		fn present(
-			datum: Datum< <MockMyConv as TypeDescriptor<'static>>::Output, <MockMyConv as TypeDescriptor<'static>>::DatumError>,
-		) -> Result<
-			Option<(<MockMyConv as TypeDescriptor<'static>>::Output, String)>,
-			DescribeError<<MockMyConv as TypeDescriptor<'static>>::DatumError, <MockMyConv as TypeDescriptor<'static>>::PresentationError>,
-		>;
-	}
+			fn present(
+				datum: Datum< <MockMyConv as TypeDescriptor<'static>>::Output, <MockMyConv as TypeDescriptor<'static>>::DatumError>,
+			) -> Result<
+				Option<(<MockMyConv as TypeDescriptor<'static>>::Output, String)>,
+				DescribeError<<MockMyConv as TypeDescriptor<'static>>::DatumError,
+				<MockMyConv as TypeDescriptor<'static>>::PresentationError>,
+			>;
 		}
+	}
+
+	#[test]
+	fn hoge_test() {
+		let mock = MockMyConv::new();
+
+		todo!()
+	}
 
 	#[test]
 	fn describe_test() {
