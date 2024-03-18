@@ -3,5 +3,9 @@
 
 extern crate core;
 
+pub use type_descriptor::{
+	Data, Datum, DescribeError, PresentationData, PresentationDatum, TypeDescriptor,
+};
+
 mod alignment;
 mod type_descriptor;

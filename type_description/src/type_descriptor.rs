@@ -75,7 +75,7 @@ pub trait TypeDescriptor<'a> {
 #[cfg(test)]
 mod tests {
 	use crate::type_descriptor::{Data, Datum, DescribeError, TypeDescriptor};
-
+	
 	struct Point {
 		x: f64,
 		y: f64,
@@ -118,17 +118,33 @@ mod tests {
 	}
 
 	#[test]
-	fn compile_test() {
+	fn describe_test() {
 		let p = Point { x: 10.0, y: 42.195 };
 
 		let d = Conv::describe(&p).unwrap();
 
-		for elem in d.iter() {
-			if let Ok(a) = elem {
-				if let Some(s) = a {
-					println!("{}", s.1);
-				}
+		assert_eq!(d.len(), 2);
+
+		if let Ok(act) = &d[0] {
+			if let Some((num, str)) = act {
+				assert_eq!(num, &10.0);
+				assert_eq!(str, "10");
+			} else {
+				unreachable!()
 			}
+		} else {
+			unreachable!()
+		}
+
+		if let Ok(act) = &d[1] {
+			if let Some((num, str)) = act {
+				assert_eq!(num, &42.195);
+				assert_eq!(str, "42.195");
+			} else {
+				unreachable!()
+			}
+		} else {
+			unreachable!()
 		}
 	}
 }
