@@ -1,30 +1,26 @@
 #![feature(generic_const_exprs)]
 #![feature(associated_const_equality)]
 
-mod const_sample;
+use std::alloc::{alloc, Layout};
+use std::ptr;
 
-trait Some<T, U> {
-	fn conv(value: T) -> (T, U);
+unsafe fn f<T>(first: T, second: T) -> Box<[T; 2]> {
+	// [T; 2]のための正しいメモリレイアウトを計算
+	let layout = Layout::array::<T>(2).unwrap();
 
-	fn conv_arr<const N: usize>(arr: [T; N]) -> [(T, U); N] {
-		let mut res: [(T, U); N] = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
+	// レイアウトに基づいてヒープ上にメモリを確保
+	let arr_ptr = alloc(layout) as *mut T;
 
-		for (src, dest) in arr.into_iter().zip(res.iter_mut()) {
-			*dest = Self::conv(src);
-		}
+	// 配列の要素を初期化
+	ptr::write(arr_ptr.add(0), first);
+	ptr::write(arr_ptr.add(1), second);
 
-		res
-	}
+	// 生ポインタからBox<[T; 2]>を生成
+	Box::from_raw(arr_ptr as *mut [T; 2])
 }
-
-struct Foo;
-
-impl Some<i32, f64> for Foo {
-	fn conv(value: i32) -> (i32, f64) {
-		(value, value as f64)
-	}
-}
-
 fn main() {
-	let a = Foo::conv_arr([1i32, 2, 3]);
+	let a = unsafe { f(10.to_string(), 20.to_string()) };
+	for elem in a.into_iter() {
+		println!("{elem}")
+	}
 }
