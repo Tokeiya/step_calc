@@ -61,10 +61,10 @@ pub trait Presenter {
 
 #[cfg(test)]
 mod tests {
-	use std::alloc::{alloc, Layout};
 	use std::error::Error;
 	use std::fmt::{Debug, Display, Formatter};
 	use std::marker::PhantomData;
+	use std::mem::{MaybeUninit, transmute};
 	
 	use crate::descriptor::Descriptor;
 	use crate::presenter::Presenter;
@@ -116,22 +116,13 @@ mod tests {
 		type Error = AllocError;
 
 		fn describe(scr: Self::Source) -> Result<Box<[Self::Output; Self::N]>, Self::Error> {
-			let layout =
-				Layout::array::<[Self::Output; Self::N]>({ Self::N }).map_err(|_| AllocError)?;
+			let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
 
-			unsafe {
-				let ptr = alloc(layout) as *mut [Self::Output; Self::N];
+			boxed[0].write(KeyValue::Key(&scr.key));
+			boxed[1].write(KeyValue::Value(&scr.value));
 
-				if ptr.is_null() {
-					Err(AllocError)
-				} else {
-					(*ptr)[0] = KeyValue::Key(&scr.key);
-					(*ptr)[1] = KeyValue::Value(&scr.value);
-
-					let b: Box<[Self::Output; Self::N]> = Box::from_raw(ptr);
-					Ok(b)
-				}
-			}
+			let b = unsafe { transmute::<_, Box<[Self::Output; Self::N]>>(boxed) };
+			Ok(b)
 		}
 	}
 
