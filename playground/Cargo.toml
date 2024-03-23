@@ -15,3 +15,5 @@ console_qualifier = { path = "../console_qualifier" }
 regex = "*"
 once_cell = "*"
 type_description = { path = "../type_description" }
+anyhow = "*"
+combine = "*"
