@@ -1,31 +1,6 @@
 use std::error::Error;
-use std::fmt::{Debug, Display, Formatter};
+use std::fmt::{Debug, Display};
 use std::mem::{MaybeUninit, transmute};
-
-pub enum AllocationError {
-	LayoutError,
-	AllocationError,
-}
-
-impl Debug for AllocationError {
-	fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-		match self {
-			AllocationError::LayoutError => write!(f, "AllocationError::LayoutError"),
-			AllocationError::AllocationError => write!(f, "AllocationError::AllocationError"),
-		}
-	}
-}
-
-impl Display for AllocationError {
-	fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-		match self {
-			AllocationError::LayoutError => write!(f, "LayoutError"),
-			AllocationError::AllocationError => write!(f, "AllocationError"),
-		}
-	}
-}
-
-impl Error for AllocationError {}
 
 pub trait Presenter {
 	const N: usize;
@@ -34,9 +9,7 @@ pub trait Presenter {
 
 	fn present_datum(datum: Self::Source) -> Self::Output;
 
-	fn present(
-		data: Box<[Self::Source; { Self::N }]>,
-	) -> Result<Box<[Self::Output; { Self::N }]>, AllocationError> {
+	fn present(data: Box<[Self::Source; { Self::N }]>) -> Box<[Self::Output; { Self::N }]> {
 		let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
 
 		for (idx, elem) in data.into_iter().enumerate() {
@@ -44,7 +17,7 @@ pub trait Presenter {
 			boxed[idx].write(tmp);
 		}
 
-		Ok(unsafe { transmute::<_, Box<[Self::Output; { Self::N }]>>(boxed) })
+		unsafe { transmute::<_, Box<[Self::Output; { Self::N }]>>(boxed) }
 	}
 }
 
@@ -166,7 +139,7 @@ mod tests {
 		let data = generate(42);
 		let fixture = KeyValuePairDescriptor::describe(&data).unwrap();
 
-		let fixture = KeyValuePairPresenter::present(fixture).unwrap();
+		let fixture = KeyValuePairPresenter::present(fixture);
 		assert_eq!(2, fixture.len());
 
 		assert_eq!(fixture[0], "42");
