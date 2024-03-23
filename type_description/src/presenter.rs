@@ -9,13 +9,13 @@ pub trait Presenter {
 	
 	fn header(&self) -> [&str; Self::N];
 	
-	fn present_datum(datum: Self::Source) -> Self::Output;
+	fn present_datum(&self, datum: Self::Source) -> Self::Output;
 	
-	fn present(data: Box<[Self::Source; { Self::N }]>) -> Box<[Self::Output; { Self::N }]> {
+	fn present(&self, data: Box<[Self::Source; { Self::N }]>) -> Box<[Self::Output; { Self::N }]> {
 		let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
 		
 		for (idx, elem) in data.into_iter().enumerate() {
-			let tmp = Self::present_datum(elem);
+			let tmp = self.present_datum(elem);
 			boxed[idx].write(tmp);
 		}
 		
@@ -71,15 +71,15 @@ mod tests {
 	
 	impl Error for AllocError {}
 	
-	pub struct KeyValuePairDescriptor<'a>(PhantomData<&'a ()>);
+	pub struct KeyValuePairExtractor<'a>(PhantomData<&'a ()>);
 	
-	impl<'a> Extractor for KeyValuePairDescriptor<'a> {
+	impl<'a> Extractor for KeyValuePairExtractor<'a> {
 		const N: usize = 2;
 		type Source = &'a KeyValuePair;
 		type Output = KeyValue<'a>;
 		type Error = AllocError;
 		
-		fn extract(scr: Self::Source) -> Result<Box<[Self::Output; Self::N]>, Self::Error> {
+		fn extract(&self, scr: Self::Source) -> Result<Box<[Self::Output; Self::N]>, Self::Error> {
 			let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
 			
 			boxed[0].write(KeyValue::Key(&scr.key));
@@ -104,7 +104,7 @@ mod tests {
 			HEADER
 		}
 		
-		fn present_datum(datum: Self::Source) -> Self::Output {
+		fn present_datum(&self, datum: Self::Source) -> Self::Output {
 			match datum {
 				KeyValue::Key(k) => k.to_string(),
 				KeyValue::Value(v) => v.to_string(),
@@ -128,12 +128,12 @@ mod tests {
 		assert_eq!(a[1], "Y");
 	}
 	
-	
 	#[test]
-	fn describe_test() {
+	fn extract_test() {
+		let extractor = KeyValuePairExtractor(PhantomData::default());
 		let data = generate(42);
 		
-		let fixture = KeyValuePairDescriptor::extract(&data).unwrap();
+		let fixture = extractor.extract(&data).unwrap();
 		
 		fixture[0].assert_key(42);
 		fixture[1].assert_value("value:42");
@@ -141,24 +141,30 @@ mod tests {
 	
 	#[test]
 	fn present_datum_test() {
+		let extractor = KeyValuePairExtractor(PhantomData::default());
+		let presenter = KeyValuePairPresenter(PhantomData::default());
+		
 		let data = generate(42);
-		let fixture = KeyValuePairDescriptor::extract(&data).unwrap();
+		let fixture = extractor.extract(&data).unwrap();
 		
 		let [act_key, act_value] = *fixture;
 		
-		let actual = KeyValuePairPresenter::present_datum(act_key);
+		let actual = presenter.present_datum(act_key);
 		assert_eq!(&actual, "42");
 		
-		let actual = KeyValuePairPresenter::present_datum(act_value);
+		let actual = presenter.present_datum(act_value);
 		assert_eq!(&actual, "value:42");
 	}
 	
 	#[test]
 	fn present_test() {
-		let data = generate(42);
-		let fixture = KeyValuePairDescriptor::extract(&data).unwrap();
+		let presenter = KeyValuePairPresenter(PhantomData::default());
+		let extractor = KeyValuePairExtractor(PhantomData::default());
 		
-		let fixture = KeyValuePairPresenter::present(fixture);
+		let data = generate(42);
+		let fixture = extractor.extract(&data).unwrap();
+		
+		let fixture = presenter.present(fixture);
 		assert_eq!(2, fixture.len());
 		
 		assert_eq!(fixture[0], "42");
