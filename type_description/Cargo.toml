@@ -3,6 +3,8 @@ name = "type_description"
 version = "0.1.0"
 edition = "2021"
 
+[dev-dependencies]
+once_cell = "*"
 
 [dependencies]
 console_qualifier = { path = "../console_qualifier" }

@@ -248,6 +248,7 @@ name = "type_description"
 version = "0.1.0"
 dependencies = [
  "console_qualifier",
+ "once_cell",
  "thiserror",
 ]
 
