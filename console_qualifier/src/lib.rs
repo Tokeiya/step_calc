@@ -4,5 +4,5 @@ pub use raw::{
 	println_str, RESET,
 };
 
-mod color;
-mod raw;
+pub mod color;
+pub mod raw;
