@@ -4,5 +4,5 @@ pub trait Extractor {
 	type Output;
 	type Error;
 	
-	fn extract(&self, scr: Self::Source) -> Result<Box<[Self::Output; { Self::N }]>, Self::Error>;
+	fn extract(scr: Self::Source) -> Result<Box<[Self::Output; { Self::N }]>, Self::Error>;
 }
