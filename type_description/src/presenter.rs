@@ -30,7 +30,7 @@ mod tests {
 	use std::marker::PhantomData;
 	use std::mem::{MaybeUninit, transmute};
 	
-	use crate::descriptor::Descriptor;
+	use crate::extractor::Extractor;
 	use crate::presenter::Presenter;
 	
 	pub struct KeyValuePair {
@@ -73,13 +73,13 @@ mod tests {
 	
 	pub struct KeyValuePairDescriptor<'a>(PhantomData<&'a ()>);
 	
-	impl<'a> Descriptor for KeyValuePairDescriptor<'a> {
+	impl<'a> Extractor for KeyValuePairDescriptor<'a> {
 		const N: usize = 2;
 		type Source = &'a KeyValuePair;
 		type Output = KeyValue<'a>;
 		type Error = AllocError;
 		
-		fn describe(scr: Self::Source) -> Result<Box<[Self::Output; Self::N]>, Self::Error> {
+		fn extract(scr: Self::Source) -> Result<Box<[Self::Output; Self::N]>, Self::Error> {
 			let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
 			
 			boxed[0].write(KeyValue::Key(&scr.key));
@@ -133,7 +133,7 @@ mod tests {
 	fn describe_test() {
 		let data = generate(42);
 		
-		let fixture = KeyValuePairDescriptor::describe(&data).unwrap();
+		let fixture = KeyValuePairDescriptor::extract(&data).unwrap();
 		
 		fixture[0].assert_key(42);
 		fixture[1].assert_value("value:42");
@@ -142,7 +142,7 @@ mod tests {
 	#[test]
 	fn present_datum_test() {
 		let data = generate(42);
-		let fixture = KeyValuePairDescriptor::describe(&data).unwrap();
+		let fixture = KeyValuePairDescriptor::extract(&data).unwrap();
 		
 		let [act_key, act_value] = *fixture;
 		
@@ -156,7 +156,7 @@ mod tests {
 	#[test]
 	fn present_test() {
 		let data = generate(42);
-		let fixture = KeyValuePairDescriptor::describe(&data).unwrap();
+		let fixture = KeyValuePairDescriptor::extract(&data).unwrap();
 		
 		let fixture = KeyValuePairPresenter::present(fixture);
 		assert_eq!(2, fixture.len());
