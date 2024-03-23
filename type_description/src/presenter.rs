@@ -1,7 +1,6 @@
-use std::alloc::{alloc, Layout};
 use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
-use std::ptr as pointer;
+use std::mem::{MaybeUninit, transmute};
 
 pub enum AllocationError {
 	LayoutError,
@@ -38,24 +37,14 @@ pub trait Presenter {
 	fn present(
 		data: Box<[Self::Source; { Self::N }]>,
 	) -> Result<Box<[Self::Output; { Self::N }]>, AllocationError> {
-		let layout =
-			Layout::array::<Self::Output>(Self::N).map_err(|_| AllocationError::LayoutError)?;
+		let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
 
-		let a = unsafe {
-			let p = alloc(layout) as *mut Self::Output;
+		for (idx, elem) in data.into_iter().enumerate() {
+			let tmp = Self::present_datum(elem);
+			boxed[idx].write(tmp);
+		}
 
-			if p.is_null() {
-				return Err(AllocationError::AllocationError);
-			}
-
-			for (idx, element) in data.into_iter().enumerate() {
-				pointer::write(p.offset(idx as isize), Self::present_datum(element));
-			}
-
-			Box::from_raw(p as *mut [Self::Output; Self::N])
-		};
-
-		Ok(a)
+		Ok(unsafe { transmute::<_, Box<[Self::Output; { Self::N }]>>(boxed) })
 	}
 }
 
