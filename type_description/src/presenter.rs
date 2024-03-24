@@ -1,23 +1,19 @@
 use std::mem::{MaybeUninit, transmute};
 
-pub trait Presenter {
-	const N: usize;
-	type Source;
-	type Output: ToString;
+pub trait Presenter<const N: usize, S, O> {
+	fn header(&self) -> [&str; N];
 	
-	fn header(&self) -> [&str; Self::N];
+	fn present_datum(&self, datum: S) -> O;
 	
-	fn present_datum(&self, datum: Self::Source) -> Self::Output;
-	
-	fn present(&self, data: Box<[Self::Source; Self::N]>) -> Box<[Self::Output; Self::N]> {
-		let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
+	fn present(&self, data: Box<[S; N]>) -> Box<[O; N]> {
+		let mut boxed = Box::new(MaybeUninit::<O>::uninit_array::<{ N }>());
 		
 		for (idx, elem) in data.into_iter().enumerate() {
 			let tmp = self.present_datum(elem);
 			boxed[idx].write(tmp);
 		}
 		
-		unsafe { transmute::<_, Box<[Self::Output; Self::N]>>(boxed) }
+		unsafe { transmute::<_, Box<[O; N]>>(boxed) }
 	}
 }
 
@@ -70,20 +66,15 @@ mod tests {
 	
 	pub struct KeyValuePairExtractor<'a>(PhantomData<&'a ()>);
 	
-	impl<'a> Extractor for KeyValuePairExtractor<'a> {
-		const N: usize = 2;
-		type Source = &'a KeyValuePair;
-		type Output = KeyValue<'a>;
-		type Error = AllocError;
-		
-		fn extract(&self, scr: Self::Source) -> Result<Box<[Self::Output; Self::N]>, Self::Error> {
-			let mut boxed = Box::new(MaybeUninit::<Self::Output>::uninit_array::<{ Self::N }>());
+	impl<'a> Extractor<2, &'a KeyValuePair, KeyValue<'a>> for KeyValuePairExtractor<'a> {
+		fn extract(&self, scr: &'a KeyValuePair) -> Box<[KeyValue<'a>; 2]> {
+			let mut boxed = Box::new(MaybeUninit::<KeyValue<'a>>::uninit_array::<2>());
 			
 			boxed[0].write(KeyValue::Key(&scr.key));
 			boxed[1].write(KeyValue::Value(&scr.value));
 			
-			let b = unsafe { transmute::<_, Box<[Self::Output; Self::N]>>(boxed) };
-			Ok(b)
+			let b = unsafe { transmute::<_, Box<[KeyValue<'a>; 2]>>(boxed) };
+			b
 		}
 	}
 	
@@ -92,16 +83,12 @@ mod tests {
 	pub struct KeyValuePairPresenter<'a>(PhantomData<&'a ()>);
 	
 	
-	impl<'a> Presenter for KeyValuePairPresenter<'a> {
-		const N: usize = 2;
-		type Source = KeyValue<'a>;
-		type Output = String;
-		
-		fn header(&self) -> [&str; Self::N] {
+	impl<'a> Presenter<2, KeyValue<'a>, String> for KeyValuePairPresenter<'a> {
+		fn header(&self) -> [&str; 2] {
 			HEADER
 		}
 		
-		fn present_datum(&self, datum: Self::Source) -> Self::Output {
+		fn present_datum(&self, datum: KeyValue<'a>) -> String {
 			match datum {
 				KeyValue::Key(k) => k.to_string(),
 				KeyValue::Value(v) => v.to_string(),
@@ -132,7 +119,7 @@ mod tests {
 		
 		let data = generate(42);
 		
-		let fixture = extractor.extract(&data).unwrap();
+		let fixture = extractor.extract(&data);
 		
 		fixture[0].assert_key(42);
 		fixture[1].assert_value("value:42");
@@ -145,7 +132,7 @@ mod tests {
 		
 		
 		let data = generate(42);
-		let fixture = extractor.extract(&data).unwrap();
+		let fixture = extractor.extract(&data);
 		
 		let [act_key, act_value] = *fixture;
 		
@@ -162,7 +149,7 @@ mod tests {
 		let presenter = KeyValuePairPresenter(PhantomData::default());
 		
 		let data = generate(42);
-		let fixture = extractor.extract(&data).unwrap();
+		let fixture = extractor.extract(&data);
 		
 		let fixture = presenter.present(fixture);
 		assert_eq!(2, fixture.len());
