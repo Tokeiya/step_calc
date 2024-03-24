@@ -34,7 +34,6 @@ impl<const N: usize, S, E, O, T, U> Descriptor<N, S, O> for CommonDescriptor<N, 
 
 #[cfg(test)]
 mod tests {
-	use std::marker::PhantomData;
 	use super::*;
 	use std::mem::{MaybeUninit, transmute};
 	
@@ -74,7 +73,6 @@ mod tests {
 			unsafe { transmute::<_, Box<[KeyValue<'a>; 2]>>(boxed) }
 		}
 	}
-	
 	
 	#[test]
 	fn describe_test() {
